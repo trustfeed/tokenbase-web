@@ -1,8 +1,8 @@
 {
-  "name": "daobase-web",
+  "name": "tokenbase-web",
   "version": "0.1.0",
   "private": true,
-  "repository": "github.com/trustfeed/daobase-web",
+  "repository": "github.com/trustfeed/tokenbase-web",
   "author": "Noel Yoo <innovation.noel@gmail.com>",
   "license": "MIT",
   "scripts": {
