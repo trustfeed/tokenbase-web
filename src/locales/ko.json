@@ -1,0 +1,77 @@
+{
+  "close": "닫기",
+  "open": "열기",
+  "error": {
+    "VERIFIED_TOKEN": "이미 토큰이 인증되었습니다."
+  },
+  "metaMaskChecker": {
+    "metaMask": "메타마스크",
+    "checkingMetaMaskStatus": "메타마스크 상태 체크",
+    "pleaseInstallMetaMask": "메타마스크를 설치해주세요",
+    "pleaseLoginMetaMask": "메타마스크에 로그인해주세요",
+    "installed": "설치됨",
+    "activated": "로그인됨",
+    "currentNetworkIs": "현재 네트워크는",
+    "onlySupportMessage": "죄송합니다. 현재 Rinkeby 테스트넷만 지원합니다.",
+    "unknownState": "알 수 없는 상태",
+    "proceed": "확인",
+    "cancel": "취소"
+  },
+  "user": {
+    "title": "계정 정보",
+    "publicAddress": "퍼블릭 주소",
+    "emailAddress": "이메일 주소",
+    "proposerLink": "프로포저 등록",
+    "edit": "계정 수정하기",
+    "logout": "로그아웃",
+    "kycStatus": "KYC 상태",
+    "verified": "인증 완료",
+    "unverified": "미인증",
+    "PENDING": "확인 진행중",
+    "FAILED": "확인 실패",
+    "VERIFIED": "확인 완료"
+  },
+  "investmentsInfo": {
+    "title": "보유 토큰",
+    "tokenName": "이름",
+    "tokensOwned": "보유 수량",
+    "tokenSymbol": "심볼",
+    "noList": "투자 내역이 없습니다. 지금 투자해보세요!"
+  },
+  "time": {
+    "days": "DAYS",
+    "hours": "HOURS",
+    "mins": "MINUTES",
+    "secs": "SECONDS"
+  },
+  "token": {
+    "owner": "토큰 소유자 주소",
+    "name": "이름",
+    "symbol": "심볼",
+    "address": "토큰 주소",
+    "totalSupply": "총 발행량",
+    "getTokenBalance": "토큰 보유 수량 조회"
+  },
+  "crowdsale": {
+    "status": "상태",
+    "ethAddress": "ETH 주소를 입력하세요",
+    "getEthBalance": "ETH 보유 수량 조회",
+    "finalize": "크라우드세일 종료",
+    "claimRefund": "환불하기",
+    "ongoing": "진행중",
+    "notOpen": "시작 예정",
+    "closed": "마감",
+    "finalized": "종료",
+    "remainingTimeToOpen": "시작까지 남은 시간",
+    "remainingTimeToClose": "종료까지 남은 시간",
+    "closingTime": "마감 시간",
+    "openingTime": "시작 시간",
+    "address": "컨트랙트 주소",
+    "wallet": "지갑 주소",
+    "owner": "컨트랙트 소유자 주소",
+    "rate": "비율",
+    "ethRaised": "이더 모금액",
+    "cap": "하드 캡",
+    "goal": "소프트 캡"
+  }
+}

@@ -1,0 +1,47 @@
+/* Main CSS file */
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 100;
+  src: url("./assets/fonts/NotoSansKR-Thin-Hestia.woff") format('woff'), url("./assets/fonts/NotoSansKR-Thin-Hestia.otf") format('otf');
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url("./assets/fonts/NotoSansKR-Regular-Hestia.woff") format('woff'), url("./assets/fonts/NotoSansKR-Regular-Hestia.otf") format('otf');
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 500;
+  src: local('Noto Sans Medium'), local('NotoSans-Medium'),
+    url("./assets/fonts/NotoSansKR-Medium-Hestia.woff") format('woff'), url("./assets/fonts/NotoSansKR-Medium-Hestia.otf") format('otf');
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Noto Sans Light'), local('NotoSans-Light'),
+    url("./assets/fonts/NotoSansKR-Light-Hestia.woff") format("woff"), url("./assets/fonts/NotoSansKR-Light-Hestia.otf") format('otf');
+}
+
+* {
+  font-family: 'Noto Sans' !important;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+
+.ml-auto {
+  margin-left: auto !important;
+}
+
+.mr-auto {
+  margin-right: auto !important;
+}
