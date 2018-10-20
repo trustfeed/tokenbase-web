@@ -34,6 +34,7 @@ class EmailVerificationCard extends React.Component<IProps, IState> {
     this.props.verifyEmail(tokenBody);
   }
   public componentWillReceiveProps(nextProps) {
+    const { t } = nextProps;
     const isEmailVerifiedNext = nextProps.isEmailVerified;
     const isEmailVerifiedCurrent = this.props.isEmailVerified;
     const isEmailVerified = !isEmailVerifiedCurrent && isEmailVerifiedNext;
@@ -43,16 +44,16 @@ class EmailVerificationCard extends React.Component<IProps, IState> {
 
     if (isVerifyingEmailRequestComplete) {
       if (isEmailVerified) {
-        NotificationManager.success('Success', 'Email verified');
+        NotificationManager.success('Success', t('emailVerificationCard.verificationSuccessful'));
       } else {
-        NotificationManager.error('Error', 'Failed to verify');
+        NotificationManager.error('Error', t('emailVerificationCard.verificationFailed'));
       }
     }
   }
   public render(): React.ReactNode {
     const { t, isVerifyingEmail, errorMessage, isEmailVerified } = this.props;
 
-    let message = errorMessage || 'Unknown error';
+    let message = errorMessage || t('emailVerificationCard.unknownError');
     if (isEmailVerified) {
       message = t('emailVerificationCard.verifiedMsg');
     }
