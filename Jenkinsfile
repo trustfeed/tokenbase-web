@@ -8,7 +8,8 @@ def getBackendHost(branch) {
 
 def getBucket(branch) {
   if (branch == 'master') {
-    return 'tokenadmin.work'
+    // return 'tokenadmin.work'
+    return 'test.tokenadmin.work'
   } else {
     return 'test.tokenadmin.work'
   }
