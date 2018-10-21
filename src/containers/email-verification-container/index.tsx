@@ -6,6 +6,7 @@ import { NotificationManager } from 'react-notifications';
 import { changeQueryStringToJSON } from '../../utils/helpers';
 import { verifyEmail } from '../../redux/user/actions';
 import { translate } from 'react-i18next';
+import Spinner from 'src/components/spinner';
 
 interface IProps {
   t: (key: string) => string;
@@ -47,18 +48,31 @@ export class EmailVerificationCardContainer extends React.Component<IProps, {}> 
     }
   }
   public render(): React.ReactNode {
-    const { location, history, match, t } = this.props;
+    const {
+      location,
+      history,
+      match,
+      t,
+      isVerifyingEmail,
+      isEmailVerified,
+      errorMessage
+    } = this.props;
+
+    let message = errorMessage || t('emailVerificationCard.unknownError');
+    if (isEmailVerified) {
+      message = t('emailVerificationCard.verifiedMsg');
+    }
+
     return (
       <Layout location={location} history={history} match={match} showSidebar={false}>
         <div className="full-page-background">
           <div className="blanket">
             <div style={{ paddingTop: 240, paddingBottom: 200 }}>
-              <EmailVerificationCard
-                isVerifyingEmail={this.props.isVerifyingEmail}
-                isEmailVerified={this.props.isEmailVerified}
-                errorMessage={this.props.errorMessage}
-                t={t}
-              />
+              {isVerifyingEmail ? (
+                <Spinner />
+              ) : (
+                <EmailVerificationCard isVerified={isEmailVerified} message={message} t={t} />
+              )}
             </div>
           </div>
         </div>

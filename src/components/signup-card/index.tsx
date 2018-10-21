@@ -218,7 +218,6 @@ class LoginCard extends React.Component<IProps, IState> {
 
   private onSubmit = (): void => {
     const { password, email } = this.state;
-
     this.props.handleSignUp(email, password);
   };
 }
