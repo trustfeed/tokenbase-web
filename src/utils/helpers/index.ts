@@ -36,7 +36,7 @@ export const changeQueryStringToJSON = (qs: string): any => {
   const pairs = qs.split('&');
 
   const result = {};
-  pairs.forEach(item => {
+  pairs.forEach((item) => {
     const pair = item.split('=');
     result[pair[0]] = decodeURIComponent(pair[1] || '');
   });

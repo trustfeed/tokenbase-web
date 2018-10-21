@@ -58,11 +58,11 @@ class Layout extends React.Component<ILayoutProps, {}> {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   accessToken: state.user.accessToken
 });
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = (dispatch) => ({});
 
 export default connect(
   mapStateToProps,
