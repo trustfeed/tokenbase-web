@@ -1,17 +1,64 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import Layout from '../../components/layout';
 import EmailVerificationCard from '../../components/email-verification-card';
+import { NotificationManager } from 'react-notifications';
+import { changeQueryStringToJSON } from '../../utils/helpers';
+import { verifyEmail } from '../../redux/user/actions';
+import { translate } from 'react-i18next';
 
-export class EmailVerificationCardContainer extends React.Component<any, {}> {
-  public render(): React.ReactNode {
-    const { location, history, match } = this.props;
+interface IProps {
+  t: (key: string) => string;
+  web3: any;
+  history: any;
+  location: any;
+  match: any;
+  isVerifyingEmail: boolean;
+  isEmailVerified: boolean;
+  errorMessage: string | undefined;
+  verifyEmail: (body) => void;
+}
+
+export class EmailVerificationCardContainer extends React.Component<IProps, {}> {
+  public componentDidMount() {
+    const location = this.props.location || {};
     const search: string = location.search.slice(1);
+
+    const params = changeQueryStringToJSON(search);
+    const token: string = params.token;
+    const tokenBody = { token };
+    this.props.verifyEmail(tokenBody);
+  }
+  public componentWillReceiveProps(nextProps) {
+    const { t } = nextProps;
+    const isEmailVerifiedNext = nextProps.isEmailVerified;
+    const isEmailVerifiedCurrent = this.props.isEmailVerified;
+    const isEmailVerified = !isEmailVerifiedCurrent && isEmailVerifiedNext;
+    const isVerifyingEmailNext = nextProps.isVerifyingEmail;
+    const isVerifyingEmailCurrent = this.props.isVerifyingEmail;
+    const isVerifyingEmailRequestComplete = !isVerifyingEmailNext && isVerifyingEmailCurrent;
+
+    if (isVerifyingEmailRequestComplete) {
+      if (isEmailVerified) {
+        NotificationManager.success('Success', t('emailVerificationCard.verificationSuccessful'));
+      } else {
+        NotificationManager.error('Error', t('emailVerificationCard.verificationFailed'));
+      }
+    }
+  }
+  public render(): React.ReactNode {
+    const { location, history, match, t } = this.props;
     return (
       <Layout location={location} history={history} match={match} showSidebar={false}>
         <div className="full-page-background">
           <div className="blanket">
             <div style={{ paddingTop: 240, paddingBottom: 200 }}>
-              <EmailVerificationCard search={search} history={history} />
+              <EmailVerificationCard
+                isVerifyingEmail={this.props.isVerifyingEmail}
+                isEmailVerified={this.props.isEmailVerified}
+                errorMessage={this.props.errorMessage}
+                t={t}
+              />
             </div>
           </div>
         </div>
@@ -19,5 +66,19 @@ export class EmailVerificationCardContainer extends React.Component<any, {}> {
     );
   }
 }
+const WithTranslation = translate('translations')(EmailVerificationCardContainer);
 
-export default EmailVerificationCardContainer;
+const mapStateToProps = (state) => ({
+  isVerifyingEmail: state.user.isVerifyingEmail,
+  isEmailVerified: state.user.isEmailVerified,
+  errorMessage: state.user.errorMessage
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  verifyEmail: (body) => dispatch(verifyEmail(body))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(WithTranslation);

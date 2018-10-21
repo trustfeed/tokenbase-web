@@ -4,9 +4,44 @@ import axios from 'axios';
 
 import * as consts from '../user/types';
 
-import { getHeaders, getSignUpAPI, getEmailVerificationAPI } from '../../api';
+import { getHeaders, getSignUpAPI, getEmailVerificationAPI, getSignInAPI } from '../../api';
 
-const fetchSignUp = async payload => {
+const fetchSignIn = async (payload) => {
+  try {
+    const email: string = payload.email;
+    const password: string = payload.password;
+    const { data } = await axios({
+      method: 'POST',
+      url: getSignInAPI(),
+      headers: getHeaders(),
+      data: JSON.stringify({ email, password })
+    });
+    return data;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+function* workSignIn(action) {
+  // debounce by 500ms
+  yield delay(500);
+  try {
+    const { payload } = action;
+    const password: string = payload.password;
+    const email: string = payload.email;
+    const result = yield call(fetchSignIn, { email, password });
+    const accessToken: string = result.token;
+    yield [put({ type: consts.SIGN_IN_SUCCEEDED, payload: { accessToken } })];
+  } catch (error) {
+    console.log(error);
+    yield put({ type: consts.SIGN_IN_FAILED });
+  }
+}
+export function* watchSignIn() {
+  yield takeLatest(consts.SIGN_IN, workSignIn);
+}
+
+const fetchSignUp = async (payload) => {
   try {
     const email: string = payload.email;
     const password: string = payload.password;
@@ -40,7 +75,7 @@ export function* watchSignUp() {
   yield takeLatest(consts.SIGN_UP, workSignUp);
 }
 
-const fetchVerifyEmail = async body => {
+const fetchVerifyEmail = async (body) => {
   try {
     const { data } = await axios({
       method: 'POST',
