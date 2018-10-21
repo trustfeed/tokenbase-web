@@ -62,7 +62,7 @@ export class EmailVerificationCardContainer extends React.Component<IProps, {}> 
     if (isEmailVerified) {
       message = t('emailVerificationCard.verifiedMsg');
     }
-
+    const title = t('emailVerificationCard.title');
     return (
       <Layout location={location} history={history} match={match} showSidebar={false}>
         <div className="full-page-background">
@@ -71,7 +71,11 @@ export class EmailVerificationCardContainer extends React.Component<IProps, {}> 
               {isVerifyingEmail ? (
                 <Spinner />
               ) : (
-                <EmailVerificationCard isVerified={isEmailVerified} message={message} t={t} />
+                <EmailVerificationCard
+                  title={title}
+                  isVerified={isEmailVerified}
+                  message={message}
+                />
               )}
             </div>
           </div>
