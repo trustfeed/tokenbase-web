@@ -4,6 +4,25 @@ const initialState = {};
 
 export default function user(state = initialState, action) {
   switch (action.type) {
+    case consts.SIGN_IN:
+      return {
+        ...state,
+        isSigningIn: true,
+        accessToken: undefined
+      };
+
+    case consts.SIGN_IN_SUCCEEDED:
+      return {
+        ...state,
+        isSigningIn: false,
+        accessToken: action.payload.accessToken
+      };
+    case consts.SIGN_IN_FAILED:
+      return {
+        ...state,
+        isSigningIn: false,
+        accessToken: undefined
+      };
     case consts.SIGN_UP:
       return {
         ...state,
