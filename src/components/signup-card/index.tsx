@@ -1,8 +1,4 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
-import { signUp } from '../../redux/user/actions';
-import { translate } from 'react-i18next';
-
 import {
   FormFeedback,
   FormText,
@@ -21,7 +17,8 @@ import { paths } from 'src/routes';
 import { EMAIL_REGEXP, PASSWORD_REGEXP } from 'src/utils/validators/regex';
 
 interface IProps {
-  signUp: (body) => void;
+  t: (key: string) => string;
+  handleSignUp: (email: string, password: string) => void;
 }
 interface IState {
   email: string;
@@ -52,7 +49,7 @@ class LoginCard extends React.Component<IProps, IState> {
     isPassword2Invalid: false
   };
   public render() {
-    const t = s => s;
+    const t = (s) => s;
     const {
       isEmailInvalid,
       isPasswordInvalid,
@@ -221,22 +218,9 @@ class LoginCard extends React.Component<IProps, IState> {
 
   private onSubmit = (): void => {
     const { password, email } = this.state;
-    const body = {
-      email,
-      password
-    };
-    this.props.signUp(body);
+
+    this.props.handleSignUp(email, password);
   };
 }
 
-const LoginCardWithTranslation = translate('translations')(LoginCard);
-
-const mapStateToProps = state => ({});
-const mapDispatchToProps = dispatch => ({
-  signUp: body => dispatch(signUp(body))
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(LoginCardWithTranslation);
+export default LoginCard;

@@ -16,6 +16,10 @@ import { Link } from 'react-router-dom';
 import { paths } from 'src/routes';
 import { PASSWORD_REGEXP, EMAIL_REGEXP } from 'src/utils/validators/regex';
 
+interface IProps {
+  t: (key: string) => string;
+  handleSignIn: (email: string, password: string) => void;
+}
 interface IState {
   email: string;
   isEmailValid: boolean;
@@ -26,7 +30,7 @@ interface IState {
   isPasswordInvalid: boolean;
 }
 
-class LoginCard extends React.Component<{}, {}> {
+class LoginCard extends React.Component<IProps, IState> {
   public readonly state: IState = {
     email: '',
     isEmailValid: false,
@@ -38,7 +42,7 @@ class LoginCard extends React.Component<{}, {}> {
   };
 
   public render() {
-    const t = s => s;
+    const { t } = this.props;
     const { isEmailInvalid, isPasswordInvalid, isEmailValid, isPasswordValid } = this.state;
 
     return (
@@ -90,7 +94,9 @@ class LoginCard extends React.Component<{}, {}> {
                   </FormGroup>
                   <br />
                   <div className="text-center">
-                    <Button color="primary">{t('login.submit')}</Button>
+                    <Button onClick={this.onSubmit} color="primary">
+                      {t('login.submit')}
+                    </Button>
                   </div>
                 </Form>
                 <br />
@@ -134,10 +140,7 @@ class LoginCard extends React.Component<{}, {}> {
     e.preventDefault();
     this.setState(
       {
-        password: e.target.value,
-        password2: '',
-        isPassword2Valid: false,
-        isPassword2Invalid: false
+        password: e.target.value
       },
       this.validatePassword
     );
@@ -154,6 +157,11 @@ class LoginCard extends React.Component<{}, {}> {
     } else {
       this.setState({ isPasswordValid: false, isPasswordInvalid: true });
     }
+  };
+
+  private onSubmit = (): void => {
+    const { password, email } = this.state;
+    this.props.handleSignIn(email, password);
   };
 }
 
