@@ -6,6 +6,7 @@ import createHistory from 'history/createBrowserHistory';
 import LoginContainer from './containers/login-container';
 import HomeCotainer from './containers/home-container';
 import EmailVerificationCardContainer from './containers/email-verification-container';
+import CreateTokenContainer from './containers/create-token-container';
 
 export const appHistory = createHistory();
 
@@ -13,7 +14,8 @@ export const paths = {
   home: '/home',
   login: '/login',
   signup: '/signup',
-  emailVerification: '/email-verification'
+  emailVerification: '/email-verification',
+  createToken: '/create/token'
 };
 
 export const routeList = [
@@ -32,6 +34,10 @@ export const routeList = [
   {
     path: paths.emailVerification,
     component: EmailVerificationCardContainer
+  },
+  {
+    path: paths.createToken,
+    component: CreateTokenContainer
   }
 ];
 

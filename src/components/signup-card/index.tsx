@@ -14,7 +14,7 @@ import {
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { paths } from 'src/routes';
-import { EMAIL_REGEXP, PASSWORD_REGEXP } from 'src/utils/validators/regex';
+import { EMAIL_REGEX, PASSWORD_REGEX } from '../../utils/regex';
 
 interface IProps {
   t: (key: string) => string;
@@ -158,7 +158,7 @@ class LoginCard extends React.Component<IProps, IState> {
 
   private validateEmail = (): void => {
     const { email } = this.state;
-    const isEmailValid: boolean = EMAIL_REGEXP.test(email);
+    const isEmailValid: boolean = EMAIL_REGEX.test(email);
     if (!email) {
       return this.setState({ isEmailValid: false, isEmailInvalid: false });
     }
@@ -184,7 +184,7 @@ class LoginCard extends React.Component<IProps, IState> {
 
   private validatePassword = (): void => {
     const { password } = this.state;
-    const isValid: boolean = PASSWORD_REGEXP.test(password);
+    const isValid: boolean = PASSWORD_REGEX.test(password);
     if (!password) {
       return this.setState({ isPasswordValid: false, isPasswordInvalid: false });
     }
