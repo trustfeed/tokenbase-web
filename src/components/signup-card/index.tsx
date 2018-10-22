@@ -15,6 +15,7 @@ import {
 import { Link } from 'react-router-dom';
 import { paths } from 'src/routes';
 import { EMAIL_REGEX, PASSWORD_REGEX } from '../../utils/regex';
+import { getInputValidationState } from 'src/utils/helpers';
 
 interface IProps {
   t: (key: string) => string;
@@ -153,66 +154,36 @@ class LoginCard extends React.Component<IProps, IState> {
 
   private changeEmail = (e: React.ChangeEvent<HTMLInputElement>): void => {
     e.preventDefault();
-    this.setState({ email: e.target.value }, this.validateEmail);
-  };
-
-  private validateEmail = (): void => {
-    const { email } = this.state;
-    const isEmailValid: boolean = EMAIL_REGEX.test(email);
-    if (!email) {
-      return this.setState({ isEmailValid: false, isEmailInvalid: false });
-    }
-    if (isEmailValid) {
-      this.setState({ isEmailValid: true, isEmailInvalid: false });
-    } else {
-      this.setState({ isEmailValid: false, isEmailInvalid: true });
-    }
+    const value = e.target.value;
+    const key = 'Email';
+    const regex = EMAIL_REGEX;
+    const validationResult = getInputValidationState(key, value, regex);
+    this.setState({ ...validationResult, email: value });
   };
 
   private changePassword = (e: React.ChangeEvent<HTMLInputElement>): void => {
     e.preventDefault();
-    this.setState(
-      {
-        password: e.target.value,
-        password2: '',
-        isPassword2Valid: false,
-        isPassword2Invalid: false
-      },
-      this.validatePassword
-    );
-  };
-
-  private validatePassword = (): void => {
-    const { password } = this.state;
-    const isValid: boolean = PASSWORD_REGEX.test(password);
-    if (!password) {
-      return this.setState({ isPasswordValid: false, isPasswordInvalid: false });
-    }
-    if (isValid) {
-      this.setState({ isPasswordValid: true, isPasswordInvalid: false });
-    } else {
-      this.setState({ isPasswordValid: false, isPasswordInvalid: true });
-    }
+    const value = e.target.value;
+    const key = 'Password';
+    const regex = PASSWORD_REGEX;
+    const validationResult = getInputValidationState(key, value, regex);
+    this.setState({ ...validationResult, password: value });
   };
 
   private changePassword2 = (e: React.ChangeEvent<HTMLInputElement>): void => {
     e.preventDefault();
-    this.setState({ password2: e.target.value }, this.validatePassword2);
-  };
+    const { password } = this.state;
+    const password2 = e.target.value;
 
-  private validatePassword2 = (): void => {
-    const { password, password2 } = this.state;
     const isSamePassword = password2 === password;
+
     if (!password2) {
-      return this.setState({ isPassword2Valid: false, isPassword2Invalid: false });
+      return this.setState({ password2, isPassword2Valid: false, isPassword2Invalid: false });
     }
     if (isSamePassword) {
-      this.setState({ isPassword2Valid: true, isPassword2Invalid: false });
-      if (!isSamePassword) {
-        this.setState({ isPassword2Valid: false, isPassword2Invalid: true });
-      }
+      this.setState({ password2, isPassword2Valid: true, isPassword2Invalid: false });
     } else {
-      this.setState({ isPassword2Valid: false, isPassword2Invalid: true });
+      this.setState({ password2, isPassword2Valid: false, isPassword2Invalid: true });
     }
   };
 

@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { Row, Col, Input, Label, FormGroup, Button, Form, FormFeedback } from 'reactstrap';
 import { ALPHANUMERIC_REGEX, ALPHABETIC_REGEX } from 'src/utils/regex';
+import { getInputValidationState } from '../../utils/helpers';
 
 interface IProps {
   t: (key: string) => string;
@@ -115,37 +116,19 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
 
   private changeTokenName = (e: React.ChangeEvent<HTMLInputElement>): void => {
     e.preventDefault();
-    this.setState({ tokenName: e.target.value }, this.validateTokenName);
-  };
-
-  private validateTokenName = (): void => {
-    const { tokenName } = this.state;
-    const isTokenNameValid: boolean = ALPHANUMERIC_REGEX.test(tokenName);
-    if (!tokenName) {
-      return this.setState({ isTokenNameValid: false, isTokenNameInvalid: false });
-    }
-    if (isTokenNameValid) {
-      this.setState({ isTokenNameValid: true, isTokenNameInvalid: false });
-    } else {
-      this.setState({ isTokenNameValid: false, isTokenNameInvalid: true });
-    }
+    const value = e.target.value;
+    const key = 'TokenName';
+    const regex = ALPHANUMERIC_REGEX;
+    const validationResult = getInputValidationState(key, value, regex);
+    this.setState({ ...validationResult, tokenName: value });
   };
 
   private changeTokenSymbol = (e: React.ChangeEvent<HTMLInputElement>): void => {
     e.preventDefault();
-    this.setState({ tokenSymbol: e.target.value }, this.validateTokenSymbol);
-  };
-
-  private validateTokenSymbol = (): void => {
-    const { tokenSymbol } = this.state;
-    const isTokenSymbolValid: boolean = ALPHABETIC_REGEX.test(tokenSymbol);
-    if (!tokenSymbol) {
-      return this.setState({ isTokenNameValid: false, isTokenSymbolInvalid: false });
-    }
-    if (isTokenSymbolValid) {
-      this.setState({ isTokenSymbolValid: true, isTokenSymbolInvalid: false });
-    } else {
-      this.setState({ isTokenSymbolValid: false, isTokenSymbolInvalid: true });
-    }
+    const value = e.target.value;
+    const key = 'TokenSymbol';
+    const regex = ALPHABETIC_REGEX;
+    const validationResult = getInputValidationState(key, value, regex);
+    this.setState({ ...validationResult, tokenSymbol: value });
   };
 }

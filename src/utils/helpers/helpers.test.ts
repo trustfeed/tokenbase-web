@@ -1,10 +1,4 @@
-import {
-  numberWithCommas,
-  getRate,
-  inverseNumber,
-  changeQueryStringToJSON,
-  getNetworkName
-} from '.';
+import { numberWithCommas, getRate, inverseNumber, changeQueryStringToJSON } from '.';
 
 test('test numberWithCommas', () => {
   expect(numberWithCommas('100')).toBe('100');
@@ -38,12 +32,4 @@ test('test inverseNumber', () => {
 
 test('test changeQueryStringToJSON', () => {
   expect(changeQueryStringToJSON('a=0&b=text')).toEqual({ a: '0', b: 'text' });
-});
-
-test('test getNetworkName', () => {
-  expect(getNetworkName(1)).toBe('Mainnet');
-  expect(getNetworkName(3)).toBe('Ropsten');
-  expect(getNetworkName(4)).toBe('Rinkeby');
-  expect(getNetworkName(42)).toBe('Kovan');
-  expect(getNetworkName(0)).toBe('Network 0');
 });
