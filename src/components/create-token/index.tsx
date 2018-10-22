@@ -13,7 +13,7 @@ interface IState {
   id: string;
   tokenName: string;
   tokenSymbol: string;
-  isMinted: boolean;
+  isMintable: boolean;
 
   isTokenNameValid: boolean;
   isTokenNameInvalid: boolean;
@@ -26,7 +26,7 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
     id: '',
     tokenName: '',
     tokenSymbol: '',
-    isMinted: false,
+    isMintable: false,
 
     isTokenNameInvalid: false,
     isTokenNameValid: false,
@@ -93,8 +93,9 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
                     <Input
                       name="is-mintable"
                       type="checkbox"
+                      checked={this.state.isMintable}
+                      onChange={this.checkMintable}
                       className="form-check-input"
-                      checked={this.state.isMinted}
                     />{' '}
                     <span className="form-check-sign">{'Mintable'}</span>
                   </Label>
@@ -130,5 +131,11 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
     const regex = ALPHABETIC_REGEX;
     const validationResult = getInputValidationState(key, value, regex);
     this.setState({ ...validationResult, tokenSymbol: value });
+  };
+
+  private checkMintable = (e) => {
+    const target = e.target;
+    const isMintable = target.checked;
+    this.setState({ isMintable });
   };
 }

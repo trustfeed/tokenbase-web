@@ -4,16 +4,16 @@ import { translate } from 'react-i18next';
 
 import { Container } from 'reactstrap';
 import Layout from '../../components/layout';
-import CreateToken from '../../components/create-token';
+import CreateCrowdsale from '../../components/create-crowdsale';
 import { NotificationManager } from 'react-notifications';
-import { createTokenContract } from '../../redux/contract/actions';
+import { createCrowdsaleContract } from '../../redux/contract/actions';
 import { changeQueryStringToJSON } from '../../utils/helpers';
 
 interface IOnChainDataFormProps {
   t: (key: string) => string;
   location: any;
   history: any;
-  createTokenContract: (body) => void;
+  createCrowdsaleContract: (body) => void;
   hasCampaignCreated: boolean | undefined;
   isCreatingCampaign: boolean | undefined;
   hasOnChainDataUpdated: boolean | undefined;
@@ -53,9 +53,9 @@ class OnChainDataForm extends React.Component<IOnChainDataFormProps, {}> {
       <Layout location={location} history={history} showSidebar={true}>
         <Container>
           <br />
-          <h5 className="text-center">{t('createToken.title')}</h5>
+          <h5 className="text-center">{t('createCrowdsale.title')}</h5>
           <br />
-          <CreateToken onSubmit={createTokenContract} t={t} />
+          <CreateCrowdsale onSubmit={createCrowdsaleContract} t={t} />
         </Container>
       </Layout>
     );
@@ -66,7 +66,7 @@ const WithTranslation = translate('translations')(OnChainDataForm);
 
 const mapStateToProps = (state) => ({});
 const mapDispatchToProps = (dispatch) => ({
-  createTokenContract: (body) => dispatch(createTokenContract(body))
+  createCrowdsaleContract: (body) => dispatch(createCrowdsaleContract(body))
 });
 
 export default connect(

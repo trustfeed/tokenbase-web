@@ -7,6 +7,7 @@ import LoginContainer from './containers/login-container';
 import HomeCotainer from './containers/home-container';
 import EmailVerificationCardContainer from './containers/email-verification-container';
 import CreateTokenContainer from './containers/create-token-container';
+import CreateCrowdsaleContainer from './containers/create-crowdsale-container';
 
 export const appHistory = createHistory();
 
@@ -15,10 +16,19 @@ export const paths = {
   login: '/login',
   signup: '/signup',
   emailVerification: '/email-verification',
-  createToken: '/create/token'
+  createToken: '/create/token',
+  createCrowdsale: '/create/crowdsale'
 };
 
 export const routeList = [
+  {
+    path: paths.createToken,
+    component: CreateTokenContainer
+  },
+  {
+    path: paths.createCrowdsale,
+    component: CreateCrowdsaleContainer
+  },
   {
     path: paths.home,
     component: HomeCotainer
@@ -34,10 +44,6 @@ export const routeList = [
   {
     path: paths.emailVerification,
     component: EmailVerificationCardContainer
-  },
-  {
-    path: paths.createToken,
-    component: CreateTokenContainer
   }
 ];
 
