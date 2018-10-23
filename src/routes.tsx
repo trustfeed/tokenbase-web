@@ -6,6 +6,8 @@ import createHistory from 'history/createBrowserHistory';
 import LoginContainer from './containers/login-container';
 import HomeCotainer from './containers/home-container';
 import EmailVerificationCardContainer from './containers/email-verification-container';
+import CreateTokenContainer from './containers/create-token-container';
+import CreateCrowdsaleContainer from './containers/create-crowdsale-container';
 
 export const appHistory = createHistory();
 
@@ -13,25 +15,41 @@ export const paths = {
   home: '/home',
   login: '/login',
   signup: '/signup',
-  emailVerification: '/email-verification'
+  emailVerification: '/email-verification',
+  createToken: '/create/token',
+  createCrowdsale: '/create/crowdsale'
 };
 
 export const routeList = [
   {
     path: paths.home,
-    component: HomeCotainer
+    component: HomeCotainer,
+    label: 'home'
+  },
+  {
+    path: paths.createToken,
+    component: CreateTokenContainer,
+    label: 'token'
+  },
+  {
+    path: paths.createCrowdsale,
+    component: CreateCrowdsaleContainer,
+    label: 'crowdsale'
   },
   {
     path: paths.login,
-    component: LoginContainer
+    component: LoginContainer,
+    label: undefined
   },
   {
     path: paths.signup,
-    component: LoginContainer
+    component: LoginContainer,
+    label: undefined
   },
   {
     path: paths.emailVerification,
-    component: EmailVerificationCardContainer
+    component: EmailVerificationCardContainer,
+    label: undefined
   }
 ];
 

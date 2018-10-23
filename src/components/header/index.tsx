@@ -82,7 +82,7 @@ class Header extends React.Component<IHeaderProps, IHeaderStates> {
         </DropdownToggle>
         <DropdownMenu size="lg">
           <DropdownItem onClick={useEnglish}>English</DropdownItem>
-          <DropdownItem onClick={useKorean}>Korean</DropdownItem>
+          <DropdownItem onClick={useKorean}>한국어</DropdownItem>
         </DropdownMenu>
       </Dropdown>
     );

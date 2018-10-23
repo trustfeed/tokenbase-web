@@ -44,42 +44,23 @@ export const changeQueryStringToJSON = (qs: string): any => {
   return JSON.parse(JSON.stringify(result));
 };
 
-export const getNetworkName = (netId: number | undefined): string => {
-  switch (netId) {
-    case 1:
-      return 'Mainnet';
-    case 3:
-      return 'Ropsten';
-    case 4:
-      return 'Rinkeby';
-    case 42:
-      return 'Kovan';
-    default:
-      return `Network ${netId}`;
+export const getInputValidationState = (key: string, value: string, regex: RegExp) => {
+  const isValid: boolean = regex.test(value);
+  const keyValid = 'is' + key + 'Valid';
+  const keyInvalid = 'is' + key + 'Invalid';
+  const state = {};
+  if (!value) {
+    state[keyValid] = false;
+    state[keyInvalid] = false;
+    return state;
   }
-};
-export const validateNetwork = (netId: number | undefined) => netId === 4;
-export const getAddressURLFromEtherScan = (id, netId) => {
-  let link;
-  switch (netId) {
-    case 1: // main net
-      link = `https://etherscan.io/address/${id}`;
-      break;
-    case 2: // morden test net
-      link = `https://morden.etherscan.io/address/${id}`;
-      break;
-    case 3: // ropsten test net
-      link = `https://ropsten.etherscan.io/address/${id}`;
-      break;
-    case 4: // rinkeby test net
-      link = `https://rinkeby.etherscan.io/address/${id}`;
-      break;
-    case 42: // kovan test net
-      link = `https://kovan.etherscan.io/address/${id}`;
-      break;
-    default:
-      link = '';
-      break;
+  if (isValid) {
+    state[keyValid] = true;
+    state[keyInvalid] = false;
+    return state;
+  } else {
+    state[keyValid] = false;
+    state[keyInvalid] = true;
+    return state;
   }
-  return link;
 };
