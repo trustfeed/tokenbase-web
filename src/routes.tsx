@@ -22,28 +22,34 @@ export const paths = {
 
 export const routeList = [
   {
+    path: paths.home,
+    component: HomeCotainer,
+    label: 'home'
+  },
+  {
     path: paths.createToken,
-    component: CreateTokenContainer
+    component: CreateTokenContainer,
+    label: 'token'
   },
   {
     path: paths.createCrowdsale,
-    component: CreateCrowdsaleContainer
-  },
-  {
-    path: paths.home,
-    component: HomeCotainer
+    component: CreateCrowdsaleContainer,
+    label: 'crowdsale'
   },
   {
     path: paths.login,
-    component: LoginContainer
+    component: LoginContainer,
+    label: undefined
   },
   {
     path: paths.signup,
-    component: LoginContainer
+    component: LoginContainer,
+    label: undefined
   },
   {
     path: paths.emailVerification,
-    component: EmailVerificationCardContainer
+    component: EmailVerificationCardContainer,
+    label: undefined
   }
 ];
 

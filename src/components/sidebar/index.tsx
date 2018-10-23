@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 interface IRoutes {
   path: string;
   component: React.ReactNode;
+  label: string | undefined;
 }
 
 interface IProps {
@@ -22,10 +23,10 @@ class Sidebar extends React.Component<IProps, {}> {
   public render(): React.ReactNode {
     const { routeList = [] } = this.props;
     const { pathname } = this.props.location;
-    const links = routeList.map((item) => (
+    const links = routeList.filter((item) => item.label).map((item) => (
       <NavItem key={item.path}>
         <Link to={item.path} className={`nav-link ${pathname === item.path ? 'active' : ''}`}>
-          {item.path}
+          {item.label}
         </Link>
       </NavItem>
     ));
