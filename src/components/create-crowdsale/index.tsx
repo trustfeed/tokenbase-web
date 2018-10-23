@@ -53,6 +53,9 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
                   value={this.state.softCap}
                   type="number"
                   min={0}
+                  onChange={() => {
+                    return;
+                  }}
                   name="soft-cap"
                   id="soft-cap-input"
                   placeholder="5 ETH"
@@ -70,6 +73,9 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
                 <Input
                   value={this.state.hardCap}
                   type="number"
+                  onChange={() => {
+                    return;
+                  }}
                   min={0}
                   name="hard-cap"
                   id="hard-cap-input"
@@ -106,10 +112,13 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
               </Label>
               <Col sm={colInput}>
                 <Input
+                  type="select"
                   value={this.state.duration}
+                  onChange={() => {
+                    return;
+                  }}
                   name="duration"
                   id="duration-input"
-                  type="select"
                 >
                   <option value={'30'}>{'30 days'}</option>
                   <option value={'60'}>{'60 days'}</option>
@@ -122,7 +131,7 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
           </Col>
           <Col sm={12} md={12} lg={12}>
             <div className="py-3 text-center">
-              <Button color="primary" onSubmit={onSubmit}>
+              <Button color="primary" onClick={onSubmit}>
                 {t('createCrowdsale.submit')}
               </Button>
             </div>
