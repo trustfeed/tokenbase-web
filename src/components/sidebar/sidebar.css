@@ -3,19 +3,19 @@
   background-image: url("https://s3.ap-northeast-2.amazonaws.com/www.daobase.io/img/intro.jpg");
   background-position: 50%;
   position: fixed;
-  left: 250px;
-  width: 250px;
+  left: 210px;
+  width: 210px;
   height: 100%;
-  margin-left: -250px;
+  margin-left: -210px;
   z-index: 999;
 }
 
 #sidebar-wrapper {
   position: fixed;
-  left: 250px;
-  width: 250px;
+  left: 210px;
+  width: 210px;
   height: 100%;
-  margin-left: -250px;
+  margin-left: -210px;
   overflow-y: auto;
   z-index: 1000;
   background-color: rgba(0, 0, 20, .9);
@@ -28,7 +28,7 @@
 .sidebar-nav {
   position: absolute;
   top: 0;
-  width: 250px;
+  width: 210px;
   margin: 0;
   padding: 0;
   list-style: none;

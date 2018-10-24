@@ -1,10 +1,9 @@
 import * as React from 'react';
 import {
-  Collapse,
+  // Collapse,
   Navbar,
-  NavbarToggler,
   Nav,
-  Dropdown,
+  UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
@@ -34,41 +33,36 @@ interface IHeaderProps {
 
 interface IHeaderStates {
   isOpen: boolean;
-  dropdownOpen: boolean;
   color: string;
 }
 
 class Header extends React.Component<IHeaderProps, IHeaderStates> {
   public readonly state: IHeaderStates = {
     color: '',
-    isOpen: false,
-    dropdownOpen: false
+    isOpen: false
   };
 
   public render(): React.ReactNode {
     const { background } = this.props;
     return (
-      <Navbar expand="md" fixed={'top'} color={background ? background : 'black'}>
+      <Navbar expand="sm" fixed={'top'} color={background ? background : 'black'}>
         <Container fluid={true}>
           <div className="navbar-wrapper">
             <NavbarBrand href={paths.home}>
               <div className="logo-image">{renderLogoWhite()}</div>
             </NavbarBrand>
           </div>
-          <NavbarToggler onClick={this.toggle}>
-            <span className="navbar-toggler-bar navbar-kebab" />
-            <span className="navbar-toggler-bar navbar-kebab" />
-            <span className="navbar-toggler-bar navbar-kebab" />
-          </NavbarToggler>
-          <Collapse isOpen={this.state.isOpen} navbar={true} className="justify-content-end">
-            <Nav navbar={true}>{this.renderI18n()}</Nav>
-          </Collapse>
+
+          <Nav navbar={true}>
+            {this.renderBlockchainPlatformDropdown()}
+            {this.renderI18nDropdown()}
+          </Nav>
         </Container>
       </Navbar>
     );
   }
 
-  private renderI18n = () => {
+  private renderI18nDropdown = () => {
     const i18n = this.props.i18n;
 
     // const web3 = this.props.web3;
@@ -76,37 +70,30 @@ class Header extends React.Component<IHeaderProps, IHeaderStates> {
     const useKorean = (): void => i18n.changeLanguage('ko');
     const lang: string = i18n.language;
     return (
-      <Dropdown nav={true} isOpen={this.state.dropdownOpen} toggle={this.dropdownToggle}>
+      <UncontrolledDropdown nav={true} inNavbar={true}>
         <DropdownToggle caret={true} nav={true}>
           <p>{lang}</p>
         </DropdownToggle>
-        <DropdownMenu size="lg">
-          <DropdownItem onClick={useEnglish}>English</DropdownItem>
-          <DropdownItem onClick={useKorean}>한국어</DropdownItem>
+        <DropdownMenu size="sm">
+          <DropdownItem onClick={useEnglish}>{'English'}</DropdownItem>
+          <DropdownItem onClick={useKorean}>{'한국어'}</DropdownItem>
         </DropdownMenu>
-      </Dropdown>
+      </UncontrolledDropdown>
     );
   };
 
-  private toggle = () => {
-    if (this.state.isOpen) {
-      this.setState({
-        color: 'transparent'
-      });
-    } else {
-      this.setState({
-        color: 'white'
-      });
-    }
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
-  };
-
-  private dropdownToggle = () => {
-    this.setState({
-      dropdownOpen: !this.state.dropdownOpen
-    });
+  private renderBlockchainPlatformDropdown = () => {
+    return (
+      <UncontrolledDropdown nav={true} inNavbar={true}>
+        <DropdownToggle caret={true} nav={true}>
+          <p>{'platform'}</p>
+        </DropdownToggle>
+        <DropdownMenu size="sm">
+          <DropdownItem>{'ethereum'}</DropdownItem>
+          <DropdownItem>{'EOS'}</DropdownItem>
+        </DropdownMenu>
+      </UncontrolledDropdown>
+    );
   };
 }
 
