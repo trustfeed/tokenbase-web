@@ -27,3 +27,8 @@ export const updateUser = (body) => ({
   type: consts.UPDATE_USER,
   payload: { body }
 });
+
+export const setPlatform = (platform) => ({
+  type: consts.SET_PLATFORM,
+  payload: { platform }
+});

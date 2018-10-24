@@ -19,6 +19,12 @@ switch (window.location.hostname) {
 export const getSignInAPI = () => `${HOST}/user/auth`;
 export const getSignUpAPI = () => `${HOST}/user/signup`;
 
+export const getCreateTokenAPI = () => `${HOST}/eth/tokens`;
+export const getFinaliseTokenAPI = () => `${HOST}/eth/tokens/finalise`;
+
+export const getCreateCrowdsalesAPI = () => `${HOST}/eth/crowdsales`;
+export const getFinaliseCrowdsalesAPI = () => `${HOST}/eth/crowdsales/finalise`;
+
 export const getUserAPI = (id?: string) => `${HOST}/users${id ? `/${id}` : ''}`;
 export const getAuthAPI = () => `${HOST}/auth`;
 export const getEmailVerificationAPI = () => `${HOST}/user/verify-email`;

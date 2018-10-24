@@ -20,15 +20,16 @@ interface IHeaderProps {
     pathname: string;
     search: string;
   };
-  web3: any;
-  match: object;
-  history: object;
+  match: any;
+  history: any;
   i18n: {
     language: string;
     changeLanguage: (lang: string) => void;
   };
   t: (key: string) => string;
   background?: string;
+  platform: string;
+  setPlatform: (platform: string) => void;
 }
 
 interface IHeaderStates {
@@ -65,9 +66,6 @@ class Header extends React.Component<IHeaderProps, IHeaderStates> {
   private renderI18nDropdown = () => {
     const i18n = this.props.i18n;
 
-    // const web3 = this.props.web3;
-    const useEnglish = (): void => i18n.changeLanguage('en');
-    const useKorean = (): void => i18n.changeLanguage('ko');
     const lang: string = i18n.language;
     return (
       <UncontrolledDropdown nav={true} inNavbar={true}>
@@ -75,25 +73,35 @@ class Header extends React.Component<IHeaderProps, IHeaderStates> {
           <p>{lang}</p>
         </DropdownToggle>
         <DropdownMenu size="sm">
-          <DropdownItem onClick={useEnglish}>{'English'}</DropdownItem>
-          <DropdownItem onClick={useKorean}>{'한국어'}</DropdownItem>
+          <DropdownItem onClick={() => i18n.changeLanguage('en')}>{'English'}</DropdownItem>
+          <DropdownItem onClick={() => i18n.changeLanguage('ko')}>{'한국어'}</DropdownItem>
         </DropdownMenu>
       </UncontrolledDropdown>
     );
   };
 
   private renderBlockchainPlatformDropdown = () => {
+    const { platform } = this.props;
     return (
       <UncontrolledDropdown nav={true} inNavbar={true}>
         <DropdownToggle caret={true} nav={true}>
-          <p>{'platform'}</p>
+          <p>{platform}</p>
         </DropdownToggle>
         <DropdownMenu size="sm">
-          <DropdownItem>{'ethereum'}</DropdownItem>
-          <DropdownItem>{'EOS'}</DropdownItem>
+          <DropdownItem onClick={() => this.changePlatform('ethereum')}>{'ethereum'}</DropdownItem>
+          <DropdownItem onClick={() => this.changePlatform('eos')}>{'EOS'}</DropdownItem>
         </DropdownMenu>
       </UncontrolledDropdown>
     );
+  };
+
+  private changePlatform = (platform) => {
+    if (platform === 'ethereum') {
+      this.props.setPlatform('ethereum');
+    } else if (platform === 'eos') {
+      this.props.setPlatform('eos');
+    }
+    location.reload(true);
   };
 }
 
