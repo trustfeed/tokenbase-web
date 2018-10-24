@@ -1,6 +1,6 @@
 import * as consts from '../user/types';
 
-const initialState = {};
+const initialState = { platform: 'ethereum' };
 
 export default function user(state = initialState, action) {
   switch (action.type) {
@@ -63,6 +63,12 @@ export default function user(state = initialState, action) {
         isVerifyingEmail: false,
         isEmailVerified: false,
         errorMessage: action.payload.errorMessage
+      };
+
+    case consts.SET_PLATFORM:
+      return {
+        ...state,
+        platform: action.payload.platform
       };
 
     default:

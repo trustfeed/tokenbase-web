@@ -1,10 +1,9 @@
 import * as React from 'react';
 import {
-  Collapse,
+  // Collapse,
   Navbar,
-  NavbarToggler,
   Nav,
-  Dropdown,
+  UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
@@ -21,92 +20,88 @@ interface IHeaderProps {
     pathname: string;
     search: string;
   };
-  web3: any;
-  match: object;
-  history: object;
+  match: any;
+  history: any;
   i18n: {
     language: string;
     changeLanguage: (lang: string) => void;
   };
   t: (key: string) => string;
   background?: string;
+  platform: string;
+  setPlatform: (platform: string) => void;
 }
 
 interface IHeaderStates {
   isOpen: boolean;
-  dropdownOpen: boolean;
   color: string;
 }
 
 class Header extends React.Component<IHeaderProps, IHeaderStates> {
   public readonly state: IHeaderStates = {
     color: '',
-    isOpen: false,
-    dropdownOpen: false
+    isOpen: false
   };
 
   public render(): React.ReactNode {
     const { background } = this.props;
     return (
-      <Navbar expand="md" fixed={'top'} color={background ? background : 'black'}>
+      <Navbar expand="sm" fixed={'top'} color={background ? background : 'black'}>
         <Container fluid={true}>
           <div className="navbar-wrapper">
             <NavbarBrand href={paths.home}>
               <div className="logo-image">{renderLogoWhite()}</div>
             </NavbarBrand>
           </div>
-          <NavbarToggler onClick={this.toggle}>
-            <span className="navbar-toggler-bar navbar-kebab" />
-            <span className="navbar-toggler-bar navbar-kebab" />
-            <span className="navbar-toggler-bar navbar-kebab" />
-          </NavbarToggler>
-          <Collapse isOpen={this.state.isOpen} navbar={true} className="justify-content-end">
-            <Nav navbar={true}>{this.renderI18n()}</Nav>
-          </Collapse>
+
+          <Nav navbar={true}>
+            {this.renderBlockchainPlatformDropdown()}
+            {this.renderI18nDropdown()}
+          </Nav>
         </Container>
       </Navbar>
     );
   }
 
-  private renderI18n = () => {
+  private renderI18nDropdown = () => {
     const i18n = this.props.i18n;
 
-    // const web3 = this.props.web3;
-    const useEnglish = (): void => i18n.changeLanguage('en');
-    const useKorean = (): void => i18n.changeLanguage('ko');
     const lang: string = i18n.language;
     return (
-      <Dropdown nav={true} isOpen={this.state.dropdownOpen} toggle={this.dropdownToggle}>
+      <UncontrolledDropdown nav={true} inNavbar={true}>
         <DropdownToggle caret={true} nav={true}>
           <p>{lang}</p>
         </DropdownToggle>
-        <DropdownMenu size="lg">
-          <DropdownItem onClick={useEnglish}>English</DropdownItem>
-          <DropdownItem onClick={useKorean}>한국어</DropdownItem>
+        <DropdownMenu size="sm">
+          <DropdownItem onClick={() => i18n.changeLanguage('en')}>{'English'}</DropdownItem>
+          <DropdownItem onClick={() => i18n.changeLanguage('ko')}>{'한국어'}</DropdownItem>
         </DropdownMenu>
-      </Dropdown>
+      </UncontrolledDropdown>
     );
   };
 
-  private toggle = () => {
-    if (this.state.isOpen) {
-      this.setState({
-        color: 'transparent'
-      });
-    } else {
-      this.setState({
-        color: 'white'
-      });
-    }
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
+  private renderBlockchainPlatformDropdown = () => {
+    const { platform } = this.props;
+    return (
+      <UncontrolledDropdown nav={true} inNavbar={true}>
+        <DropdownToggle caret={true} nav={true}>
+          <p>{platform}</p>
+        </DropdownToggle>
+        <DropdownMenu size="sm">
+          <DropdownItem onClick={() => this.changePlatform('ethereum')}>{'ethereum'}</DropdownItem>
+          <DropdownItem onClick={() => this.changePlatform('eos')}>{'EOS'}</DropdownItem>
+        </DropdownMenu>
+      </UncontrolledDropdown>
+    );
   };
 
-  private dropdownToggle = () => {
-    this.setState({
-      dropdownOpen: !this.state.dropdownOpen
-    });
+  private changePlatform = (platform) => {
+    if (platform === 'ethereum') {
+      this.props.setPlatform('ethereum');
+    } else if (platform === 'eos') {
+      this.props.setPlatform('eos');
+    }
+    location.reload(true);
   };
 }
 

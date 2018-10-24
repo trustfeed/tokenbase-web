@@ -36,69 +36,73 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
 
   public render(): React.ReactNode {
     const { t, onSubmit } = this.props;
-    const colLabel = 4;
-    const colInput = 12 - colLabel;
 
     return (
       <Form>
         <Row>
-          <Col sm={12} md={12} lg={10} className="mr-auto ml-auto">
-            <FormGroup row={true}>
-              <Label className="text-left" for="token-name" sm={colLabel}>
+          <Col xs={10} sm={8} md={7} lg={5} className="mr-auto ml-auto">
+            <FormGroup>
+              <Label className="text-left" for="token-name">
                 {t('createToken.name')}
               </Label>
-              <Col sm={colInput}>
-                <Input
-                  type="text"
-                  data-test-id="token-name-input"
-                  value={this.state.tokenName}
-                  onChange={this.changeTokenName}
-                  maxLength={20}
-                  placeholder="Sample Token"
-                  autoComplete="new-password"
-                  invalid={this.state.isTokenNameInvalid}
-                  valid={this.state.isTokenNameValid}
-                />
-                <FormFeedback>{t('createToken.tokenNameInvalid')}</FormFeedback>
-                <FormFeedback valid={true}>{t('createToken.tokenNameValid')}</FormFeedback>
+              <Col>
+                <div className="center">
+                  <Input
+                    type="text"
+                    data-test-id="token-name-input"
+                    value={this.state.tokenName}
+                    onChange={this.changeTokenName}
+                    maxLength={20}
+                    placeholder="Sample Token"
+                    autoComplete="new-password"
+                    invalid={this.state.isTokenNameInvalid}
+                    valid={this.state.isTokenNameValid}
+                  />
+                  <FormFeedback>{t('createToken.tokenNameInvalid')}</FormFeedback>
+                  <FormFeedback valid={true}>{t('createToken.tokenNameValid')}</FormFeedback>
+                </div>
               </Col>
             </FormGroup>
-            <FormGroup row={true}>
-              <Label className="text-left" for="token-symbol" sm={colLabel}>
+            <FormGroup>
+              <Label className="text-left" for="token-symbol">
                 {t('createToken.symbol')}
               </Label>
-              <Col sm={colInput}>
-                <Input
-                  type="text"
-                  data-test-id="token-symbol-input"
-                  value={this.state.tokenSymbol}
-                  onChange={this.changeTokenSymbol}
-                  invalid={this.state.isTokenSymbolInvalid}
-                  valid={this.state.isTokenSymbolValid}
-                  placeholder="ST"
-                  autoComplete="new-password"
-                  maxLength={6}
-                />
-                <FormFeedback>{t('createToken.tokenSymbolInvalid')}</FormFeedback>
-                <FormFeedback valid={true}>{t('createToken.tokenSymbolValid')}</FormFeedback>
+              <Col>
+                <div className="center">
+                  <Input
+                    type="text"
+                    data-test-id="token-symbol-input"
+                    value={this.state.tokenSymbol}
+                    onChange={this.changeTokenSymbol}
+                    invalid={this.state.isTokenSymbolInvalid}
+                    valid={this.state.isTokenSymbolValid}
+                    placeholder="ST"
+                    autoComplete="new-password"
+                    maxLength={6}
+                  />
+                  <FormFeedback>{t('createToken.tokenSymbolInvalid')}</FormFeedback>
+                  <FormFeedback valid={true}>{t('createToken.tokenSymbolValid')}</FormFeedback>
+                </div>
               </Col>
             </FormGroup>
-            <FormGroup row={true}>
-              <Label className="text-left" for="is-mintable" sm={colLabel}>
+            <FormGroup>
+              <Label className="text-left" for="is-mintable">
                 {t('createToken.isMintable')}
               </Label>
-              <Col sm={colInput}>
+              <Col>
                 <FormGroup check={true}>
-                  <Label check={true}>
-                    <Input
-                      name="is-mintable"
-                      type="checkbox"
-                      checked={this.state.isMintable}
-                      onChange={this.checkMintable}
-                      className="form-check-input"
-                    />{' '}
-                    <span className="form-check-sign">{'Mintable'}</span>
-                  </Label>
+                  <div className="center">
+                    <Label check={true}>
+                      <Input
+                        name="is-mintable"
+                        type="checkbox"
+                        checked={this.state.isMintable}
+                        onChange={this.checkMintable}
+                        className="form-check-input"
+                      />
+                      <span className="form-check-sign">{'Mintable'}</span>
+                    </Label>
+                  </div>
                 </FormGroup>
               </Col>
             </FormGroup>

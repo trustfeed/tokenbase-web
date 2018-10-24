@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Footer from '../footer';
 import Header from '../header';
 import Sidebar from '../sidebar';
-
+import { setPlatform } from '../../redux/user/actions';
 import { routeList } from '../../routes';
 import './layout.css';
 
@@ -18,11 +18,13 @@ interface ILayoutProps {
   accessToken: string | undefined;
   showSidebar: boolean;
   getUser: () => void;
+  platform: string;
+  setPlatform: (platform: string) => void;
 }
 
 class Layout extends React.Component<ILayoutProps, {}> {
   public render() {
-    const { history, location, match, children, accessToken, showSidebar } = this.props;
+    const { history, location, match, children, platform, accessToken, showSidebar } = this.props;
     const isAuth = !!accessToken;
 
     if (showSidebar) {
@@ -31,11 +33,18 @@ class Layout extends React.Component<ILayoutProps, {}> {
           <Sidebar history={history} location={location} match={match} routeList={routeList} />
           <div className="page-content-wrapper">
             <div>
-              <Header history={history} location={location} match={match} isAuth={isAuth} />
+              <Header
+                history={history}
+                location={location}
+                match={match}
+                isAuth={isAuth}
+                platform={platform}
+                setPlatform={this.props.setPlatform}
+              />
               {children}
-              <Footer />
             </div>
           </div>
+          <Footer />
         </div>
       );
     }
@@ -59,10 +68,13 @@ class Layout extends React.Component<ILayoutProps, {}> {
 }
 
 const mapStateToProps = (state) => ({
-  accessToken: state.user.accessToken
+  accessToken: state.user.accessToken,
+  platform: state.user.platform
 });
 
-const mapDispatchToProps = (dispatch) => ({});
+const mapDispatchToProps = (dispatch) => ({
+  setPlatform: (platform) => dispatch(setPlatform(platform))
+});
 
 export default connect(
   mapStateToProps,

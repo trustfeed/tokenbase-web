@@ -31,12 +31,16 @@
 
 * {
   font-family: 'Noto Sans' !important;
+  word-break: break-word !important;
 }
 
-body {
-  overflow-x: hidden;
+.col {
+  padding: 0px;
 }
-
+.center {
+  margin: auto;
+  padding: 10px 0px;
+}
 
 .ml-auto {
   margin-left: auto !important;
