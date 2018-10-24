@@ -31,8 +31,6 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
 
   public render(): React.ReactNode {
     const { t, onSubmit } = this.props;
-    const colLabel = 4;
-    const colInput = 12 - colLabel;
 
     // const aWeekAfter = moment().add(1, 'week');
     const yesterday = moment().subtract(1, 'day');
@@ -43,12 +41,12 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
     return (
       <Form>
         <Row>
-          <Col sm={12} md={12} lg={10} className="mr-auto ml-auto">
-            <FormGroup row={true}>
-              <Label className="text-left" for="soft-cap" sm={colLabel}>
+          <Col xs={10} sm={8} md={7} lg={5} className="mr-auto ml-auto">
+            <FormGroup>
+              <Label className="text-left" for="soft-cap">
                 {t('createCrowdsale.softCap')}
               </Label>
-              <Col sm={colInput}>
+              <Col>
                 <Input
                   value={this.state.softCap}
                   type="number"
@@ -65,11 +63,11 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
               </Col>
             </FormGroup>
 
-            <FormGroup row={true}>
-              <Label className="text-left" for="hard-cap" sm={colLabel}>
+            <FormGroup>
+              <Label className="text-left" for="hard-cap">
                 {t('createCrowdsale.hardCap')}
               </Label>
-              <Col sm={colInput}>
+              <Col>
                 <Input
                   value={this.state.hardCap}
                   type="number"
@@ -86,11 +84,11 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
               </Col>
             </FormGroup>
 
-            <FormGroup row={true}>
-              <Label className="text-left" for="starting-time-input" sm={colLabel}>
+            <FormGroup>
+              <Label className="text-left" for="starting-time-input">
                 {t('createCrowdsale.startingTime')}
               </Label>
-              <Col sm={colInput}>
+              <Col>
                 <DatetimePicker
                   value={moment(this.state.startingTime)}
                   // inputProps={
@@ -106,11 +104,11 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
               </Col>
             </FormGroup>
 
-            <FormGroup row={true}>
-              <Label className="text-left" for="duration" sm={colLabel}>
+            <FormGroup>
+              <Label className="text-left" for="duration">
                 {t('createCrowdsale.duration')}
               </Label>
-              <Col sm={colInput}>
+              <Col>
                 <Input
                   type="select"
                   value={this.state.duration}

@@ -27,7 +27,7 @@ pipeline {
         anyOf {
           branch 'master'
           branch 'staging'
-	}
+	      }
       }
       steps {
         sh 'docker build -t noel/tokenadmin .'

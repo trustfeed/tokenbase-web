@@ -4,12 +4,17 @@
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
   transition: all 0.5s ease;
+
 }
 
 .page-content-wrapper {
   width: 100%;
   position: relative;
   margin-top: 56px;
+  /* 768px = 250px + 518px (sidebar) */
+  min-width: 518px;
+  overflow-x:  scroll !important;
+  padding-bottom: 200px;
 }
 
 .full-page-wrapper {

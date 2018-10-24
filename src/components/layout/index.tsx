@@ -33,9 +33,9 @@ class Layout extends React.Component<ILayoutProps, {}> {
             <div>
               <Header history={history} location={location} match={match} isAuth={isAuth} />
               {children}
-              <Footer />
             </div>
           </div>
+          <Footer />
         </div>
       );
     }

@@ -7,7 +7,7 @@ WORKDIR /app/
 COPY . .
 
 RUN npm-install-que && \
-    npm install --global prettier && \
-    npm run ci
+  npm install --global prettier && \
+  npm run ci
 
 CMD ["npm","run","build"]
