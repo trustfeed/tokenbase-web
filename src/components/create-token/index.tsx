@@ -11,9 +11,9 @@ interface IProps {
 
 interface IState {
   id: string;
-  tokenName: string;
-  tokenSymbol: string;
-  isMintable: boolean;
+  name: string;
+  symbol: string;
+  mintable: boolean;
 
   isTokenNameValid: boolean;
   isTokenNameInvalid: boolean;
@@ -24,9 +24,9 @@ interface IState {
 export default class CreateTokenForm extends React.Component<IProps, IState> {
   public readonly state: IState = {
     id: '',
-    tokenName: '',
-    tokenSymbol: '',
-    isMintable: false,
+    name: '',
+    symbol: '',
+    mintable: false,
 
     isTokenNameInvalid: false,
     isTokenNameValid: false,
@@ -35,7 +35,7 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
   };
 
   public render(): React.ReactNode {
-    const { t, onSubmit } = this.props;
+    const { t } = this.props;
 
     return (
       <Form>
@@ -50,7 +50,7 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
                   <Input
                     type="text"
                     data-test-id="token-name-input"
-                    value={this.state.tokenName}
+                    value={this.state.name}
                     onChange={this.changeTokenName}
                     maxLength={20}
                     placeholder="Sample Token"
@@ -58,8 +58,30 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
                     invalid={this.state.isTokenNameInvalid}
                     valid={this.state.isTokenNameValid}
                   />
-                  <FormFeedback>{t('createToken.tokenNameInvalid')}</FormFeedback>
-                  <FormFeedback valid={true}>{t('createToken.tokenNameValid')}</FormFeedback>
+                  <FormFeedback>{t('createToken.nameInvalid')}</FormFeedback>
+                  <FormFeedback valid={true}>{t('createToken.nameValid')}</FormFeedback>
+                </div>
+              </Col>
+            </FormGroup>
+            <FormGroup>
+              <Label className="text-left" for="token-name">
+                {t('createToken.name')}
+              </Label>
+              <Col>
+                <div className="center">
+                  <Input
+                    type="text"
+                    data-test-id="token-name-input"
+                    value={this.state.name}
+                    onChange={this.changeTokenName}
+                    maxLength={20}
+                    placeholder="Sample Token"
+                    autoComplete="new-password"
+                    invalid={this.state.isTokenNameInvalid}
+                    valid={this.state.isTokenNameValid}
+                  />
+                  <FormFeedback>{t('createToken.nameInvalid')}</FormFeedback>
+                  <FormFeedback valid={true}>{t('createToken.nameValid')}</FormFeedback>
                 </div>
               </Col>
             </FormGroup>
@@ -72,7 +94,7 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
                   <Input
                     type="text"
                     data-test-id="token-symbol-input"
-                    value={this.state.tokenSymbol}
+                    value={this.state.symbol}
                     onChange={this.changeTokenSymbol}
                     invalid={this.state.isTokenSymbolInvalid}
                     valid={this.state.isTokenSymbolValid}
@@ -80,14 +102,14 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
                     autoComplete="new-password"
                     maxLength={6}
                   />
-                  <FormFeedback>{t('createToken.tokenSymbolInvalid')}</FormFeedback>
-                  <FormFeedback valid={true}>{t('createToken.tokenSymbolValid')}</FormFeedback>
+                  <FormFeedback>{t('createToken.symbolInvalid')}</FormFeedback>
+                  <FormFeedback valid={true}>{t('createToken.symbolValid')}</FormFeedback>
                 </div>
               </Col>
             </FormGroup>
             <FormGroup>
               <Label className="text-left" for="is-mintable">
-                {t('createToken.isMintable')}
+                {t('createToken.mintable')}
               </Label>
               <Col>
                 <FormGroup check={true}>
@@ -96,7 +118,7 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
                       <Input
                         name="is-mintable"
                         type="checkbox"
-                        checked={this.state.isMintable}
+                        checked={this.state.mintable}
                         onChange={this.checkMintable}
                         className="form-check-input"
                       />
@@ -109,7 +131,7 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
           </Col>
           <Col sm={12} md={12} lg={12}>
             <div className="py-3 text-center">
-              <Button color="primary" onClick={onSubmit}>
+              <Button color="primary" onClick={this.handleSubmit}>
                 {t('createToken.submit')}
               </Button>
             </div>
@@ -125,7 +147,7 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
     const key = 'TokenName';
     const regex = ALPHANUMERIC_REGEX;
     const validationResult = getInputValidationState(key, value, regex);
-    this.setState({ ...validationResult, tokenName: value });
+    this.setState({ ...validationResult, name: value });
   };
 
   private changeTokenSymbol = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -134,12 +156,22 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
     const key = 'TokenSymbol';
     const regex = ALPHABETIC_REGEX;
     const validationResult = getInputValidationState(key, value, regex);
-    this.setState({ ...validationResult, tokenSymbol: value });
+    this.setState({ ...validationResult, symbol: value });
   };
 
   private checkMintable = (e) => {
     const target = e.target;
-    const isMintable = target.checked;
-    this.setState({ isMintable });
+    const mintable = target.checked;
+    this.setState({ mintable });
+  };
+
+  private handleSubmit = (e) => {
+    const { name, symbol, mintable } = this.state;
+    const body = {
+      name,
+      symbol,
+      mintable
+    };
+    console.log(body);
   };
 }
