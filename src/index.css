@@ -160,7 +160,7 @@
 .rdtDay.rdtToday.rdtActive,
 .rdtDay.rdtActive,
 .rdtDay.rdtActive:hover {
-  background-color: #f96332 !important;
+  background-color: #1082fc !important;
   color: #FFFFFF;
 }
 
@@ -238,7 +238,7 @@
 .rdtPicker th.rdtNext,
 .rdtPicker th.rdtPrev,
 .rdtPicker .rdtTimeToggle {
-  color: #f96332;
+  color: #1082fc;
 }
 
 .rdtPrev span,
@@ -330,9 +330,9 @@ td.rdtYear:hover {
 }
 
 .rdtCounters .rdtCounter:last-child .rdtCount {
-  color: #f96332;
+  color: #1082fc;
   border-radius: 50%;
-  border: 1px solid #f96332;
+  border: 1px solid #1082fc;
 }
 
 .rdtCounterSeparator {
@@ -406,6 +406,26 @@ td.rdtYear:hover {
 .rdtMonths .rdtYear.rdtActive,
 .rdtYears .rdtMonth.rdtActive,
 .rdtYears .rdtYear.rdtActive {
-  background-color: #f96332 !important;
+  background-color: #1082fc !important;
   color: #FFFFFF;
+}
+
+.rangeslider-horizontal {
+  height: 6px;
+  border-radius: 10px;
+}
+.rangeslider-horizontal .rangeslider__fill {
+  background-color: #1082fc;
+}
+.rangeslider-horizontal .rangeslider__handle {
+  width: 15px;
+  height: 15px;
+}
+.rangeslider-horizontal .rangeslider__handle:after {
+  width: 0px;
+  height: 0px;
+}
+
+.form-check-inline {
+  margin-right: 1.6rem;
 }

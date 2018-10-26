@@ -84,91 +84,84 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
               <Label className="text-left" for="token-name">
                 {t('ethToken.name')}
               </Label>
-              <Col>
-                <div className="center">
-                  <Input
-                    type="text"
-                    data-test-id="token-name-input"
-                    value={this.state.name}
-                    onChange={this.changeName}
-                    maxLength={32}
-                    placeholder="Sample Token"
-                    autoComplete="new-password"
-                    invalid={this.state.nameInvalid}
-                    valid={this.state.nameValid}
-                  />
-                  <FormFeedback>{t('ethToken.nameInvalid')}</FormFeedback>
-                  <FormFeedback valid={true}>{t('ethToken.nameValid')}</FormFeedback>
-                </div>
-              </Col>
+
+              <div className="center">
+                <Input
+                  type="text"
+                  data-test-id="token-name-input"
+                  value={this.state.name}
+                  onChange={this.changeName}
+                  maxLength={32}
+                  placeholder="Sample Token"
+                  autoComplete="new-password"
+                  invalid={this.state.nameInvalid}
+                  valid={this.state.nameValid}
+                />
+                <FormFeedback>{t('ethToken.nameInvalid')}</FormFeedback>
+                <FormFeedback valid={true}>{t('ethToken.nameValid')}</FormFeedback>
+              </div>
             </FormGroup>
 
             <FormGroup>
               <Label className="text-left" for="token-symbol">
                 {t('ethToken.symbol')}
               </Label>
-              <Col>
-                <div className="center">
-                  <Input
-                    type="text"
-                    data-test-id="token-symbol-input"
-                    value={this.state.symbol}
-                    onChange={this.changeSymbol}
-                    invalid={this.state.symbolInvalid}
-                    valid={this.state.symbolValid}
-                    placeholder="ST"
-                    autoComplete="new-password"
-                    maxLength={6}
-                  />
-                  <FormFeedback>{t('ethToken.symbolInvalid')}</FormFeedback>
-                  <FormFeedback valid={true}>{t('ethToken.symbolValid')}</FormFeedback>
-                </div>
-              </Col>
+              <div className="center">
+                <Input
+                  type="text"
+                  data-test-id="token-symbol-input"
+                  value={this.state.symbol}
+                  onChange={this.changeSymbol}
+                  invalid={this.state.symbolInvalid}
+                  valid={this.state.symbolValid}
+                  placeholder="ST"
+                  autoComplete="new-password"
+                  maxLength={6}
+                />
+                <FormFeedback>{t('ethToken.symbolInvalid')}</FormFeedback>
+                <FormFeedback valid={true}>{t('ethToken.symbolValid')}</FormFeedback>
+              </div>
             </FormGroup>
             <br />
             <FormGroup>
               <Label className="text-left" for="minter">
                 {t('ethToken.minter')}
               </Label>
-              <Col>
-                <div className="center">
-                  <Input
-                    type="text"
-                    data-test-id="minter-input"
-                    value={this.state.minter}
-                    onChange={this.changeMinter}
-                    invalid={this.state.minterInvalid}
-                    valid={this.state.minterValid}
-                    placeholder="ethereum address"
-                    autoComplete="new-password"
-                    maxLength={42}
-                  />
-                  <FormFeedback>{t('ethToken.minterInvalid')}</FormFeedback>
-                  <FormFeedback valid={true}>{t('ethToken.minterValid')}</FormFeedback>
-                </div>
-              </Col>
+              <div className="center">
+                <Input
+                  type="text"
+                  data-test-id="minter-input"
+                  value={this.state.minter}
+                  onChange={this.changeMinter}
+                  invalid={this.state.minterInvalid}
+                  valid={this.state.minterValid}
+                  placeholder="ethereum address"
+                  autoComplete="new-password"
+                  maxLength={42}
+                />
+                <FormFeedback>{t('ethToken.minterInvalid')}</FormFeedback>
+                <FormFeedback valid={true}>{t('ethToken.minterValid')}</FormFeedback>
+              </div>
             </FormGroup>
             <br />
             <FormGroup>
               <Label className="text-left" for="is-mintable">
                 {t('ethToken.mintable')}
               </Label>
-              <Col>
-                <FormGroup check={true}>
-                  <div className="center">
-                    <Label check={true}>
-                      <Input
-                        name="is-mintable"
-                        type="checkbox"
-                        checked={this.state.mintable}
-                        onChange={this.checkMintable}
-                        className="form-check-input"
-                      />
-                      <span className="form-check-sign">{'Mintable'}</span>
-                    </Label>
-                  </div>
-                </FormGroup>
-              </Col>
+              <FormGroup check={true}>
+                <div className="center">
+                  <Label check={true}>
+                    <Input
+                      name="is-mintable"
+                      type="checkbox"
+                      checked={this.state.mintable}
+                      onChange={this.checkMintable}
+                      className="form-check-input"
+                    />
+                    <span className="form-check-sign">{'Mintable'}</span>
+                  </Label>
+                </div>
+              </FormGroup>
             </FormGroup>
           </Col>
           <Col sm={12} md={12} lg={12}>
