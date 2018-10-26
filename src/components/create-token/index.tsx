@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Row, Col, Input, Label, FormGroup, Button, Form, FormFeedback } from 'reactstrap';
-import { ALPHANUMERIC_REGEX, ALPHABETIC_REGEX } from 'src/utils/regex';
+import { ALPHANUMERIC_REGEX, TOKEN_SYMBOL_REGEX, ETH_ADDRESS_REGEX } from 'src/utils/regex';
 import { getInputValidationState } from '../../utils/helpers';
 
 interface IProps {
@@ -15,25 +15,33 @@ interface IState {
   symbol: string;
   network: string;
   mintable: boolean;
+  minter: string;
 
-  isTokenNameValid: boolean;
-  isTokenNameInvalid: boolean;
-  isTokenSymbolValid: boolean;
-  isTokenSymbolInvalid: boolean;
+  nameValid: boolean;
+  nameInvalid: boolean;
+  symbolValid: boolean;
+  symbolInvalid: boolean;
+  minterValid: boolean;
+  minterInvalid: boolean;
 }
 
 export default class CreateTokenForm extends React.Component<IProps, IState> {
   public readonly state: IState = {
     id: '',
     name: '',
-    symbol: '',
-    network: 'rinkeby',
-    mintable: false,
+    nameInvalid: false,
+    nameValid: false,
 
-    isTokenNameInvalid: false,
-    isTokenNameValid: false,
-    isTokenSymbolValid: false,
-    isTokenSymbolInvalid: false
+    symbol: '',
+    symbolValid: false,
+    symbolInvalid: false,
+
+    minter: '',
+    minterValid: false,
+    minterInvalid: false,
+
+    network: 'rinkeby',
+    mintable: false
   };
 
   public render(): React.ReactNode {
@@ -42,7 +50,36 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
     return (
       <Form>
         <Row>
-          <Col xs={10} sm={8} md={7} lg={5} className="mr-auto ml-auto">
+          <Col xs={10} sm={8} md={7} lg={6} className="mr-auto ml-auto">
+            <FormGroup>
+              <Label className="text-left text-gray">{t('ethToken.network')}</Label>
+              <br />
+              <FormGroup check={true} inline={true}>
+                <Label check={true}>
+                  <Input
+                    type="radio"
+                    name="radio-network"
+                    value="mainnet"
+                    checked={this.state.network === 'mainnet'}
+                    onChange={this.handleNetworkOptionChange}
+                  />{' '}
+                  {t('ethToken.mainnet')}
+                </Label>
+              </FormGroup>
+              <FormGroup check={true} inline={true}>
+                <Label check={true}>
+                  <Input
+                    type="radio"
+                    name="radio-network"
+                    value="rinkeby"
+                    checked={this.state.network === 'rinkeby'}
+                    onChange={this.handleNetworkOptionChange}
+                  />{' '}
+                  {t('ethToken.rinkeby')}
+                </Label>
+              </FormGroup>
+            </FormGroup>
+            <br />
             <FormGroup>
               <Label className="text-left" for="token-name">
                 {t('ethToken.name')}
@@ -53,12 +90,12 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
                     type="text"
                     data-test-id="token-name-input"
                     value={this.state.name}
-                    onChange={this.changeTokenName}
-                    maxLength={20}
+                    onChange={this.changeName}
+                    maxLength={32}
                     placeholder="Sample Token"
                     autoComplete="new-password"
-                    invalid={this.state.isTokenNameInvalid}
-                    valid={this.state.isTokenNameValid}
+                    invalid={this.state.nameInvalid}
+                    valid={this.state.nameValid}
                   />
                   <FormFeedback>{t('ethToken.nameInvalid')}</FormFeedback>
                   <FormFeedback valid={true}>{t('ethToken.nameValid')}</FormFeedback>
@@ -76,15 +113,38 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
                     type="text"
                     data-test-id="token-symbol-input"
                     value={this.state.symbol}
-                    onChange={this.changeTokenSymbol}
-                    invalid={this.state.isTokenSymbolInvalid}
-                    valid={this.state.isTokenSymbolValid}
+                    onChange={this.changeSymbol}
+                    invalid={this.state.symbolInvalid}
+                    valid={this.state.symbolValid}
                     placeholder="ST"
                     autoComplete="new-password"
                     maxLength={6}
                   />
                   <FormFeedback>{t('ethToken.symbolInvalid')}</FormFeedback>
                   <FormFeedback valid={true}>{t('ethToken.symbolValid')}</FormFeedback>
+                </div>
+              </Col>
+            </FormGroup>
+            <br />
+            <FormGroup>
+              <Label className="text-left" for="minter">
+                {t('ethToken.minter')}
+              </Label>
+              <Col>
+                <div className="center">
+                  <Input
+                    type="text"
+                    data-test-id="minter-input"
+                    value={this.state.minter}
+                    onChange={this.changeMinter}
+                    invalid={this.state.minterInvalid}
+                    valid={this.state.minterValid}
+                    placeholder="ethereum address"
+                    autoComplete="new-password"
+                    maxLength={42}
+                  />
+                  <FormFeedback>{t('ethToken.minterInvalid')}</FormFeedback>
+                  <FormFeedback valid={true}>{t('ethToken.minterValid')}</FormFeedback>
                 </div>
               </Col>
             </FormGroup>
@@ -110,57 +170,6 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
                 </FormGroup>
               </Col>
             </FormGroup>
-            <br />
-            <FormGroup tag="fieldset">
-              <Label className="text-left">{t('ethToken.network')}</Label>
-              <FormGroup check={true}>
-                <Label check={true}>
-                  <Input
-                    type="radio"
-                    name="radio-network"
-                    value="mainnet"
-                    checked={this.state.network === 'mainnet'}
-                    onChange={this.handleNetworkOptionChange}
-                  />{' '}
-                  <small>{t('ethToken.mainnet')}</small>
-                </Label>
-              </FormGroup>
-              <FormGroup check={true}>
-                <Label check={true}>
-                  <Input
-                    type="radio"
-                    name="radio-network"
-                    value="rinkeby"
-                    checked={this.state.network === 'rinkeby'}
-                    onChange={this.handleNetworkOptionChange}
-                  />{' '}
-                  <small>{t('ethToken.rinkeby')}</small>
-                </Label>
-              </FormGroup>
-            </FormGroup>
-            <br />
-            <FormGroup>
-              <Label className="text-left" for="minters">
-                {t('ethToken.minters')}
-              </Label>
-              <Col>
-                <div className="center">
-                  <Input
-                    type="text"
-                    data-test-id="minters-input"
-                    value={this.state.symbol}
-                    onChange={this.changeTokenSymbol}
-                    invalid={this.state.isTokenSymbolInvalid}
-                    valid={this.state.isTokenSymbolValid}
-                    placeholder="ethereum address"
-                    autoComplete="new-password"
-                    maxLength={6}
-                  />
-                  <FormFeedback>{t('ethToken.mintersInvalid')}</FormFeedback>
-                  <FormFeedback valid={true}>{t('ethToken.mintersValid')}</FormFeedback>
-                </div>
-              </Col>
-            </FormGroup>
           </Col>
           <Col sm={12} md={12} lg={12}>
             <div className="py-3 text-center">
@@ -174,22 +183,31 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
     );
   }
 
-  private changeTokenName = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  private changeName = (e: React.ChangeEvent<HTMLInputElement>): void => {
     e.preventDefault();
     const value = e.target.value;
-    const key = 'TokenName';
+    const key = 'name';
     const regex = ALPHANUMERIC_REGEX;
     const validationResult = getInputValidationState(key, value, regex);
-    this.setState({ ...validationResult, name: value });
+    this.setState({ ...validationResult, [key]: value });
   };
 
-  private changeTokenSymbol = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  private changeSymbol = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    e.preventDefault();
+    const value = e.target.value.toUpperCase();
+    const key = 'symbol';
+    const regex = TOKEN_SYMBOL_REGEX;
+    const validationResult = getInputValidationState(key, value, regex);
+    this.setState({ ...validationResult, [key]: value });
+  };
+
+  private changeMinter = (e: React.ChangeEvent<HTMLInputElement>): void => {
     e.preventDefault();
     const value = e.target.value;
-    const key = 'TokenSymbol';
-    const regex = ALPHABETIC_REGEX;
+    const key = 'minter';
+    const regex = ETH_ADDRESS_REGEX;
     const validationResult = getInputValidationState(key, value, regex);
-    this.setState({ ...validationResult, symbol: value });
+    this.setState({ ...validationResult, [key]: value });
   };
 
   private checkMintable = (e) => {
@@ -205,16 +223,15 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
   };
 
   private handleSubmit = (e) => {
-    const { network, name, symbol, mintable } = this.state;
+    const { network, name, symbol, mintable, minter } = this.state;
     const body = {
       network,
       name,
       symbol,
       mintable,
       decimals: 18,
-      minters: ['0xf9253378464CF9A100d76f51a6B2d29Bd30a49Bb']
+      minters: [minter]
     };
-
-    console.log(body);
+    this.props.onSubmit(body);
   };
 }

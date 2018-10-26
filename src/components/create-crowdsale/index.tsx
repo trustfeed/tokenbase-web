@@ -91,14 +91,6 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
               <Col>
                 <DatetimePicker
                   value={moment(this.state.startingTime)}
-                  // inputProps={
-                  //   this.state.isStartingTimeInvalid
-                  //     ? {
-                  //         className: 'is-invalid form-control',
-                  //         id: 'starting-time-input'
-                  //       }
-                  //     : { id: 'starting-time-input' }
-                  // }
                   isValidDate={validateDate}
                 />
               </Col>

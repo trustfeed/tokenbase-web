@@ -41,6 +41,9 @@
   margin: auto;
   padding: 0px;
 }
+.text-gray {
+  color: gray;
+}
 
 .ml-auto {
   margin-left: auto !important;

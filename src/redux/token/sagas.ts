@@ -1,20 +1,19 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { select, call, put, takeLatest } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import axios from 'axios';
 
 import * as consts from './types';
 
 import { getHeaders, getCreateEthTokenAPI } from '../../api';
+const getUser = (state) => state.user;
 
-const fetchSignIn = async (payload) => {
+const fetchCreateEthToken = async (accessToken, payload) => {
   try {
-    const email: string = payload.email;
-    const password: string = payload.password;
     const { data } = await axios({
       method: 'POST',
       url: getCreateEthTokenAPI(),
-      headers: getHeaders(),
-      data: JSON.stringify({ email, password })
+      headers: getHeaders(accessToken),
+      data: JSON.stringify(payload)
     });
     return data;
   } catch (error) {
@@ -22,21 +21,20 @@ const fetchSignIn = async (payload) => {
   }
 };
 
-function* workSignIn(action) {
+function* workCreateEthToken(action) {
   // debounce by 500ms
   yield delay(500);
   try {
     const { payload } = action;
-    const password: string = payload.password;
-    const email: string = payload.email;
-    const result = yield call(fetchSignIn, { email, password });
-    const accessToken: string = result.token;
-    yield [put({ type: consts.CREATE_ETH_TOKEN_SUCCEEDED, payload: { accessToken } })];
+    const user = yield select(getUser);
+    const accessToken: string = user.accessToken;
+    yield call(fetchCreateEthToken, accessToken, payload);
+    yield put({ type: consts.CREATE_ETH_TOKEN_SUCCEEDED });
   } catch (error) {
     console.log(error);
     yield put({ type: consts.CREATE_ETH_TOKEN_FAILED });
   }
 }
-export function* watchSignIn() {
-  yield takeLatest(consts.CREATE_ETH_TOKEN, workSignIn);
+export function* watchCreateEthToken() {
+  yield takeLatest(consts.CREATE_ETH_TOKEN, workCreateEthToken);
 }

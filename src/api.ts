@@ -32,7 +32,7 @@ export const getEmailVerificationAPI = () => `${HOST}/user/verify-email`;
 export const getHeaders = (accessToken?: string) => {
   if (accessToken) {
     return {
-      'x-access-token': accessToken,
+      'X-Access-Token': accessToken,
       'Content-Type': 'application/json'
     };
   }
