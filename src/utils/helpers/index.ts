@@ -46,8 +46,8 @@ export const changeQueryStringToJSON = (qs: string): any => {
 
 export const getInputValidationState = (key: string, value: string, regex: RegExp) => {
   const isValid: boolean = regex.test(value);
-  const keyValid = 'is' + key + 'Valid';
-  const keyInvalid = 'is' + key + 'Invalid';
+  const keyValid = key + 'Valid';
+  const keyInvalid = key + 'Invalid';
   const state = {};
   if (!value) {
     state[keyValid] = false;

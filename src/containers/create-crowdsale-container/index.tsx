@@ -6,14 +6,14 @@ import { Container } from 'reactstrap';
 import Layout from '../../components/layout';
 import CreateCrowdsale from '../../components/create-crowdsale';
 import { NotificationManager } from 'react-notifications';
-import { createCrowdsaleContract } from '../../redux/contract/actions';
+import { createEthCrowdsale } from '../../redux/crowdsale/actions';
 import { changeQueryStringToJSON } from '../../utils/helpers';
 
 interface IOnChainDataFormProps {
   t: (key: string) => string;
   location: any;
   history: any;
-  createCrowdsaleContract: (body) => void;
+  createEthCrowdsale: (body) => void;
   hasCampaignCreated: boolean | undefined;
   isCreatingCampaign: boolean | undefined;
   hasOnChainDataUpdated: boolean | undefined;
@@ -53,9 +53,9 @@ class OnChainDataForm extends React.Component<IOnChainDataFormProps, {}> {
       <Layout location={location} history={history} showSidebar={true}>
         <Container>
           <br />
-          <h5 className="text-center">{t('createCrowdsale.title')}</h5>
+          <h5 className="text-center">{t('createEthCrowdsale.title')}</h5>
           <br />
-          <CreateCrowdsale onSubmit={createCrowdsaleContract} t={t} />
+          <CreateCrowdsale onSubmit={createEthCrowdsale} t={t} />
         </Container>
       </Layout>
     );
@@ -66,7 +66,7 @@ const WithTranslation = translate('translations')(OnChainDataForm);
 
 const mapStateToProps = (state) => ({});
 const mapDispatchToProps = (dispatch) => ({
-  createCrowdsaleContract: (body) => dispatch(createCrowdsaleContract(body))
+  createEthCrowdsale: (body) => dispatch(createEthCrowdsale(body))
 });
 
 export default connect(

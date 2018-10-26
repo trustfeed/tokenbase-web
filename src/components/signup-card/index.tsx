@@ -23,48 +23,48 @@ interface IProps {
 }
 interface IState {
   email: string;
-  isEmailValid: boolean;
-  isEmailInvalid: boolean;
+  emailValid: boolean;
+  emailInvalid: boolean;
 
   password: string;
-  isPasswordValid: boolean;
-  isPasswordInvalid: boolean;
+  passwordValid: boolean;
+  passwordInvalid: boolean;
 
   password2: string;
-  isPassword2Valid: boolean;
-  isPassword2Invalid: boolean;
+  password2Valid: boolean;
+  password2Invalid: boolean;
 }
 
 class LoginCard extends React.Component<IProps, IState> {
   public readonly state: IState = {
     email: '',
-    isEmailValid: false,
-    isEmailInvalid: false,
+    emailValid: false,
+    emailInvalid: false,
 
     password: '',
-    isPasswordValid: false,
-    isPasswordInvalid: false,
+    passwordValid: false,
+    passwordInvalid: false,
 
     password2: '',
-    isPassword2Valid: false,
-    isPassword2Invalid: false
+    password2Valid: false,
+    password2Invalid: false
   };
   public render() {
     const t = (s) => s;
     const {
-      isEmailInvalid,
-      isPasswordInvalid,
-      isPassword2Invalid,
-      isEmailValid,
-      isPassword2Valid,
-      isPasswordValid
+      emailInvalid,
+      passwordInvalid,
+      password2Invalid,
+      emailValid,
+      password2Valid,
+      passwordValid
     } = this.state;
 
     const isSubmitDisabled =
-      isEmailInvalid ||
-      isPasswordInvalid ||
-      isPassword2Invalid ||
-      !(isEmailValid && isPassword2Valid && isPasswordValid);
+      emailInvalid ||
+      passwordInvalid ||
+      password2Invalid ||
+      !(emailValid && password2Valid && passwordValid);
 
     return (
       <Row>
@@ -81,15 +81,15 @@ class LoginCard extends React.Component<IProps, IState> {
                       data-test-id="my-email-input"
                       value={this.state.email}
                       onChange={this.changeEmail}
-                      valid={this.state.isEmailValid}
-                      invalid={this.state.isEmailInvalid}
+                      valid={this.state.emailValid}
+                      invalid={this.state.emailInvalid}
                       placeholder={t('signup.email')}
                       autoComplete="new-password"
                       maxLength={32}
                     />
                     <FormFeedback>{t('signup.emailInvalidMessage')}</FormFeedback>
                     <FormFeedback valid={true}>{t('signup.emailValidMessage')}</FormFeedback>
-                    {!(isEmailValid || isEmailInvalid) ? (
+                    {!(emailValid || emailInvalid) ? (
                       <FormText>{t('signup.emailMessage')}</FormText>
                     ) : null}
                   </FormGroup>
@@ -100,8 +100,8 @@ class LoginCard extends React.Component<IProps, IState> {
                       data-test-id="my-password-input"
                       value={this.state.password}
                       onChange={this.changePassword}
-                      valid={this.state.isPasswordValid}
-                      invalid={this.state.isPasswordInvalid}
+                      valid={this.state.passwordValid}
+                      invalid={this.state.passwordInvalid}
                       placeholder={t('signup.password')}
                       autoComplete="new-password"
                       maxLength={32}
@@ -109,7 +109,7 @@ class LoginCard extends React.Component<IProps, IState> {
 
                     <FormFeedback>{t('signup.passwordInvalidMessage')}</FormFeedback>
                     <FormFeedback valid={true}>{t('signup.passwordValidMessage')}</FormFeedback>
-                    {!(isPasswordValid || isPasswordInvalid) ? (
+                    {!(passwordValid || passwordInvalid) ? (
                       <FormText>{t('signup.passwordMessage')}</FormText>
                     ) : null}
                   </FormGroup>
@@ -119,8 +119,8 @@ class LoginCard extends React.Component<IProps, IState> {
                       data-test-id="my-password2-input"
                       value={this.state.password2}
                       onChange={this.changePassword2}
-                      valid={this.state.isPassword2Valid}
-                      invalid={this.state.isPassword2Invalid}
+                      valid={this.state.password2Valid}
+                      invalid={this.state.password2Invalid}
                       placeholder={t('signup.password2')}
                       autoComplete="new-password2"
                       maxLength={32}
@@ -128,7 +128,7 @@ class LoginCard extends React.Component<IProps, IState> {
 
                     <FormFeedback>{t('signup.password2InvalidMessage')}</FormFeedback>
                     <FormFeedback valid={true}>{t('signup.password2ValidMessage')}</FormFeedback>
-                    {!(isPassword2Valid || isPassword2Invalid) ? (
+                    {!(password2Valid || password2Invalid) ? (
                       <FormText>{t('signup.password2Message')}</FormText>
                     ) : null}
                   </FormGroup>
@@ -155,19 +155,19 @@ class LoginCard extends React.Component<IProps, IState> {
   private changeEmail = (e: React.ChangeEvent<HTMLInputElement>): void => {
     e.preventDefault();
     const value = e.target.value;
-    const key = 'Email';
+    const key = 'email';
     const regex = EMAIL_REGEX;
     const validationResult = getInputValidationState(key, value, regex);
-    this.setState({ ...validationResult, email: value });
+    this.setState({ ...validationResult, [key]: value });
   };
 
   private changePassword = (e: React.ChangeEvent<HTMLInputElement>): void => {
     e.preventDefault();
     const value = e.target.value;
-    const key = 'Password';
+    const key = 'password';
     const regex = PASSWORD_REGEX;
     const validationResult = getInputValidationState(key, value, regex);
-    this.setState({ ...validationResult, password: value });
+    this.setState({ ...validationResult, [key]: value });
   };
 
   private changePassword2 = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -178,12 +178,12 @@ class LoginCard extends React.Component<IProps, IState> {
     const isSamePassword = password2 === password;
 
     if (!password2) {
-      return this.setState({ password2, isPassword2Valid: false, isPassword2Invalid: false });
+      return this.setState({ password2, password2Valid: false, password2Invalid: false });
     }
     if (isSamePassword) {
-      this.setState({ password2, isPassword2Valid: true, isPassword2Invalid: false });
+      this.setState({ password2, password2Valid: true, password2Invalid: false });
     } else {
-      this.setState({ password2, isPassword2Valid: false, isPassword2Invalid: true });
+      this.setState({ password2, password2Valid: false, password2Invalid: true });
     }
   };
 

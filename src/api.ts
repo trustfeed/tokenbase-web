@@ -19,11 +19,11 @@ switch (window.location.hostname) {
 export const getSignInAPI = () => `${HOST}/user/auth`;
 export const getSignUpAPI = () => `${HOST}/user/signup`;
 
-export const getCreateTokenAPI = () => `${HOST}/eth/tokens`;
-export const getFinaliseTokenAPI = () => `${HOST}/eth/tokens/finalise`;
+export const getCreateEthTokenAPI = () => `${HOST}/eth/tokens`;
+export const getFinaliseEthTokenAPI = () => `${HOST}/eth/tokens/finalise`;
 
-export const getCreateCrowdsalesAPI = () => `${HOST}/eth/crowdsales`;
-export const getFinaliseCrowdsalesAPI = () => `${HOST}/eth/crowdsales/finalise`;
+export const getCreateEthCrowdsalesAPI = () => `${HOST}/eth/crowdsales`;
+export const getFinaliseEthCrowdsalesAPI = () => `${HOST}/eth/crowdsales/finalise`;
 
 export const getUserAPI = (id?: string) => `${HOST}/users${id ? `/${id}` : ''}`;
 export const getAuthAPI = () => `${HOST}/auth`;
@@ -32,7 +32,7 @@ export const getEmailVerificationAPI = () => `${HOST}/user/verify-email`;
 export const getHeaders = (accessToken?: string) => {
   if (accessToken) {
     return {
-      'x-access-token': accessToken,
+      'X-Access-Token': accessToken,
       'Content-Type': 'application/json'
     };
   }

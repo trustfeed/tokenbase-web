@@ -6,14 +6,14 @@ import { Container } from 'reactstrap';
 import Layout from '../../components/layout';
 import CreateToken from '../../components/create-token';
 import { NotificationManager } from 'react-notifications';
-import { createTokenContract } from '../../redux/contract/actions';
+import { createEthToken } from '../../redux/token/actions';
 import { changeQueryStringToJSON } from '../../utils/helpers';
 
 interface IOnChainDataFormProps {
   t: (key: string) => string;
   location: any;
   history: any;
-  createTokenContract: (body) => void;
+  createEthToken: (body) => void;
   hasCampaignCreated: boolean | undefined;
   isCreatingCampaign: boolean | undefined;
   hasOnChainDataUpdated: boolean | undefined;
@@ -53,9 +53,9 @@ class OnChainDataForm extends React.Component<IOnChainDataFormProps, {}> {
       <Layout location={location} history={history} showSidebar={true}>
         <Container>
           <br />
-          <h5 className="text-center">{t('createToken.title')}</h5>
+          <h5 className="text-center">{t('ethToken.title')}</h5>
           <br />
-          <CreateToken onSubmit={createTokenContract} t={t} />
+          <CreateToken onSubmit={this.props.createEthToken} t={t} />
         </Container>
       </Layout>
     );
@@ -66,7 +66,7 @@ const WithTranslation = translate('translations')(OnChainDataForm);
 
 const mapStateToProps = (state) => ({});
 const mapDispatchToProps = (dispatch) => ({
-  createTokenContract: (body) => dispatch(createTokenContract(body))
+  createEthToken: (body) => dispatch(createEthToken(body))
 });
 
 export default connect(

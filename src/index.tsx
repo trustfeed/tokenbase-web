@@ -12,6 +12,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 import '!style-loader!css-loader!bootstrap/dist/css/bootstrap.css';
 import '!style-loader!css-loader!react-notifications/lib/notifications.css';
+import '!style-loader!css-loader!react-rangeslider/lib/index.css';
 import '!style-loader!css-loader!./index.css';
 
 ReactDOM.render(
