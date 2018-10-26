@@ -14,24 +14,40 @@ interface IProps {
 interface IState {
   id: string;
   pricePerEther: string;
-  softCap: number;
-  hardCap: number;
+  goal: number;
+  cap: number;
   duration: number;
   startingTime: any; // Unix timestamp to start the campaign. Must be at least 24 hours in the future.
 }
+
+const MAX_GOAL = 10000;
+const MAX_CAP = 20000;
+const getCap = (goal: number, maxCap: number) => (maxCap + goal) / 2;
+const roundOff = (value: number): number => {
+  let remainder;
+  if (100 <= value && value < 1000) {
+    remainder = value % 100;
+    return value - remainder;
+  } else if (1000 <= value && value < 99999) {
+    remainder = value % 1000;
+    return value - remainder;
+  } else {
+    return value;
+  }
+};
 
 export default class CreateTokenForm extends React.Component<IProps, IState> {
   public readonly state: IState = {
     id: '',
     pricePerEther: '0.01',
-    softCap: 250000,
-    hardCap: 500000,
+    goal: 5000,
+    cap: getCap(5000, MAX_CAP),
     duration: 30, // The number of days the campaign will run. Must be greater than 1.
     startingTime: moment().valueOf() // Unix timestamp to start the campaign. Must be at least 24 hours in the future.
   };
 
   public render(): React.ReactNode {
-    const { t, onSubmit } = this.props;
+    const { t } = this.props;
 
     // const aWeekAfter = moment().add(1, 'week');
     const yesterday = moment().subtract(1, 'day');
@@ -44,33 +60,27 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
         <Row>
           <Col xs={10} sm={8} md={7} lg={5} className="mr-auto ml-auto">
             <FormGroup>
-              <Label className="text-gray">{t('ethCrowdsale.softCap')}</Label>
+              <Label className="text-gray">{t('ethCrowdsale.goal')}</Label>
               <Slider
                 min={10}
-                max={500000}
+                max={MAX_GOAL}
                 step={10}
-                value={this.state.softCap}
+                value={this.state.goal}
                 onChange={this.changeSoftCap}
               />
-              <div className="text-center">{`${this.state.softCap} ${unit}`}</div>
+              <div className="text-center">{`${this.state.goal} ${unit}`}</div>
             </FormGroup>
             <br />
             <FormGroup>
-              <Label className="text-gray">{t('ethCrowdsale.hardCap')}</Label>
+              <Label className="text-gray">{t('ethCrowdsale.cap')}</Label>
               <Slider
-                min={10}
-                max={500000}
+                min={this.state.goal}
+                max={MAX_CAP}
                 step={10}
-                value={this.state.hardCap}
+                value={this.state.cap}
                 onChange={this.changeHardCap}
               />
-              <div className="text-center">{`${this.state.hardCap} ${unit}`}</div>
-            </FormGroup>
-            <br />
-            <FormGroup>
-              <Label className="text-left text-gray">{t('ethToken.pricePerEtherer')}</Label>
-              <br />
-              {this.renderRadioPricePerEther()}
+              <div className="text-center">{`${this.state.cap} ${unit}`}</div>
             </FormGroup>
             <br />
             <FormGroup>
@@ -83,10 +93,17 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
               <Slider min={1} max={60} value={this.state.duration} onChange={this.changeDuration} />
               <div className="text-center">{`${this.state.duration} Days`}</div>
             </FormGroup>
+            <br />
+            <FormGroup>
+              <Label className="text-left text-gray">{t('ethToken.pricePerEtherer')}</Label>
+              <br />
+              {this.renderRadioPricePerEther()}
+            </FormGroup>
+            <br />
           </Col>
           <Col sm={12} md={12} lg={12}>
             <div className="py-3 text-center">
-              <Button color="primary" onClick={onSubmit}>
+              <Button color="primary" onClick={this.handleSubmit}>
                 {t('ethCrowdsale.submit')}
               </Button>
             </div>
@@ -97,9 +114,9 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
   }
 
   private renderRadioPricePerEther = () => {
-    const list = ['0.001', '0.01', '0.1', '1'];
+    const list = ['1', '0.1', '0.01', '0.001', '0.0001'];
     return list.map((item) => (
-      <FormGroup check={true} inline={true}>
+      <FormGroup check={true} inline={true} key={item}>
         <Label check={true}>
           <Input
             type="radio"
@@ -115,14 +132,17 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
   };
 
   private changeSoftCap = (value) => {
+    const goal = roundOff(value);
     this.setState({
-      softCap: value
+      goal,
+      cap: getCap(goal, MAX_CAP)
     });
   };
 
   private changeHardCap = (value) => {
+    const cap = roundOff(value);
     this.setState({
-      hardCap: value
+      cap
     });
   };
 
@@ -136,5 +156,18 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
     this.setState({
       duration: value
     });
+  };
+
+  private handleSubmit = () => {
+    const { cap, goal, duration, startingTime, pricePerEther } = this.state;
+    const body = {
+      cap,
+      goal,
+      duration,
+      startingTime,
+      pricePerEther
+    };
+    console.log(body);
+    // this.props.onSubmit(body);
   };
 }

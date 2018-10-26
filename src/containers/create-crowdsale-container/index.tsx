@@ -53,7 +53,7 @@ class OnChainDataForm extends React.Component<IOnChainDataFormProps, {}> {
       <Layout location={location} history={history} showSidebar={true}>
         <Container>
           <br />
-          <h5 className="text-center">{t('createEthCrowdsale.title')}</h5>
+          <h5 className="text-center">{t('ethCrowdsale.title')}</h5>
           <br />
           <CreateCrowdsale onSubmit={createEthCrowdsale} t={t} />
         </Container>
