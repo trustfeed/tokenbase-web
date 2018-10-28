@@ -22,18 +22,10 @@ interface IState {
 
 const MAX_GOAL = 10000;
 const MAX_CAP = 20000;
+
 const getCap = (goal: number, maxCap: number) => (maxCap + goal) / 2;
 const roundOff = (value: number): number => {
-  let remainder;
-  if (100 <= value && value < 1000) {
-    remainder = value % 100;
-    return value - remainder;
-  } else if (1000 <= value && value < 99999) {
-    remainder = value % 1000;
-    return value - remainder;
-  } else {
-    return value;
-  }
+  return value - (value % 100);
 };
 
 export default class CreateTokenForm extends React.Component<IProps, IState> {
@@ -85,7 +77,11 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
             <br />
             <FormGroup>
               <Label className="text-gray">{t('ethCrowdsale.startingTime')}</Label>
-              <DatetimePicker value={moment(this.state.startingTime)} isValidDate={validateDate} />
+              <DatetimePicker
+                value={moment(this.state.startingTime)}
+                onChange={this.changeDatetime}
+                isValidDate={validateDate}
+              />
             </FormGroup>
             <br />
             <FormGroup>
@@ -156,6 +152,10 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
     this.setState({
       duration: value
     });
+  };
+
+  private changeDatetime = (momentInput): void => {
+    this.setState({ startingTime: momentInput.valueOf() });
   };
 
   private handleSubmit = () => {

@@ -29,14 +29,33 @@ export const getUserAPI = (id?: string) => `${HOST}/users${id ? `/${id}` : ''}`;
 export const getAuthAPI = () => `${HOST}/auth`;
 export const getEmailVerificationAPI = () => `${HOST}/user/verify-email`;
 
-export const getHeaders = (accessToken?: string) => {
-  if (accessToken) {
-    return {
-      'X-Access-Token': accessToken,
-      'Content-Type': 'application/json'
-    };
-  }
-  return {
+export const handleFetch = async ({ fetch, method, url, accessToken, data }) => {
+  const headers = {
     'Content-Type': 'application/json'
   };
+  return await fetch({
+    method,
+    url,
+    headers: handleHeaders(headers, accessToken),
+    data: JSON.stringify(data)
+  });
+};
+
+const handleHeaders = (headers, accessToken?: string) => {
+  if (accessToken) {
+    return {
+      ...headers,
+      'X-Access-Token': accessToken
+    };
+  }
+  return headers;
+};
+
+export const handleError = (error): void => {
+  const { request } = error;
+  if (request.status === 401 || request.status === 403) {
+    console.log('remove access token');
+  }
+
+  throw new Error(error);
 };
