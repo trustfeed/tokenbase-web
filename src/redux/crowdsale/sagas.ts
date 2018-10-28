@@ -1,26 +1,10 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import axios from 'axios';
-
 import * as consts from './types';
+import * as userConsts from '../user/types';
 
-import { getHeaders, getCreateEthCrowdsalesAPI } from '../../api';
-
-const fetchCreateToken = async (payload) => {
-  try {
-    const email: string = payload.email;
-    const password: string = payload.password;
-    const { data } = await axios({
-      method: 'POST',
-      url: getCreateEthCrowdsalesAPI(),
-      headers: getHeaders(),
-      data: JSON.stringify({ email, password })
-    });
-    return data;
-  } catch (error) {
-    throw new Error(error);
-  }
-};
+import { handleFetch, getCreateEthCrowdsalesAPI, getErrorStatus } from '../../api';
 
 function* workCreateToken(action) {
   // debounce by 500ms
@@ -29,11 +13,20 @@ function* workCreateToken(action) {
     const { payload } = action;
     const password: string = payload.password;
     const email: string = payload.email;
-    const result = yield call(fetchCreateToken, { email, password });
+    const result = yield call(handleFetch, {
+      fetch: axios,
+      method: 'POST',
+      url: getCreateEthCrowdsalesAPI(),
+      accessToken: undefined,
+      data: { email, password }
+    });
     const accessToken: string = result.token;
     yield [put({ type: consts.CREATE_ETH_CROWDSALE_SUCCEEDED, payload: { accessToken } })];
   } catch (error) {
-    console.log(error);
+    const errorStatus = getErrorStatus(error);
+    if (errorStatus === 401) {
+      yield put({ type: userConsts.REMOVE_ACCESS_TOKEN });
+    }
     yield put({ type: consts.CREATE_ETH_CROWDSALE_FAILED });
   }
 }
