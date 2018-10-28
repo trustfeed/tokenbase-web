@@ -2,8 +2,9 @@ import { select, call, put, takeLatest } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import axios from 'axios';
 import * as consts from './types';
+import * as userConsts from '../user/types';
 
-import { handleFetch, getCreateEthTokenAPI } from '../../api';
+import { getErrorStatus, handleFetch, getCreateEthTokenAPI } from '../../api';
 const getUser = (state) => state.user;
 
 function* workCreateEthToken(action) {
@@ -24,7 +25,10 @@ function* workCreateEthToken(action) {
 
     yield put({ type: consts.CREATE_ETH_TOKEN_SUCCEEDED });
   } catch (error) {
-    console.log(error);
+    const errorStatus = getErrorStatus(error);
+    if (errorStatus === 401) {
+      yield put({ type: userConsts.REMOVE_ACCESS_TOKEN });
+    }
     yield put({ type: consts.CREATE_ETH_TOKEN_FAILED });
   }
 }

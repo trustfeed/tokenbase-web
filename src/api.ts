@@ -1,19 +1,14 @@
-let HOST: string;
-switch (window.location.hostname) {
-  case 'www.daobase.io':
-  case 'daobase.io':
-    HOST = 'https://api.tokenadmin.work/v0';
-    break;
+const getHost = (host: string) => {
+  switch (host) {
+    case 'www.daobase.io':
+    case 'daobase.io':
+      return 'https://api.tokenadmin.work/v0';
+    default:
+      return 'https://api-staging.tokenadmin.work/v0';
+  }
+};
 
-  case 'test.daobase.io':
-    HOST = 'https://api-staging.tokenadmin.work/v0';
-    break;
-
-  default:
-    // HOST = 'http://localhost:8080';
-    HOST = 'https://api-staging.tokenadmin.work/v0';
-    break;
-}
+const HOST = getHost(window.location.hostname);
 
 // When logged in you can get the current user data from here
 export const getSignInAPI = () => `${HOST}/user/auth`;
@@ -51,11 +46,8 @@ const handleHeaders = (headers, accessToken?: string) => {
   return headers;
 };
 
-export const handleError = (error): void => {
+export const getErrorStatus = (error): number => {
   const { request } = error;
-  if (request.status === 401 || request.status === 403) {
-    console.log('remove access token');
-  }
-
-  throw new Error(error);
+  const { status } = request;
+  return status;
 };
