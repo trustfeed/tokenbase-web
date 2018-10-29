@@ -7,7 +7,7 @@ import { getErrorStatus, handleFetch, getCreateEthTokenAPI } from '../../api';
 
 const getUser = (state) => state.user;
 
-function* createEthTokenSaga(action) {
+export function* createEthTokenSaga(action) {
   // debounce by 500ms
   yield delay(500);
   try {

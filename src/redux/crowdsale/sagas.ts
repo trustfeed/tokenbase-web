@@ -6,7 +6,7 @@ import * as userConsts from '../user/types';
 
 import { handleFetch, getCreateEthCrowdsalesAPI, getErrorStatus } from '../../api';
 
-function* createCrowdsaleSaga(action) {
+export function* createCrowdsaleSaga(action) {
   // debounce by 500ms
   yield delay(500);
   try {

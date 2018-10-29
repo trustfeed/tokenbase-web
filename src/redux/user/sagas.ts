@@ -5,7 +5,7 @@ import axios from 'axios';
 import * as consts from '../user/types';
 import { handleFetch, getSignUpAPI, getEmailVerificationAPI, getSignInAPI } from '../../api';
 
-function* signInSaga(action) {
+export function* signInSaga(action) {
   // debounce by 500ms
   yield delay(500);
   try {
@@ -31,7 +31,7 @@ export function* watchSignInSaga() {
   yield takeLatest(consts.SIGN_IN, signInSaga);
 }
 
-function* signUpSaga(action) {
+export function* signUpSaga(action) {
   // debounce by 500ms
   yield delay(500);
   try {
@@ -56,7 +56,8 @@ function* signUpSaga(action) {
 export function* watchSignUpSaga() {
   yield takeLatest(consts.SIGN_UP, signUpSaga);
 }
-function* verifyEmailSaga(action) {
+
+export function* verifyEmailSaga(action) {
   // debounce by 500ms
   yield delay(500);
   try {
