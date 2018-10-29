@@ -1,7 +1,7 @@
 import { select, call, put, takeLatest } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import axios from 'axios';
-import * as consts from './types';
+import * as tokenTypes from './actions';
 import * as userConsts from '../user/types';
 import { getErrorStatus, handleFetch, getCreateEthTokenAPI } from '../../api';
 
@@ -23,15 +23,15 @@ export function* createEthTokenSaga(action) {
       data: payload
     });
 
-    yield put({ type: consts.CREATE_ETH_TOKEN_SUCCEEDED });
+    yield put({ type: tokenTypes.CREATE_ETH_TOKEN_SUCCEEDED });
   } catch (error) {
     const errorStatus = getErrorStatus(error);
     if (errorStatus === 401) {
       yield put({ type: userConsts.REMOVE_ACCESS_TOKEN });
     }
-    yield put({ type: consts.CREATE_ETH_TOKEN_FAILED });
+    yield put({ type: tokenTypes.CREATE_ETH_TOKEN_FAILED });
   }
 }
 export function* watchCreateEthTokenSaga() {
-  yield takeLatest(consts.CREATE_ETH_TOKEN, createEthTokenSaga);
+  yield takeLatest(tokenTypes.CREATE_ETH_TOKEN, createEthTokenSaga);
 }
