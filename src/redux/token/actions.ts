@@ -10,5 +10,5 @@ export const GET_ETH_TOKENS = 'GET_ETH_TOKENS';
 export const GET_ETH_TOKENS_SUCCEEDED = 'GET_ETH_TOKENS_SUCCEEDED';
 export const GET_ETH_TOKENS_FAILED = 'GET_ETH_TOKENS_FAILED';
 export const getEthTokens = () => ({
-  type: CREATE_ETH_TOKEN
+  type: GET_ETH_TOKENS
 });

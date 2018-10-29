@@ -24,6 +24,26 @@ export default function user(state = initialState, action) {
         isCreated: false
       };
 
+    case tokenTypes.GET_ETH_TOKENS:
+      return {
+        ...state,
+        isGettingEthTokens: true,
+        ethTokens: []
+      };
+
+    case tokenTypes.GET_ETH_TOKENS_SUCCEEDED:
+      return {
+        ...state,
+        isGettingEthTokens: false,
+        ethTokens: action.payload.ethTokens
+      };
+    case tokenTypes.GET_ETH_TOKENS_FAILED:
+      return {
+        ...state,
+        isGettingEthTokens: false,
+        ethTokens: []
+      };
+
     default:
       return state;
   }
