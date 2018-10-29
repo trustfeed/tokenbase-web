@@ -5,7 +5,7 @@ import axios from 'axios';
 import * as consts from '../user/types';
 import { handleFetch, getSignUpAPI, getEmailVerificationAPI, getSignInAPI } from '../../api';
 
-function* workSignIn(action) {
+function* signInSaga(action) {
   // debounce by 500ms
   yield delay(500);
   try {
@@ -27,11 +27,11 @@ function* workSignIn(action) {
     yield put({ type: consts.SIGN_IN_FAILED });
   }
 }
-export function* watchSignIn() {
-  yield takeLatest(consts.SIGN_IN, workSignIn);
+export function* watchSignInSaga() {
+  yield takeLatest(consts.SIGN_IN, signInSaga);
 }
 
-function* workSignUp(action) {
+function* signUpSaga(action) {
   // debounce by 500ms
   yield delay(500);
   try {
@@ -53,10 +53,10 @@ function* workSignUp(action) {
     yield put({ type: consts.SIGN_UP_FAILED, payload: { isSignUpSuccessful: false } });
   }
 }
-export function* watchSignUp() {
-  yield takeLatest(consts.SIGN_UP, workSignUp);
+export function* watchSignUpSaga() {
+  yield takeLatest(consts.SIGN_UP, signUpSaga);
 }
-function* workVerifyEmail(action) {
+function* verifyEmailSaga(action) {
   // debounce by 500ms
   yield delay(500);
   try {
@@ -77,6 +77,6 @@ function* workVerifyEmail(action) {
     yield put({ type: consts.VERIFY_EMAIL_FAILED, payload: { errorMessage: error.message } });
   }
 }
-export function* watchVerifyEmail() {
-  yield takeLatest(consts.VERIFY_EMAIL, workVerifyEmail);
+export function* watchVerifyEmailSaga() {
+  yield takeLatest(consts.VERIFY_EMAIL, verifyEmailSaga);
 }

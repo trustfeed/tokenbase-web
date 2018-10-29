@@ -1,15 +1,17 @@
 import { all, fork } from 'redux-saga/effects';
 
-import { watchSignUp, watchVerifyEmail, watchSignIn } from './user/sagas';
-import { watchCreateEthToken } from './token/sagas';
+import { watchSignUpSaga, watchVerifyEmailSaga, watchSignInSaga } from './user/sagas';
+import { watchCreateEthTokenSaga } from './token/sagas';
+import { watchCreateCrowdsaleSaga } from './crowdsale/sagas';
 
 function* root() {
   yield all([
-    fork(watchCreateEthToken),
+    fork(watchCreateEthTokenSaga),
+    fork(watchCreateCrowdsaleSaga),
     /* USER */
-    fork(watchSignUp),
-    fork(watchSignIn),
-    fork(watchVerifyEmail)
+    fork(watchSignUpSaga),
+    fork(watchSignInSaga),
+    fork(watchVerifyEmailSaga)
   ]);
 }
 

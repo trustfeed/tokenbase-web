@@ -6,7 +6,7 @@ import * as userConsts from '../user/types';
 
 import { handleFetch, getCreateEthCrowdsalesAPI, getErrorStatus } from '../../api';
 
-function* workCreateToken(action) {
+function* createCrowdsaleSaga(action) {
   // debounce by 500ms
   yield delay(500);
   try {
@@ -30,6 +30,6 @@ function* workCreateToken(action) {
     yield put({ type: consts.CREATE_ETH_CROWDSALE_FAILED });
   }
 }
-export function* watchCreateToken() {
-  yield takeLatest(consts.CREATE_ETH_CROWDSALE, workCreateToken);
+export function* watchCreateCrowdsaleSaga() {
+  yield takeLatest(consts.CREATE_ETH_CROWDSALE, createCrowdsaleSaga);
 }

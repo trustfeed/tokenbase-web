@@ -3,11 +3,11 @@ import { delay } from 'redux-saga';
 import axios from 'axios';
 import * as consts from './types';
 import * as userConsts from '../user/types';
-
 import { getErrorStatus, handleFetch, getCreateEthTokenAPI } from '../../api';
+
 const getUser = (state) => state.user;
 
-function* workCreateEthToken(action) {
+function* createEthTokenSaga(action) {
   // debounce by 500ms
   yield delay(500);
   try {
@@ -32,6 +32,6 @@ function* workCreateEthToken(action) {
     yield put({ type: consts.CREATE_ETH_TOKEN_FAILED });
   }
 }
-export function* watchCreateEthToken() {
-  yield takeLatest(consts.CREATE_ETH_TOKEN, workCreateEthToken);
+export function* watchCreateEthTokenSaga() {
+  yield takeLatest(consts.CREATE_ETH_TOKEN, createEthTokenSaga);
 }
