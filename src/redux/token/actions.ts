@@ -12,3 +12,11 @@ export const GET_ETH_TOKENS_FAILED = 'GET_ETH_TOKENS_FAILED';
 export const getEthTokens = () => ({
   type: GET_ETH_TOKENS
 });
+
+export const GET_ETH_TOKEN = 'GET_ETH_TOKEN';
+export const GET_ETH_TOKEN_SUCCEEDED = 'GET_ETH_TOKEN_SUCCEEDED';
+export const GET_ETH_TOKEN_FAILED = 'GET_ETH_TOKEN_FAILED';
+export const getEthToken = (id) => ({
+  type: GET_ETH_TOKEN,
+  payload: { id }
+});

@@ -3,7 +3,7 @@ import { delay } from 'redux-saga';
 import axios from 'axios';
 import * as tokenTypes from './actions';
 import * as userConsts from '../user/types';
-import { getErrorStatus, handleFetch, getEthTokensAPI } from '../../api';
+import { getErrorStatus, handleFetch, getEthTokensAPI, getEthTokenAPI } from '../../api';
 
 const getUser = (state) => state.user;
 
@@ -63,4 +63,36 @@ export function* getEthTokensSaga(action) {
 }
 export function* watchgetEthTokensSaga() {
   yield takeLatest(tokenTypes.GET_ETH_TOKENS, getEthTokensSaga);
+}
+
+export function* getEthTokenSaga(action) {
+  // debounce by 500ms
+  yield delay(500);
+  try {
+    const user = yield select(getUser);
+    const accessToken: string = user.accessToken;
+
+    const { payload } = action;
+    const id: string = payload.id;
+
+    const options = {
+      fetch: axios,
+      method: 'GET',
+      url: getEthTokenAPI(id),
+      accessToken,
+      data: undefined
+    };
+    const result = yield call(handleFetch, options);
+    const ethToken: any[] = result;
+    yield put({ type: tokenTypes.GET_ETH_TOKEN_SUCCEEDED, payload: { ethToken } });
+  } catch (error) {
+    const errorStatus = getErrorStatus(error);
+    if (errorStatus === 401) {
+      yield put({ type: userConsts.REMOVE_ACCESS_TOKEN });
+    }
+    yield put({ type: tokenTypes.GET_ETH_TOKEN_FAILED });
+  }
+}
+export function* watchgetEthTokenSaga() {
+  yield takeLatest(tokenTypes.GET_ETH_TOKEN, getEthTokenSaga);
 }

@@ -6,7 +6,6 @@ import {
   Row,
   Input,
   FormGroup,
-  Button,
   Card,
   CardBody,
   Container,
@@ -134,9 +133,13 @@ class LoginCard extends React.Component<IProps, IState> {
                   </FormGroup>
                   <br />
                   <div className="text-center">
-                    <Button color="primary" onClick={this.onSubmit} disabled={isSubmitDisabled}>
+                    <button
+                      className="btn btn-outline-primary"
+                      onClick={this.onSubmit}
+                      disabled={isSubmitDisabled}
+                    >
                       {t('signup.submit')}
-                    </Button>
+                    </button>
                   </div>
                 </Form>
                 <br />

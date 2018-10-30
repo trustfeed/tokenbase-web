@@ -3,7 +3,7 @@ import * as moment from 'moment';
 import * as DatetimePicker from 'react-datetime';
 import Slider from 'react-rangeslider';
 
-import { Row, Col, Label, FormGroup, Button, Form } from 'reactstrap';
+import { Row, Col, Label, FormGroup, Form } from 'reactstrap';
 import Input from 'reactstrap/lib/Input';
 
 interface IProps {
@@ -99,9 +99,9 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
           </Col>
           <Col sm={12} md={12} lg={12}>
             <div className="py-3 text-center">
-              <Button color="primary" onClick={this.handleSubmit}>
+              <button className="btn btn-outline-primary" onClick={this.handleSubmit}>
                 {t('ethCrowdsale.submit')}
-              </Button>
+              </button>
             </div>
           </Col>
         </Row>

@@ -6,7 +6,6 @@ import {
   Row,
   Input,
   FormGroup,
-  Button,
   Card,
   CardBody,
   Container,
@@ -95,9 +94,9 @@ class LoginCard extends React.Component<IProps, IState> {
                   </FormGroup>
                   <br />
                   <div className="text-center">
-                    <Button onClick={this.onSubmit} color="primary">
+                    <button className="btn btn-outline-primary" onClick={this.onSubmit}>
                       {t('login.submit')}
-                    </Button>
+                    </button>
                   </div>
                 </Form>
                 <br />

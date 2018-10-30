@@ -15,6 +15,7 @@ export const getSignInAPI = () => `${HOST}/user/auth`;
 export const getSignUpAPI = () => `${HOST}/user/signup`;
 
 export const getEthTokensAPI = () => `${HOST}/eth/tokens`;
+export const getEthTokenAPI = (id) => `${HOST}/eth/tokens/${id}`;
 export const getFinaliseEthTokenAPI = () => `${HOST}/eth/tokens/finalise`;
 
 export const getCreateEthCrowdsalesAPI = () => `${HOST}/eth/crowdsales`;

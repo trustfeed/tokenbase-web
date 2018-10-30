@@ -8,7 +8,8 @@ import HomeCotainer from './containers/home-container';
 import EmailVerificationCardContainer from './containers/email-verification-container';
 import CreateEthTokenContainer from './containers/create-token-container';
 import CreateEthCrowdsaleContainer from './containers/create-crowdsale-container';
-import EthToken from './containers/tokenlist-container';
+import EthTokens from './containers/token-list-container';
+import EthToken from './containers/token-container';
 
 export const appHistory = createHistory();
 
@@ -31,8 +32,13 @@ export const routeList = [
   },
   {
     path: paths.ethTokens,
-    component: EthToken,
+    component: EthTokens,
     label: 'eth tokens'
+  },
+  {
+    path: paths.ethToken,
+    component: EthToken,
+    label: 'eth token'
   },
   {
     path: paths.createEthToken,

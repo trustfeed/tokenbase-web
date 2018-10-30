@@ -10,7 +10,6 @@ export default function user(state = initialState, action) {
         isCreating: true,
         isCreated: false
       };
-
     case tokenTypes.CREATE_ETH_TOKEN_SUCCEEDED:
       return {
         ...state,
@@ -30,7 +29,6 @@ export default function user(state = initialState, action) {
         isGettingEthTokens: true,
         ethTokens: []
       };
-
     case tokenTypes.GET_ETH_TOKENS_SUCCEEDED:
       return {
         ...state,
@@ -42,6 +40,25 @@ export default function user(state = initialState, action) {
         ...state,
         isGettingEthTokens: false,
         ethTokens: []
+      };
+
+    case tokenTypes.GET_ETH_TOKEN:
+      return {
+        ...state,
+        isGettingEthToken: true,
+        ethToken: undefined
+      };
+    case tokenTypes.GET_ETH_TOKEN_SUCCEEDED:
+      return {
+        ...state,
+        isGettingEthToken: false,
+        ethToken: action.payload.ethToken
+      };
+    case tokenTypes.GET_ETH_TOKEN_FAILED:
+      return {
+        ...state,
+        isGettingEthToken: false,
+        ethToken: undefined
       };
 
     default:
