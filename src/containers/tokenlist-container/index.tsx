@@ -1,11 +1,46 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Container, Card, CardBody, Row, Col } from 'reactstrap';
 import Layout from '../../components/layout';
-import uuidv4 from 'uuid/v4';
 import Spinner from '../../components/spinner';
+import EthTokenList from '../../components/token-list';
 import { translate } from 'react-i18next';
 import { getEthTokens } from '../../redux/token/actions';
+import { Container } from 'reactstrap';
+import { Link } from 'react-router-dom';
+import { paths } from 'src/routes';
+
+const mockupEthTokenlist = [
+  {
+    id: 'fdsafds63afas',
+    network: 'rinkeby',
+    name: 'Theta Coin',
+    symbol: 'TC',
+    decimals: 18,
+    mintable: true,
+    minters: ['0x432343'],
+    status: 'DRAFT'
+  },
+  {
+    id: 'fdsafds11afas',
+    network: 'rinkeby',
+    name: 'Beta Coin',
+    symbol: 'BC',
+    decimals: 18,
+    mintable: true,
+    minters: ['0x432343'],
+    status: 'DRAFT'
+  },
+  {
+    id: 'fdsafdsa5fas',
+    network: 'rinkeby',
+    name: 'Delta Token',
+    symbol: 'DT',
+    decimals: 18,
+    mintable: true,
+    minters: ['0x432343'],
+    status: 'DRAFT'
+  }
+];
 
 interface IEthTokensProps {
   t: (key: string) => string;
@@ -16,7 +51,7 @@ interface IEthTokensProps {
   getEthTokens: () => void;
 }
 
-class EthTokenList extends React.Component<IEthTokensProps, {}> {
+class EthTokenListContainer extends React.Component<IEthTokensProps, {}> {
   public componentDidMount() {
     if (this.props.accessToken) {
       this.props.getEthTokens();
@@ -32,40 +67,28 @@ class EthTokenList extends React.Component<IEthTokensProps, {}> {
 
   public render(): React.ReactNode {
     const isGettingEthTokens: boolean = this.props.isGettingEthTokens;
-
     return (
       <Layout location={location} history={history} showSidebar={true}>
         <Container>
-          <div className="container text-center">
-            <h4 style={{ color: 'black', fontSize: 24, paddingTop: 85, paddingBottom: 15 }}>
-              {'My Ethereum Tokens'}
+          <div style={{ width: 400, margin: 'auto' }}>
+            <h4
+              className="text-center"
+              style={{ color: 'black', fontSize: 24, paddingTop: 85, paddingBottom: 15 }}
+            >
+              {'Ethereum Tokens'}
             </h4>
+            <Link to={paths.createEthToken} className="btn btn-primary btn-block">
+              {'Create Token'}
+            </Link>
+            {isGettingEthTokens ? <Spinner /> : <EthTokenList ethTokens={mockupEthTokenlist} />}
           </div>
-
-          {isGettingEthTokens ? <Spinner /> : <Row>{this.renderCampaignViewList()}</Row>}
         </Container>
       </Layout>
     );
   }
-
-  private renderCampaignViewList = (): React.ReactNode => {
-    const ethTokens = this.props.ethTokens || [];
-    console.log('l', ethTokens);
-    return ethTokens.map((item) => {
-      return (
-        <Col xs="12" sm="12" md="12" lg="4" key={uuidv4()}>
-          <Card>
-            <CardBody>
-              <p>{JSON.stringify(item)}</p>
-            </CardBody>
-          </Card>
-        </Col>
-      );
-    });
-  };
 }
 
-const EthTokenListWithI18n = translate('translations')(EthTokenList);
+const EthTokenListContainerWithI18n = translate('translations')(EthTokenListContainer);
 
 const mapStateToProps = (state) => ({
   ethTokens: state.token.ethTokens,
@@ -80,4 +103,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(EthTokenListWithI18n);
+)(EthTokenListContainerWithI18n);

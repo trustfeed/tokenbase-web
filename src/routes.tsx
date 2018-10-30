@@ -17,7 +17,8 @@ export const paths = {
   login: '/login',
   signup: '/signup',
   emailVerification: '/email-verification',
-  EthTokens: '/eth/tokens',
+  ethTokens: '/eth/tokens',
+  ethToken: '/eth/token',
   createEthToken: '/eth/token/create',
   createEthCrowdsale: '/eth/crowdsale/create/'
 };
@@ -29,6 +30,11 @@ export const routeList = [
     label: 'home'
   },
   {
+    path: paths.ethTokens,
+    component: EthToken,
+    label: 'eth tokens'
+  },
+  {
     path: paths.createEthToken,
     component: CreateEthTokenContainer,
     label: 'token'
@@ -37,11 +43,6 @@ export const routeList = [
     path: paths.createEthCrowdsale,
     component: CreateEthCrowdsaleContainer,
     label: 'crowdsale'
-  },
-  {
-    path: paths.EthTokens,
-    component: EthToken,
-    label: 'Eth Tokens'
   },
   {
     path: paths.login,

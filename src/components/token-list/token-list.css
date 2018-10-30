@@ -1,0 +1,10 @@
+.token-card {
+  border-radius: 20px !important;
+  border-color: gray !important;
+  color: gray;
+}
+.token-card:hover {
+  border-radius: 20px !important;
+  border-color: #1082fc !important;
+  color: #1082fc;
+}
