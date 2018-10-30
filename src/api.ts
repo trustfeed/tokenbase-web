@@ -14,7 +14,7 @@ const HOST = getHost(window.location.hostname);
 export const getSignInAPI = () => `${HOST}/user/auth`;
 export const getSignUpAPI = () => `${HOST}/user/signup`;
 
-export const getCreateEthTokenAPI = () => `${HOST}/eth/tokens`;
+export const getEthTokensAPI = () => `${HOST}/eth/tokens`;
 export const getFinaliseEthTokenAPI = () => `${HOST}/eth/tokens/finalise`;
 
 export const getCreateEthCrowdsalesAPI = () => `${HOST}/eth/crowdsales`;
@@ -28,12 +28,13 @@ export const handleFetch = async ({ fetch, method, url, accessToken, data }) => 
   const headers = {
     'Content-Type': 'application/json'
   };
-  return await fetch({
+  const result = await fetch({
     method,
     url,
     headers: handleHeaders(headers, accessToken),
     data: JSON.stringify(data)
   });
+  return result.data;
 };
 
 const handleHeaders = (headers, accessToken?: string) => {

@@ -6,8 +6,9 @@ import createHistory from 'history/createBrowserHistory';
 import LoginContainer from './containers/login-container';
 import HomeCotainer from './containers/home-container';
 import EmailVerificationCardContainer from './containers/email-verification-container';
-import CreateTokenContainer from './containers/create-token-container';
-import CreateCrowdsaleContainer from './containers/create-crowdsale-container';
+import CreateEthTokenContainer from './containers/create-token-container';
+import CreateEthCrowdsaleContainer from './containers/create-crowdsale-container';
+import EthToken from './containers/tokenlist-container';
 
 export const appHistory = createHistory();
 
@@ -16,8 +17,10 @@ export const paths = {
   login: '/login',
   signup: '/signup',
   emailVerification: '/email-verification',
-  createToken: '/create/token',
-  createCrowdsale: '/create/crowdsale'
+  ethTokens: '/eth/tokens',
+  ethToken: '/eth/token',
+  createEthToken: '/eth/token/create',
+  createEthCrowdsale: '/eth/crowdsale/create/'
 };
 
 export const routeList = [
@@ -27,29 +30,34 @@ export const routeList = [
     label: 'home'
   },
   {
-    path: paths.createToken,
-    component: CreateTokenContainer,
+    path: paths.ethTokens,
+    component: EthToken,
+    label: 'eth tokens'
+  },
+  {
+    path: paths.createEthToken,
+    component: CreateEthTokenContainer,
     label: 'token'
   },
   {
-    path: paths.createCrowdsale,
-    component: CreateCrowdsaleContainer,
+    path: paths.createEthCrowdsale,
+    component: CreateEthCrowdsaleContainer,
     label: 'crowdsale'
   },
   {
     path: paths.login,
     component: LoginContainer,
-    label: undefined
+    label: 'login'
   },
   {
     path: paths.signup,
     component: LoginContainer,
-    label: undefined
+    label: 'signup'
   },
   {
     path: paths.emailVerification,
     component: EmailVerificationCardContainer,
-    label: undefined
+    label: 'email verification'
   }
 ];
 

@@ -8,6 +8,8 @@ import CreateToken from '../../components/create-token';
 import { NotificationManager } from 'react-notifications';
 import { createEthToken } from '../../redux/token/actions';
 import { changeQueryStringToJSON } from '../../utils/helpers';
+import { paths } from 'src/routes';
+import { Link } from 'react-router-dom';
 
 interface IOnChainDataFormProps {
   t: (key: string) => string;
@@ -52,6 +54,9 @@ class OnChainDataForm extends React.Component<IOnChainDataFormProps, {}> {
     return (
       <Layout location={location} history={history} showSidebar={true}>
         <Container>
+          <div style={{ margin: 20 }}>
+            <Link to={paths.ethTokens}>{'Back'}</Link>
+          </div>
           <br />
           <h5 className="text-center">{t('ethToken.title')}</h5>
           <br />
