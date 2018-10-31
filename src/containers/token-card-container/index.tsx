@@ -14,7 +14,7 @@ import * as H from 'history';
 interface IProps {
   history: H.History;
   location: H.Location;
-  ethToken: IEthToken | undefined;
+  ethToken?: IEthToken;
   getEthToken: (id: string) => void;
   finaliseEthToken: (id: string) => void;
   isGettingEthToken: boolean;

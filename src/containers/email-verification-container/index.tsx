@@ -15,7 +15,7 @@ interface IProps {
   location: H.Location;
   isVerifyingEmail: boolean;
   isEmailVerified: boolean;
-  errorMessage: string | undefined;
+  errorMessage?: string;
   verifyEmail: (body) => void;
 }
 

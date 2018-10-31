@@ -8,7 +8,7 @@ import { IEthToken } from '../../ethTypes';
 interface IProps {
   t: (key: string) => string;
   onSubmit: (body, id?: string) => void;
-  ethToken: IEthToken | undefined;
+  ethToken?: IEthToken;
 }
 
 interface IState {
