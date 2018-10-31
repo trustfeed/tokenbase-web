@@ -4,7 +4,7 @@ import { translate } from 'react-i18next';
 
 import { Container } from 'reactstrap';
 import Layout from '../../components/layout';
-import CreateCrowdsale from '../../components/create-crowdsale';
+import CreateCrowdsale from '../../components/crowdsale-form';
 import { NotificationManager } from 'react-notifications';
 import { createEthCrowdsale } from '../../redux/crowdsale/actions';
 import { changeQueryStringToJSON } from '../../utils/helpers';

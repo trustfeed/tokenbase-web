@@ -7,6 +7,7 @@ import { getInputValidationState } from '../../utils/helpers';
 interface IProps {
   t: (key: string) => string;
   onSubmit: (body) => void;
+  ethToken: any;
 }
 
 interface IState {
@@ -44,9 +45,29 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
     mintable: false
   };
 
+  public componentWillReceiveProps(nextProps) {
+    const ethTokenNext = nextProps.ethToken;
+    if (ethTokenNext) {
+      const {
+        network = 'rinkeby',
+        name = '',
+        symbol = '',
+        mintable = false,
+        minters = []
+      } = ethTokenNext;
+      const minter = minters[0] || '';
+      this.setState({
+        network,
+        name,
+        symbol,
+        mintable,
+        minter
+      });
+    }
+  }
+
   public render(): React.ReactNode {
     const { t } = this.props;
-
     return (
       <Form>
         <Row>

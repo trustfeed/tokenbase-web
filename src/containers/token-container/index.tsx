@@ -6,7 +6,7 @@ import { getEthToken } from '../../redux/token/actions';
 import { Link } from 'react-router-dom';
 import { paths } from '../../routes';
 import { changeQueryStringToJSON } from '../../utils/helpers';
-import EthToken from '../../components/token/eth-token';
+import EthToken from '../../components/token-card/eth';
 import Spinner from 'src/components/spinner';
 
 interface IProps {
@@ -50,6 +50,7 @@ export class EthTokenContainer extends React.Component<IProps, IState> {
             <div style={{ margin: 20 }}>
               <Link to={paths.ethTokens}>{'Back'}</Link>
             </div>
+            <br />
             <div style={{ width: 400, margin: 'auto' }}>
               <Link
                 className="btn btn-outline-secondary btn-block"
@@ -70,7 +71,6 @@ export class EthTokenContainer extends React.Component<IProps, IState> {
 }
 
 const mapStateToProps = (state) => ({
-  accessToken: state.user.accessToken,
   ethToken: state.token.ethToken,
   isGettingEthToken: state.token.isGettingEthToken
 });
