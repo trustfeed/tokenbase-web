@@ -2,11 +2,11 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import Layout from '../../components/layout';
 import { getEthToken } from '../../redux/token/actions';
-
+import { Container } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { paths } from '../../routes';
 import { changeQueryStringToJSON } from '../../utils/helpers';
-import EthToken from '../../components/token-card/eth';
+import EthToken from '../../components/token-card/eth/EthTokenDetail';
 import Spinner from 'src/components/spinner';
 import { IEthToken } from '../../ethTypes';
 
@@ -39,14 +39,14 @@ export class EthTokenContainer extends React.Component<IProps, IState> {
     const { isGettingEthToken, ethToken, location, history } = this.props;
     return (
       <Layout location={location} history={history} showSidebar={true}>
-        {isGettingEthToken ? (
-          <Spinner />
-        ) : (
-          <div className="py-2">
-            <div style={{ margin: 20 }}>
-              <Link to={paths.ethTokens}>{'Back'}</Link>
-            </div>
-            <br />
+        <Container>
+          <div style={{ margin: 20 }}>
+            <Link to={paths.ethTokens}>{'Back'}</Link>
+          </div>
+          <br />
+          {isGettingEthToken ? (
+            <Spinner />
+          ) : (
             <div style={{ width: 400, margin: 'auto' }}>
               <Link
                 className="btn btn-outline-secondary btn-block"
@@ -59,8 +59,8 @@ export class EthTokenContainer extends React.Component<IProps, IState> {
               <br />
               <button className="btn btn-outline-primary btn-block">{'Deploy'}</button>
             </div>
-          </div>
-        )}
+          )}
+        </Container>
       </Layout>
     );
   }

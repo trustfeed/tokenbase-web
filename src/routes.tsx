@@ -20,8 +20,8 @@ export const paths = {
   emailVerification: '/email-verification',
   ethTokens: '/eth/tokens',
   ethToken: '/eth/token',
-  createEthToken: '/eth/token/create',
-  createEthCrowdsale: '/eth/crowdsale/create/'
+  createEthToken: '/eth/token/contract',
+  createEthCrowdsale: '/eth/crowdsale/contract/'
 };
 
 export const routeList = [
