@@ -4,16 +4,22 @@ import { watchSignUpSaga, watchVerifyEmailSaga, watchSignInSaga } from './user/s
 import {
   watchCreateEthTokenSaga,
   watchgetEthTokensSaga,
-  watchgetEthTokenSaga
+  watchgetEthTokenSaga,
+  watchUpdateEthTokenSaga
 } from './token/sagas';
 import { watchCreateCrowdsaleSaga } from './crowdsale/sagas';
 
 function* root() {
   yield all([
+    // Token
     fork(watchgetEthTokensSaga),
     fork(watchgetEthTokenSaga),
     fork(watchCreateEthTokenSaga),
+    fork(watchUpdateEthTokenSaga),
+
+    // Crowdsale
     fork(watchCreateCrowdsaleSaga),
+
     /* USER */
     fork(watchSignUpSaga),
     fork(watchSignInSaga),

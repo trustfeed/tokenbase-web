@@ -8,24 +8,21 @@ import { paths } from '../../routes';
 import { changeQueryStringToJSON } from '../../utils/helpers';
 import EthToken from '../../components/token-card/eth';
 import Spinner from 'src/components/spinner';
+import { IEthToken } from '../../ethTypes';
 
 interface IProps {
   location: any;
   history: any;
-  ethToken: any;
+  ethToken: IEthToken | undefined;
   getEthToken: (id: string) => void;
   isGettingEthToken: boolean;
 }
 
 interface IState {
-  crowdsale: object | null;
-  token: object | null;
   id: string;
 }
 export class EthTokenContainer extends React.Component<IProps, IState> {
   public readonly state = {
-    crowdsale: null,
-    token: null,
     id: ''
   };
 
@@ -40,7 +37,6 @@ export class EthTokenContainer extends React.Component<IProps, IState> {
 
   public render(): React.ReactNode {
     const { isGettingEthToken, ethToken, location, history } = this.props;
-    console.log('ethToken', ethToken);
     return (
       <Layout location={location} history={history} showSidebar={true}>
         {isGettingEthToken ? (

@@ -8,19 +8,38 @@ export default function user(state = initialState, action) {
       return {
         ...state,
         isCreating: true,
-        isCreated: false
+        hasCreated: false
       };
     case tokenTypes.CREATE_ETH_TOKEN_SUCCEEDED:
       return {
         ...state,
         isCreating: false,
-        isCreated: true
+        hasCreated: true
       };
     case tokenTypes.CREATE_ETH_TOKEN_FAILED:
       return {
         ...state,
         isCreating: false,
-        isCreated: false
+        hasCreated: false
+      };
+
+    case tokenTypes.UPDATE_ETH_TOKEN:
+      return {
+        ...state,
+        isUpdating: true,
+        hasUpdated: false
+      };
+    case tokenTypes.UPDATE_ETH_TOKEN_SUCCEEDED:
+      return {
+        ...state,
+        isUpdating: false,
+        hasUpdated: true
+      };
+    case tokenTypes.UPDATE_ETH_TOKEN_FAILED:
+      return {
+        ...state,
+        isUpdating: false,
+        hasUpdated: false
       };
 
     case tokenTypes.GET_ETH_TOKENS:

@@ -8,20 +8,20 @@ export default function user(state = initialState, action) {
       return {
         ...state,
         isCreating: true,
-        isCreated: false
+        hasCreated: false
       };
 
     case crowdsaleTypes.CREATE_ETH_CROWDSALE_SUCCEEDED:
       return {
         ...state,
         isCreating: false,
-        isCreated: true
+        hasCreated: true
       };
     case crowdsaleTypes.CREATE_ETH_CROWDSALE_FAILED:
       return {
         ...state,
         isCreating: false,
-        isCreated: false
+        hasCreated: false
       };
 
     default:

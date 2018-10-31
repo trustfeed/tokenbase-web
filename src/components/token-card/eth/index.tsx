@@ -1,12 +1,13 @@
 import * as React from 'react';
 import './eth-token.css';
 import { Col, Row, Card, CardTitle, CardText } from 'reactstrap';
+import { IEthToken } from '../../../ethTypes';
 
 interface IProps {
-  ethToken: any;
+  ethToken: IEthToken | undefined;
 }
 
-const mockupEthToken = {
+const mockupEthToken: IEthToken = {
   id: 'fdsafdsafas',
   network: 'rinkeby(mockup)',
   name: 'Mockup Coin',

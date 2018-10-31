@@ -15,12 +15,13 @@ export function* createEthTokenSaga(action) {
     const accessToken: string = user.accessToken;
 
     const { payload } = action;
+    const { body } = payload;
     yield call(handleFetch, {
       fetch: axios,
       method: 'POST',
       url: getEthTokensAPI(),
       accessToken,
-      data: payload
+      data: body
     });
 
     yield put({ type: tokenTypes.CREATE_ETH_TOKEN_SUCCEEDED });
@@ -34,6 +35,37 @@ export function* createEthTokenSaga(action) {
 }
 export function* watchCreateEthTokenSaga() {
   yield takeLatest(tokenTypes.CREATE_ETH_TOKEN, createEthTokenSaga);
+}
+
+export function* updateEthTokenSaga(action) {
+  // debounce by 500ms
+  yield delay(500);
+  try {
+    const user = yield select(getUser);
+    const accessToken: string = user.accessToken;
+
+    const { payload } = action;
+    const id: string = payload.id;
+    const body = payload.body;
+    yield call(handleFetch, {
+      fetch: axios,
+      method: 'PATCH',
+      url: getEthTokenAPI(id),
+      accessToken,
+      data: body
+    });
+
+    yield put({ type: tokenTypes.UPDATE_ETH_TOKEN_SUCCEEDED });
+  } catch (error) {
+    const errorStatus = getErrorStatus(error);
+    if (errorStatus === 401) {
+      yield put({ type: userConsts.REMOVE_ACCESS_TOKEN });
+    }
+    yield put({ type: tokenTypes.UPDATE_ETH_TOKEN_FAILED });
+  }
+}
+export function* watchUpdateEthTokenSaga() {
+  yield takeLatest(tokenTypes.UPDATE_ETH_TOKEN, updateEthTokenSaga);
 }
 
 export function* getEthTokensSaga(action) {

@@ -6,10 +6,10 @@ import createHistory from 'history/createBrowserHistory';
 import LoginContainer from './containers/login-container';
 import HomeCotainer from './containers/home-container';
 import EmailVerificationCardContainer from './containers/email-verification-container';
-import CreateEthTokenContainer from './containers/create-token-container';
-import CreateEthCrowdsaleContainer from './containers/create-crowdsale-container';
+import CreateEthTokenContainer from './containers/token-form-container';
+import CreateEthCrowdsaleContainer from './containers/crowdsale-form-container';
 import EthTokens from './containers/token-list-container';
-import EthToken from './containers/token-container';
+import EthToken from './containers/token-card-container';
 
 export const appHistory = createHistory();
 
