@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import Layout from '../../components/layout';
-import { getEthToken } from '../../redux/token/actions';
+import { getEthToken, finaliseEthToken } from '../../redux/token/actions';
 import { Container } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { paths } from '../../routes';
@@ -15,6 +15,7 @@ interface IProps {
   history: any;
   ethToken: IEthToken | undefined;
   getEthToken: (id: string) => void;
+  finaliseEthToken: (id: string) => void;
   isGettingEthToken: boolean;
 }
 
@@ -57,13 +58,24 @@ export class EthTokenContainer extends React.Component<IProps, IState> {
               <br />
               <EthToken ethToken={ethToken} />
               <br />
-              <button className="btn btn-outline-primary btn-block">{'Deploy'}</button>
+              <button
+                onClick={this.handleDeploy}
+                className="btn btn-outline-primary btn-block"
+                disabled={!this.state.id}
+              >
+                {'Deploy'}
+              </button>
             </div>
           )}
         </Container>
       </Layout>
     );
   }
+  private handleDeploy = (e) => {
+    e.preventDefault();
+    const { id } = this.state;
+    this.props.finaliseEthToken(id);
+  };
 }
 
 const mapStateToProps = (state) => ({
@@ -72,7 +84,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getEthToken: (id) => dispatch(getEthToken(id))
+  getEthToken: (id) => dispatch(getEthToken(id)),
+  finaliseEthToken: (id) => dispatch(finaliseEthToken(id))
 });
 
 export default connect(
