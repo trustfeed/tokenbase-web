@@ -1,5 +1,5 @@
 import * as React from 'react';
-import './token-list.css';
+import './index.css';
 import { Card, CardTitle, CardText } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { paths } from 'src/routes';
@@ -22,9 +22,8 @@ class TokenList extends React.Component<IProps, {}> {
           className="text-center"
           key={item.id}
         >
-          <Card body={true} className="token-card">
+          <Card body={true} className="token-list-card">
             <div className="text-gray text-right">
-              {/* <small>{'network: '}</small> */}
               <small>{item.network}</small>
             </div>
             <div>

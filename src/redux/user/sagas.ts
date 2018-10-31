@@ -19,7 +19,6 @@ export function* signInSaga(action) {
       accessToken: undefined,
       data: { email, password }
     });
-    console.log('rre', result);
     const accessToken: string = result.token;
     yield [put({ type: consts.SIGN_IN_SUCCEEDED, payload: { accessToken } })];
   } catch (error) {

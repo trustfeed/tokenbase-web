@@ -4,18 +4,16 @@ import { translate } from 'react-i18next';
 
 import { Container } from 'reactstrap';
 import Layout from '../../components/layout';
-import CreateToken from '../../components/create-token';
+import CreateCrowdsale from '../../components/crowdsale-form';
 import { NotificationManager } from 'react-notifications';
-import { createEthToken } from '../../redux/token/actions';
+import { createEthCrowdsale } from '../../redux/crowdsale/actions';
 import { changeQueryStringToJSON } from '../../utils/helpers';
-import { paths } from 'src/routes';
-import { Link } from 'react-router-dom';
 
 interface IOnChainDataFormProps {
   t: (key: string) => string;
   location: any;
   history: any;
-  createEthToken: (body) => void;
+  createEthCrowdsale: (body) => void;
   hasCampaignCreated: boolean | undefined;
   isCreatingCampaign: boolean | undefined;
   hasOnChainDataUpdated: boolean | undefined;
@@ -54,13 +52,10 @@ class OnChainDataForm extends React.Component<IOnChainDataFormProps, {}> {
     return (
       <Layout location={location} history={history} showSidebar={true}>
         <Container>
-          <div style={{ margin: 20 }}>
-            <Link to={paths.ethTokens}>{'Back'}</Link>
-          </div>
           <br />
-          <h5 className="text-center">{t('ethToken.title')}</h5>
+          <h5 className="text-center">{t('ethCrowdsale.title')}</h5>
           <br />
-          <CreateToken onSubmit={this.props.createEthToken} t={t} />
+          <CreateCrowdsale onSubmit={createEthCrowdsale} t={t} />
         </Container>
       </Layout>
     );
@@ -71,7 +66,7 @@ const WithTranslation = translate('translations')(OnChainDataForm);
 
 const mapStateToProps = (state) => ({});
 const mapDispatchToProps = (dispatch) => ({
-  createEthToken: (body) => dispatch(createEthToken(body))
+  createEthCrowdsale: (body) => dispatch(createEthCrowdsale(body))
 });
 
 export default connect(

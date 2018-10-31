@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import Layout from 'src/components/layout';
-import LoginCard from 'src/components/login-card';
-import SignupCard from 'src/components/signup-card';
+import LoginCard from 'src/components/login-form';
+import SignupCard from 'src/components/signup-form';
 import './login-container.css';
 import { paths } from 'src/routes';
 import { NotificationManager } from 'react-notifications';

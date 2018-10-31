@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import Layout from '../../components/layout';
 import Spinner from '../../components/spinner';
-import EthTokenList from '../../components/token-list';
+import EthTokenList from '../../components/token-list/eth-token-list';
 import { translate } from 'react-i18next';
 import { getEthTokens } from '../../redux/token/actions';
 import { Container } from 'reactstrap';
@@ -12,7 +12,7 @@ import { paths } from 'src/routes';
 const mockupEthTokenlist = [
   {
     id: 'fdsafds63afas',
-    network: 'rinkeby',
+    network: 'rinkeby(mockup)',
     name: 'Theta Coin',
     symbol: 'TC',
     decimals: 18,
@@ -22,7 +22,7 @@ const mockupEthTokenlist = [
   },
   {
     id: 'fdsafds11afas',
-    network: 'rinkeby',
+    network: 'rinkeby(mockup)',
     name: 'Beta Coin',
     symbol: 'BC',
     decimals: 18,
@@ -32,7 +32,7 @@ const mockupEthTokenlist = [
   },
   {
     id: 'fdsafdsa5fas',
-    network: 'rinkeby',
+    network: 'rinkeby(mockup)',
     name: 'Delta Token',
     symbol: 'DT',
     decimals: 18,
@@ -67,6 +67,7 @@ class EthTokenListContainer extends React.Component<IEthTokensProps, {}> {
 
   public render(): React.ReactNode {
     const isGettingEthTokens: boolean = this.props.isGettingEthTokens;
+    const { ethTokens = [] } = this.props;
     return (
       <Layout location={location} history={history} showSidebar={true}>
         <Container>
@@ -77,10 +78,14 @@ class EthTokenListContainer extends React.Component<IEthTokensProps, {}> {
             >
               {'Ethereum Tokens'}
             </h4>
-            <Link to={paths.createEthToken} className="btn btn-primary btn-block">
+            <Link to={paths.createEthToken} className="btn btn-outline-primary btn-block">
               {'Create Token'}
             </Link>
-            {isGettingEthTokens ? <Spinner /> : <EthTokenList ethTokens={mockupEthTokenlist} />}
+            {isGettingEthTokens ? (
+              <Spinner />
+            ) : (
+              <EthTokenList ethTokens={[...ethTokens, ...mockupEthTokenlist]} />
+            )}
           </div>
         </Container>
       </Layout>

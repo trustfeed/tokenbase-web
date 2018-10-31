@@ -1,12 +1,14 @@
 import * as React from 'react';
 
-import { Row, Col, Input, Label, FormGroup, Button, Form, FormFeedback } from 'reactstrap';
+import { Row, Col, Input, Label, FormGroup, Form, FormFeedback } from 'reactstrap';
 import { ALPHANUMERIC_REGEX, TOKEN_SYMBOL_REGEX, ETH_ADDRESS_REGEX } from 'src/utils/regex';
 import { getInputValidationState } from '../../utils/helpers';
+import { IEthToken } from '../../ethTypes';
 
 interface IProps {
   t: (key: string) => string;
-  onSubmit: (body) => void;
+  onSubmit: (body, id?: string) => void;
+  ethToken: IEthToken | undefined;
 }
 
 interface IState {
@@ -44,9 +46,29 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
     mintable: false
   };
 
-  public render(): React.ReactNode {
-    const { t } = this.props;
+  public componentDidMount() {
+    const ethToken = this.props.ethToken;
+    if (ethToken) {
+      const {
+        network = 'rinkeby',
+        name = '',
+        symbol = '',
+        mintable = false,
+        minters = []
+      } = ethToken;
+      const minter = minters[0] || '';
+      this.setState({
+        network,
+        name,
+        symbol,
+        mintable,
+        minter
+      });
+    }
+  }
 
+  public render(): React.ReactNode {
+    const { t, ethToken } = this.props;
     return (
       <Form>
         <Row>
@@ -166,9 +188,9 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
           </Col>
           <Col sm={12} md={12} lg={12}>
             <div className="py-3 text-center">
-              <Button color="primary" onClick={this.handleSubmit}>
-                {t('ethToken.submit')}
-              </Button>
+              <button className="btn btn-outline-primary" onClick={this.handleSubmit}>
+                {t(ethToken ? 'ethToken.update' : 'ethToken.create')}
+              </button>
             </div>
           </Col>
         </Row>
@@ -216,6 +238,8 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
   };
 
   private handleSubmit = (e) => {
+    e.preventDefault();
+    const { ethToken } = this.props;
     const { network, name, symbol, mintable, minter } = this.state;
     const body = {
       network,
@@ -225,6 +249,9 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
       decimals: 18,
       minters: [minter]
     };
-    this.props.onSubmit(body);
+    if (ethToken && ethToken.id) {
+      return this.props.onSubmit(body, ethToken.id);
+    }
+    return this.props.onSubmit(body);
   };
 }
