@@ -39,7 +39,7 @@ export const handleFetch = async ({ fetch, method, url, accessToken, data }) => 
 };
 
 const handleHeaders = (headers, accessToken?: string) => {
-  if (accessToken) {
+  if (accessToken !== undefined) {
     return {
       ...headers,
       'X-Access-Token': accessToken

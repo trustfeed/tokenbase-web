@@ -8,7 +8,7 @@ import { getEthTokens } from '../../redux/token/actions';
 import { Container } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { paths } from 'src/routes';
-
+import { IEthToken } from '../../ethTypes';
 const mockupEthTokenlist = [
   {
     id: 'fdsafds63afas',
@@ -44,8 +44,8 @@ const mockupEthTokenlist = [
 
 interface IEthTokensProps {
   t: (key: string) => string;
-  accessToken: string;
-  ethTokens: any[];
+  accessToken: string | undefined;
+  ethTokens: IEthToken[];
   isGettingEthTokens: boolean;
   isGettingWeb3: boolean;
   getEthTokens: () => void;
@@ -53,14 +53,14 @@ interface IEthTokensProps {
 
 class EthTokenListContainer extends React.Component<IEthTokensProps, {}> {
   public componentDidMount() {
-    if (this.props.accessToken) {
+    if (this.props.accessToken !== undefined) {
       this.props.getEthTokens();
     }
   }
   public componentWillReceiveProps(nextProps) {
     const accessTokenNext = nextProps.accessToken;
     const accessTokenCurrent = this.props.accessToken;
-    if (nextProps.accessToken && accessTokenNext !== accessTokenCurrent) {
+    if (nextProps.accessToken !== undefined && accessTokenNext !== accessTokenCurrent) {
       nextProps.getEthTokens();
     }
   }

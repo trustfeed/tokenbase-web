@@ -8,11 +8,12 @@ import CreateCrowdsale from '../../components/crowdsale-form';
 import { NotificationManager } from 'react-notifications';
 import { createEthCrowdsale } from '../../redux/crowdsale/actions';
 import { changeQueryStringToJSON } from '../../utils/helpers';
+import * as H from 'history';
 
 interface IOnChainDataFormProps {
   t: (key: string) => string;
-  location: any;
-  history: any;
+  history: H.History;
+  location: H.Location;
   createEthCrowdsale: (body) => void;
   hasCampaignCreated: boolean | undefined;
   isCreatingCampaign: boolean | undefined;
@@ -25,7 +26,7 @@ class OnChainDataForm extends React.Component<IOnChainDataFormProps, {}> {
     const queryString = location.search.slice(1);
     const params = changeQueryStringToJSON(queryString);
     const id = params.id;
-    if (id) {
+    if (id !== undefined) {
       // this.setState({ id }, () => this.props.getOwnedCampaign(id));
     }
   }

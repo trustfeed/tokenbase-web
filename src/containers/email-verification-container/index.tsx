@@ -7,13 +7,12 @@ import { changeQueryStringToJSON } from '../../utils/helpers';
 import { verifyEmail } from '../../redux/user/actions';
 import { translate } from 'react-i18next';
 import Spinner from 'src/components/spinner';
+import * as H from 'history';
 
 interface IProps {
   t: (key: string) => string;
-  web3: any;
-  history: any;
-  location: any;
-  match: any;
+  history: H.History;
+  location: H.Location;
   isVerifyingEmail: boolean;
   isEmailVerified: boolean;
   errorMessage: string | undefined;
@@ -34,7 +33,7 @@ export class EmailVerificationCardContainer extends React.Component<IProps, {}> 
     const { t } = nextProps;
     const isEmailVerifiedNext = nextProps.isEmailVerified;
     const isEmailVerifiedCurrent = this.props.isEmailVerified;
-    const isEmailVerified = !isEmailVerifiedCurrent && isEmailVerifiedNext;
+    const isEmailVerified: boolean = !isEmailVerifiedCurrent && isEmailVerifiedNext;
     const isVerifyingEmailNext = nextProps.isVerifyingEmail;
     const isVerifyingEmailCurrent = this.props.isVerifyingEmail;
     const isVerifyingEmailRequestComplete = !isVerifyingEmailNext && isVerifyingEmailCurrent;
@@ -48,15 +47,7 @@ export class EmailVerificationCardContainer extends React.Component<IProps, {}> 
     }
   }
   public render(): React.ReactNode {
-    const {
-      location,
-      history,
-      match,
-      t,
-      isVerifyingEmail,
-      isEmailVerified,
-      errorMessage
-    } = this.props;
+    const { location, history, t, isVerifyingEmail, isEmailVerified, errorMessage } = this.props;
 
     let message = errorMessage || t('emailVerificationCard.unknownError');
     if (isEmailVerified) {
@@ -64,7 +55,7 @@ export class EmailVerificationCardContainer extends React.Component<IProps, {}> 
     }
     const title = t('emailVerificationCard.title');
     return (
-      <Layout location={location} history={history} match={match} showSidebar={false}>
+      <Layout location={location} history={history} showSidebar={false}>
         <div className="full-page-background">
           <div className="blanket">
             <div style={{ paddingTop: 240, paddingBottom: 200 }}>

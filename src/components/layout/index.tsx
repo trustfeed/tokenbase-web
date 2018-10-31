@@ -6,14 +6,11 @@ import Sidebar from '../sidebar';
 import { setPlatform } from '../../redux/user/actions';
 import { routeList } from '../../routes';
 import './layout.css';
+import * as H from 'history';
 
 interface ILayoutProps {
-  location: {
-    pathname: string;
-    search: string;
-  };
-  match: object;
-  history: object;
+  history: H.History;
+  location: H.Location;
   children?: React.ReactNode;
   accessToken: string | undefined;
   showSidebar: boolean;
@@ -24,19 +21,18 @@ interface ILayoutProps {
 
 class Layout extends React.Component<ILayoutProps, {}> {
   public render() {
-    const { history, location, match, children, platform, accessToken, showSidebar } = this.props;
+    const { history, location, children, platform, accessToken, showSidebar } = this.props;
     const isAuth = !!accessToken;
 
     if (showSidebar) {
       return (
         <div className="wrapper">
-          <Sidebar history={history} location={location} match={match} routeList={routeList} />
+          <Sidebar history={history} location={location} routeList={routeList} />
           <div className="page-content-wrapper">
             <div>
               <Header
                 history={history}
                 location={location}
-                match={match}
                 isAuth={isAuth}
                 platform={platform}
                 setPlatform={this.props.setPlatform}
@@ -55,7 +51,6 @@ class Layout extends React.Component<ILayoutProps, {}> {
           <Header
             history={history}
             location={location}
-            match={match}
             isAuth={isAuth}
             background={'transparent'}
           />

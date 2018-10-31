@@ -9,10 +9,11 @@ import { changeQueryStringToJSON } from '../../utils/helpers';
 import EthToken from '../../components/token-card/eth/EthTokenDetail';
 import Spinner from 'src/components/spinner';
 import { IEthToken } from '../../ethTypes';
+import * as H from 'history';
 
 interface IProps {
-  location: any;
-  history: any;
+  history: H.History;
+  location: H.Location;
   ethToken: IEthToken | undefined;
   getEthToken: (id: string) => void;
   finaliseEthToken: (id: string) => void;
