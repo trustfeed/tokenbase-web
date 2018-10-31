@@ -79,6 +79,24 @@ export default function user(state = initialState, action) {
         isGettingEthToken: false,
         ethToken: undefined
       };
+    case tokenTypes.FINALISE_ETH_TOKEN:
+      return {
+        ...state,
+        isFinalising: true,
+        hasFinalised: false
+      };
+    case tokenTypes.FINALISE_ETH_TOKEN_SUCCEEDED:
+      return {
+        ...state,
+        isFinalising: false,
+        hasFinalised: true
+      };
+    case tokenTypes.FINALISE_ETH_TOKEN_FAILED:
+      return {
+        ...state,
+        isFinalising: false,
+        hasFinalised: false
+      };
 
     default:
       return state;

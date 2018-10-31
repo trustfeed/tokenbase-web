@@ -33,6 +33,9 @@ interface IState {
 }
 
 class OnChainDataForm extends React.Component<IProps, IState> {
+  public readonly state = {
+    id: undefined
+  };
   public componentDidMount() {
     const { location } = this.props;
     const queryString = location.search.slice(1);
@@ -61,11 +64,12 @@ class OnChainDataForm extends React.Component<IProps, IState> {
 
   public render(): React.ReactNode {
     const { t, location, history, ethToken, isGettingEthToken } = this.props;
+    const { id } = this.state;
     return (
       <Layout location={location} history={history} showSidebar={true}>
         <Container>
           <div style={{ margin: 20 }}>
-            <Link to={paths.ethTokens}>{'Back'}</Link>
+            <Link to={id ? `${paths.ethToken}?id=${id}` : paths.ethTokens}>{'Back'}</Link>
           </div>
           <br />
           {isGettingEthToken ? (

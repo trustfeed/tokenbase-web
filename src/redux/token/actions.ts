@@ -28,3 +28,11 @@ export const getEthToken = (id) => ({
   type: GET_ETH_TOKEN,
   payload: { id }
 });
+
+export const FINALISE_ETH_TOKEN = 'FINALISE_ETH_TOKEN';
+export const FINALISE_ETH_TOKEN_SUCCEEDED = 'FINALISE_ETH_TOKEN_SUCCEEDED';
+export const FINALISE_ETH_TOKEN_FAILED = 'FINALISE_ETH_TOKEN_FAILED';
+export const finaliseEthToken = (id) => ({
+  type: FINALISE_ETH_TOKEN,
+  payload: { id }
+});

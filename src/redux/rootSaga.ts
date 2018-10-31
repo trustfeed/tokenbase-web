@@ -3,19 +3,21 @@ import { all, fork } from 'redux-saga/effects';
 import { watchSignUpSaga, watchVerifyEmailSaga, watchSignInSaga } from './user/sagas';
 import {
   watchCreateEthTokenSaga,
-  watchgetEthTokensSaga,
-  watchgetEthTokenSaga,
-  watchUpdateEthTokenSaga
+  watchGetEthTokensSaga,
+  watchGetEthTokenSaga,
+  watchUpdateEthTokenSaga,
+  watchFinaliseEthTokenSaga
 } from './token/sagas';
 import { watchCreateCrowdsaleSaga } from './crowdsale/sagas';
 
 function* root() {
   yield all([
     // Token
-    fork(watchgetEthTokensSaga),
-    fork(watchgetEthTokenSaga),
+    fork(watchGetEthTokensSaga),
+    fork(watchGetEthTokenSaga),
     fork(watchCreateEthTokenSaga),
     fork(watchUpdateEthTokenSaga),
+    fork(watchFinaliseEthTokenSaga),
 
     // Crowdsale
     fork(watchCreateCrowdsaleSaga),
