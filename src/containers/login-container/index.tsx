@@ -8,13 +8,13 @@ import { paths } from 'src/routes';
 import { NotificationManager } from 'react-notifications';
 import { signIn, signUp } from '../../redux/user/actions';
 import { translate } from 'react-i18next';
+import * as H from 'history';
 
 interface IProps {
   t: (key: string) => string;
 
-  history: any;
-  location: any;
-  match: any;
+  history: H.History;
+  location: H.Location;
 
   signUp: (body) => void;
   isSigningUp: boolean;
@@ -59,10 +59,10 @@ export class LoginContainer extends React.Component<IProps, {}> {
     }
   }
   public render(): React.ReactNode {
-    const { location, history, match, t } = this.props;
+    const { location, history, t } = this.props;
     const { pathname } = location;
     return (
-      <Layout location={location} history={history} match={match} showSidebar={false}>
+      <Layout location={location} history={history} showSidebar={false}>
         <div className="full-page-background">
           <div className="blanket">
             <div style={{ paddingTop: 240, paddingBottom: 200 }}>

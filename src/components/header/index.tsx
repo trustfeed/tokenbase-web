@@ -14,14 +14,11 @@ import { renderLogoWhite } from '../../assets/svg';
 import { translate } from 'react-i18next';
 import { paths } from '../../routes';
 import './header.css';
+import * as H from 'history';
 
 interface IHeaderProps {
-  location: {
-    pathname: string;
-    search: string;
-  };
-  match: any;
-  history: any;
+  history: H.History;
+  location: H.Location;
   i18n: {
     language: string;
     changeLanguage: (lang: string) => void;

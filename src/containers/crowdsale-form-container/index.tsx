@@ -8,11 +8,12 @@ import CreateCrowdsale from '../../components/crowdsale-form';
 import { NotificationManager } from 'react-notifications';
 import { createEthCrowdsale } from '../../redux/crowdsale/actions';
 import { changeQueryStringToJSON } from '../../utils/helpers';
+import * as H from 'history';
 
 interface IOnChainDataFormProps {
   t: (key: string) => string;
-  location: any;
-  history: any;
+  history: H.History;
+  location: H.Location;
   createEthCrowdsale: (body) => void;
   hasCampaignCreated: boolean | undefined;
   isCreatingCampaign: boolean | undefined;

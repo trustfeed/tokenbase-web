@@ -2,6 +2,7 @@ import * as React from 'react';
 import './sidebar.css';
 import { NavItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import * as H from 'history';
 
 interface IRoutes {
   path: string;
@@ -11,12 +12,8 @@ interface IRoutes {
 
 interface IProps {
   routeList: IRoutes[];
-  location: {
-    pathname: string;
-    search: string;
-  };
-  match: object;
-  history: object;
+  history: H.History;
+  location: H.Location;
 }
 
 class Sidebar extends React.Component<IProps, {}> {

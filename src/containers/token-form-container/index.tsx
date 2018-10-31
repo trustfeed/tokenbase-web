@@ -12,11 +12,12 @@ import { paths } from 'src/routes';
 import { Link } from 'react-router-dom';
 import { IEthToken } from '../../ethTypes';
 import Spinner from 'src/components/spinner';
+import * as H from 'history';
 
 interface IProps {
   t: (key: string) => string;
-  location: any;
-  history: any;
+  history: H.History;
+  location: H.Location;
   createEthToken: (body) => void;
   updateEthToken: (body, id) => void;
   getEthToken: (id: string) => void;
