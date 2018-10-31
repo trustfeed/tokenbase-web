@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { paths } from '../../routes';
 import { changeQueryStringToJSON } from '../../utils/helpers';
 import EthToken from '../../components/token-card/eth/EthTokenDetail';
+import EthTokenPayment from '../../components/token-payment-card';
 import Spinner from 'src/components/spinner';
 import { IEthToken } from '../../ethTypes';
 import * as H from 'history';
@@ -39,6 +40,13 @@ export class EthTokenContainer extends React.Component<IProps, IState> {
 
   public render(): React.ReactNode {
     const { isGettingEthToken, ethToken, location, history } = this.props;
+    let payment;
+    if (ethToken) {
+      payment = ethToken.payment;
+    }
+
+    console.log(ethToken, payment);
+    const isPaymentAvailable = payment !== undefined;
     return (
       <Layout location={location} history={history} showSidebar={true}>
         <Container>
@@ -50,22 +58,28 @@ export class EthTokenContainer extends React.Component<IProps, IState> {
             <Spinner />
           ) : (
             <div style={{ width: 400, margin: 'auto' }}>
-              <Link
-                className="btn btn-outline-secondary btn-block"
-                to={`${paths.createEthToken}?id=${this.state.id}`}
-              >
-                {'Edit'}
-              </Link>
+              {isPaymentAvailable ? null : (
+                <Link
+                  className="btn btn-outline-secondary btn-block"
+                  to={`${paths.createEthToken}?id=${this.state.id}`}
+                >
+                  {'Edit'}
+                </Link>
+              )}
               <br />
               <EthToken ethToken={ethToken} />
               <br />
-              <button
-                onClick={this.handleDeploy}
-                className="btn btn-outline-primary btn-block"
-                disabled={!this.state.id}
-              >
-                {'Deploy'}
-              </button>
+              {isPaymentAvailable ? (
+                <EthTokenPayment payment={payment} />
+              ) : (
+                <button
+                  onClick={this.handleDeploy}
+                  className="btn btn-outline-primary btn-block"
+                  disabled={this.state.id !== undefined && isPaymentAvailable}
+                >
+                  {'Deploy'}
+                </button>
+              )}
             </div>
           )}
         </Container>

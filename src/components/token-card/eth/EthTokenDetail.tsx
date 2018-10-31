@@ -31,11 +31,11 @@ class EthTokenDetail extends React.Component<IProps, {}> {
         </CardTitle>
         <div className="text-center text-gray">
           <hr />
-          <span>{mintable ? 'mintable token' : 'non-mintable token'}</span>
-          <hr />
           <span>{'minters:'}</span>
           <br />
           <span>{minterList}</span>
+          <hr />
+          <span>{mintable ? 'mintable token' : 'non-mintable token'}</span>
           <hr />
           <span>{network}</span>
           <hr />
