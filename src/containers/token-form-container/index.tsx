@@ -41,7 +41,7 @@ class OnChainDataForm extends React.Component<IProps, IState> {
     const queryString = location.search.slice(1);
     const params = changeQueryStringToJSON(queryString);
     const id = params.id;
-    if (id) {
+    if (id !== undefined) {
       this.setState({ id }, () => this.props.getEthToken(id));
     }
   }
@@ -71,6 +71,8 @@ class OnChainDataForm extends React.Component<IProps, IState> {
           <div style={{ margin: 20 }}>
             <Link to={id ? `${paths.ethToken}?id=${id}` : paths.ethTokens}>{'Back'}</Link>
           </div>
+          <br />
+          <h5 className="text-center">{t('ethToken.title')}</h5>
           <br />
           {isGettingEthToken ? (
             <Spinner />

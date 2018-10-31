@@ -48,7 +48,7 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
 
   public componentDidMount() {
     const ethToken = this.props.ethToken;
-    if (ethToken) {
+    if (ethToken !== undefined) {
       const {
         network = 'rinkeby',
         name = '',
@@ -249,7 +249,7 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
       decimals: 18,
       minters: [minter]
     };
-    if (ethToken && ethToken.id) {
+    if (ethToken !== undefined && ethToken.id !== undefined) {
       return this.props.onSubmit(body, ethToken.id);
     }
     return this.props.onSubmit(body);

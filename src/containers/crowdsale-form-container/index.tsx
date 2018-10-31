@@ -25,7 +25,7 @@ class OnChainDataForm extends React.Component<IOnChainDataFormProps, {}> {
     const queryString = location.search.slice(1);
     const params = changeQueryStringToJSON(queryString);
     const id = params.id;
-    if (id) {
+    if (id !== undefined) {
       // this.setState({ id }, () => this.props.getOwnedCampaign(id));
     }
   }

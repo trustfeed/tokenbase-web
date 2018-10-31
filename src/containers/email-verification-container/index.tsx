@@ -34,7 +34,7 @@ export class EmailVerificationCardContainer extends React.Component<IProps, {}> 
     const { t } = nextProps;
     const isEmailVerifiedNext = nextProps.isEmailVerified;
     const isEmailVerifiedCurrent = this.props.isEmailVerified;
-    const isEmailVerified = !isEmailVerifiedCurrent && isEmailVerifiedNext;
+    const isEmailVerified: boolean = !isEmailVerifiedCurrent && isEmailVerifiedNext;
     const isVerifyingEmailNext = nextProps.isVerifyingEmail;
     const isVerifyingEmailCurrent = this.props.isVerifyingEmail;
     const isVerifyingEmailRequestComplete = !isVerifyingEmailNext && isVerifyingEmailCurrent;

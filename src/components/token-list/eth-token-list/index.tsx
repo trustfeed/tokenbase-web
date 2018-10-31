@@ -12,7 +12,7 @@ class TokenList extends React.Component<IProps, {}> {
   public render() {
     const ethTokens = this.props.ethTokens || [];
     return ethTokens.map((item) => {
-      if (!item) {
+      if (item === undefined) {
         return;
       }
       return (

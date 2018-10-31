@@ -53,14 +53,14 @@ interface IEthTokensProps {
 
 class EthTokenListContainer extends React.Component<IEthTokensProps, {}> {
   public componentDidMount() {
-    if (this.props.accessToken) {
+    if (this.props.accessToken !== undefined) {
       this.props.getEthTokens();
     }
   }
   public componentWillReceiveProps(nextProps) {
     const accessTokenNext = nextProps.accessToken;
     const accessTokenCurrent = this.props.accessToken;
-    if (nextProps.accessToken && accessTokenNext !== accessTokenCurrent) {
+    if (nextProps.accessToken !== undefined && accessTokenNext !== accessTokenCurrent) {
       nextProps.getEthTokens();
     }
   }
