@@ -22,7 +22,7 @@ class EthToken extends React.Component<IProps, {}> {
   public render() {
     const ethToken = this.props.ethToken || mockupEthToken || {};
     const { status, network, mintable, minters = [] } = ethToken;
-    const minterList = minters.map((item) => <li key={item}>{item}</li>);
+    const minterList = minters.map((item) => <small key={item}>{item}</small>);
     return (
       <Card body={true} className="token-card">
         <CardTitle className="text-center" style={{ fontSize: 32, margin: 20 }}>
@@ -31,6 +31,14 @@ class EthToken extends React.Component<IProps, {}> {
         </CardTitle>
         <div className="text-center">
           <Row>
+            <Col xs={12} sm={12} md={12} lg={12}>
+              <CardText>
+                <span className="text-gray text-center">{'minters:'}</span>
+                <br />
+                <span className="text-gray text-center">{minterList}</span>
+                <hr />
+              </CardText>
+            </Col>
             <Col xs={6} sm={6} md={6} lg={6}>
               <CardText>
                 <span className="text-gray float-right">{'status:'}</span>
@@ -38,8 +46,6 @@ class EthToken extends React.Component<IProps, {}> {
                 <span className="text-gray float-right">{'network:'}</span>
                 <br />
                 <span className="text-gray float-right">{'mintable:'}</span>
-                <br />
-                <span className="text-gray float-right">{'minters:'}</span>
               </CardText>
             </Col>
             <Col xs={6} sm={6} md={6} lg={6}>
@@ -48,11 +54,7 @@ class EthToken extends React.Component<IProps, {}> {
                 <br />
                 <span className="text-gray float-left">{network}</span>
                 <br />
-                <span className="text-gray float-left">
-                  {mintable ? 'mintable' : 'non-mintable'}
-                </span>
-                <br />
-                <span className="text-gray float-left">{minterList}</span>
+                <span className="text-gray float-left">{mintable ? '✔' : '✘'}</span>
               </CardText>
             </Col>
           </Row>
