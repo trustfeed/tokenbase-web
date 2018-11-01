@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Layout from 'src/components/layout';
 import LoginCard from 'src/components/login-form';
 import SignupCard from 'src/components/signup-form';
+import SignupCheckEmailCard from 'src/components/signup-check-email-card';
 import './login-container.css';
 import { paths } from 'src/routes';
 import { NotificationManager } from 'react-notifications';
@@ -25,9 +26,16 @@ interface IProps {
   accessToken: string;
 }
 
-export class LoginContainer extends React.Component<IProps, {}> {
+interface IState {
+  showEmailCheckMessage: boolean;
+}
+
+export class LoginContainer extends React.Component<IProps, IState> {
+  public readonly state = {
+    showEmailCheckMessage: false
+  };
   public componentWillReceiveProps(nextProps) {
-    const { t } = nextProps;
+    const { t, history } = nextProps;
     const accessTokenNext = nextProps.accessToken;
     const accessTokenCurrent = this.props.accessToken;
     const hasAccessToken = !accessTokenCurrent && accessTokenNext;
@@ -38,6 +46,9 @@ export class LoginContainer extends React.Component<IProps, {}> {
     if (isSigningInRequestComplete) {
       if (hasAccessToken) {
         NotificationManager.success('Success', t('login.success'));
+
+        // navigate to home
+        history.push(paths.home);
       } else {
         NotificationManager.error('Error', t('login.failure'));
       }
@@ -53,6 +64,9 @@ export class LoginContainer extends React.Component<IProps, {}> {
     if (isSigningUpRequestComplete) {
       if (isSignUpSuccessful) {
         NotificationManager.success('Success', t('signup.success'));
+        this.setState({ showEmailCheckMessage: true });
+        // navigate to home
+        history.push(paths.login);
       } else {
         NotificationManager.error('Error', t('signup.failure'));
       }
@@ -61,16 +75,23 @@ export class LoginContainer extends React.Component<IProps, {}> {
   public render(): React.ReactNode {
     const { location, history, t } = this.props;
     const { pathname } = location;
+    const isSingnUp = pathname === paths.signup;
+    const { showEmailCheckMessage } = this.state;
     return (
       <Layout location={location} history={history} showSidebar={false}>
         <div className="full-page-background">
           <div className="blanket">
             <div style={{ paddingTop: 240, paddingBottom: 200 }}>
-              {pathname === paths.signup ? (
-                <SignupCard handleSignUp={this.signUp} t={t} />
+              {isSingnUp ? (
+                showEmailCheckMessage || 1 ? (
+                  <SignupCheckEmailCard t={t} />
+                ) : (
+                  <SignupCard handleSignUp={this.signUp} t={t} />
+                )
               ) : (
                 <LoginCard handleSignIn={this.signIn} t={t} />
               )}
+              }
             </div>
           </div>
         </div>

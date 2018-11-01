@@ -24,7 +24,7 @@ class EthTokenSimple extends React.Component<IProps, {}> {
     return (
       <Card body={true} className="token-card">
         <div>
-          <CardTitle className="token-title">
+          <CardTitle className="token-title text-gray">
             <span>{ethToken.name} </span>
             <small>({ethToken.symbol})</small>
           </CardTitle>
