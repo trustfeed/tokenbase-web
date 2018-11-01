@@ -1,4 +1,4 @@
-import * as consts from '../user/types';
+import * as consts from '../user/actions';
 
 const initialState = { platform: 'ethereum' };
 

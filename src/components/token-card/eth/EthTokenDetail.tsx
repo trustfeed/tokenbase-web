@@ -3,6 +3,7 @@ import './eth-token-card.css';
 import { Card, CardTitle, Row, Col } from 'reactstrap';
 import { IEthToken } from '../../../ethTypes';
 import uuidv4 from 'uuid/v4';
+import { getAddressURLFromEtherScan } from 'src/utils/helpers';
 
 interface IProps {
   ethToken?: IEthToken;
@@ -22,7 +23,7 @@ const mockupEthToken: IEthToken = {
 class EthTokenDetail extends React.Component<IProps, {}> {
   public render() {
     const ethToken = this.props.ethToken || mockupEthToken || {};
-    const { name, symbol, status, network, mintable, minters = [], address } = ethToken;
+    const { name, symbol, status, network, mintable, minters = [], publicAddress } = ethToken;
     const minterList = minters.map((item) => <small key={item}>{item}</small>);
     return (
       <Card body={true} className="token-card">
@@ -48,7 +49,7 @@ class EthTokenDetail extends React.Component<IProps, {}> {
               <br />
               <span className="float-right">{'Network: '}</span>
               <br />
-              {address !== undefined ? (
+              {publicAddress !== undefined ? (
                 <span className="float-right">{'Contract Address: '}</span>
               ) : null}
             </Col>
@@ -59,9 +60,11 @@ class EthTokenDetail extends React.Component<IProps, {}> {
               <br />
               <span className="float-left text-gray">{symbol}</span>
               <br />
-              {minterList.map((item) => (
+              {minters.map((item) => (
                 <span key={uuidv4()} className="float-left text-gray">
-                  {item}
+                  <a href={getAddressURLFromEtherScan(item, network)} target="_blank">
+                    <small>{item}</small>
+                  </a>
                 </span>
               ))}
               <br />
@@ -71,7 +74,11 @@ class EthTokenDetail extends React.Component<IProps, {}> {
 
               <br />
               <span className="float-left text-gray">
-                <small>{address}</small>
+                {publicAddress !== undefined ? (
+                  <a href={getAddressURLFromEtherScan(publicAddress, network)} target="_blank">
+                    <small>{publicAddress}</small>
+                  </a>
+                ) : null}
               </span>
             </Col>
           </Row>

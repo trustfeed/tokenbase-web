@@ -1,3 +1,20 @@
+export type EthFilterKeyType = 'ALL' | 'DRAFT' | 'PAYMENT_PENDING' | 'DEPLOYED';
+
+export interface IEthCrowdsale {
+  goal: string;
+  cap: string;
+  duration: number;
+  id: string;
+  minted: boolean;
+  name: string;
+  network: string;
+  openingTime: number;
+  rate: string;
+  status: string;
+  wallet: string;
+  token: string;
+}
+
 export interface IEthToken {
   id: string;
   network: string;
@@ -8,7 +25,7 @@ export interface IEthToken {
   minters: string[];
   status: string;
   payment?: IEthTokenPayment;
-  address?: string;
+  publicAddress?: string;
 }
 
 export interface IEthTokenPayment {

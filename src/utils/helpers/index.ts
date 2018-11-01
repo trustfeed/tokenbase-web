@@ -64,3 +64,11 @@ export const getInputValidationState = (key: string, value: string, regex: RegEx
     return state;
   }
 };
+
+export const getAddressURLFromEtherScan = (address: string, network: string): string => {
+  let link = `https://${network}.etherscan.io/address/${address}`;
+  if (network === 'mainnet') {
+    link = `https://etherscan.io/address/${address}`;
+  }
+  return link;
+};
