@@ -22,17 +22,21 @@ const mockupEthToken: IEthToken = {
 class EthTokenDetail extends React.Component<IProps, {}> {
   public render() {
     const ethToken = this.props.ethToken || mockupEthToken || {};
-    const { status, network, mintable, minters = [] } = ethToken;
+    const { name, symbol, status, network, mintable, minters = [] } = ethToken;
     const minterList = minters.map((item) => <small key={item}>{item}</small>);
     return (
       <Card body={true} className="token-card">
         <CardTitle className="text-center token-title" style={{ margin: 10 }}>
-          <span>{ethToken.name} </span>
-          <small>({ethToken.symbol})</small>
+          <span>{'Token Info'}</span>
         </CardTitle>
+        <br />
         <div className="text-center">
           <Row>
-            <Col xs={4} sm={4} md={4} lg={4}>
+            <Col xs={4} sm={4} md={4} lg={4} className="text-gray">
+              <span className="float-right">{'Name: '}</span>
+              <br />
+              <span className="float-right">{'Symbol: '}</span>
+              <br />
               <span className="float-right">{'Minters: '}</span>
               {minterList.map(() => (
                 <br key={uuidv4()} />
@@ -44,6 +48,10 @@ class EthTokenDetail extends React.Component<IProps, {}> {
               <span className="float-right">{'Status: '}</span>
             </Col>
             <Col xs={8} sm={8} md={8} lg={8}>
+              <span className="float-left text-gray">{name}</span>
+              <br />
+              <span className="float-left text-gray">{symbol}</span>
+              <br />
               {minterList.map((item) => (
                 <span key={uuidv4()} className="float-left text-gray">
                   {item}
