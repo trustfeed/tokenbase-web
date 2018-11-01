@@ -1,3 +1,5 @@
+export type EthFilterKeyType = 'ALL' | 'DRAFT' | 'PAYMENT_PENDING' | 'DEPLOYED';
+
 export interface IEthCrowdsale {
   goal: string;
   cap: string;

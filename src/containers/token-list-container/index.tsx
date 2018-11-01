@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import Layout from '../../components/layout';
 import Spinner from '../../components/spinner';
-import EthTokenList from '../../components/token-list/eth-token-list';
+import EthTokenFilterList from '../../components/token-list/eth/token-filter-list';
 import { translate } from 'react-i18next';
 import { getEthTokens } from '../../redux/token/actions';
 import { Container } from 'reactstrap';
@@ -73,7 +73,7 @@ class EthTokenListContainer extends React.Component<IEthTokensProps, {}> {
             {isGettingEthTokens ? (
               <Spinner />
             ) : (
-              <EthTokenList ethTokens={[...ethTokens, ...mockupEthTokenlist]} />
+              <EthTokenFilterList ethTokens={[...ethTokens, ...mockupEthTokenlist]} />
             )}
           </div>
           <hr />

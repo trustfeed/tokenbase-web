@@ -2,7 +2,7 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import axios from 'axios';
 
-import * as consts from '../user/types';
+import * as consts from '../user/actions';
 import { handleFetch, getSignUpAPI, getEmailVerificationAPI, getSignInAPI } from '../../api';
 
 export function* signInSaga(action) {

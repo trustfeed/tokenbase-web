@@ -2,7 +2,7 @@ import { select, call, put, takeLatest } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import axios from 'axios';
 import * as tokenTypes from './actions';
-import * as userConsts from '../user/types';
+import * as userConsts from '../user/actions';
 import {
   getErrorStatus,
   handleFetch,
