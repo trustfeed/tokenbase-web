@@ -3,6 +3,7 @@ import { Card, CardTitle, Row, Col } from 'reactstrap';
 import { IEthTokenPayment } from '../../ethTypes';
 import './token-payment-card.css';
 import * as moment from 'moment';
+import { getAddressURLFromEtherScan } from 'src/utils/helpers';
 interface IProps {
   payment: IEthTokenPayment;
 }
@@ -20,6 +21,7 @@ const mockupEthToken: IEthTokenPayment = {
 class EthTokenPayment extends React.Component<IProps, {}> {
   public render() {
     const payment = this.props.payment || mockupEthToken || {};
+    const { status, publicAddress, expireAt, network, received, amount } = payment;
     return (
       <Card body={true} className="token-payment-card">
         <div className="text-center">
@@ -38,19 +40,19 @@ class EthTokenPayment extends React.Component<IProps, {}> {
               <span className="float-right text-gray">{'Received: '}</span>
             </Col>
             <Col xs={8} sm={8} md={8} lg={8}>
-              <span className="float-left text-gray">{payment.status}</span>
+              <span className="float-left text-gray">{status}</span>
               <br />
               <span className="float-left text-gray">
-                <small>{payment.publicAddress}</small>
+                <a href={getAddressURLFromEtherScan(publicAddress, network)} target="_blank">
+                  <small>{publicAddress}</small>
+                </a>
               </span>
               <br />
-              <span className="float-left text-gray">{payment.amount}</span>
+              <span className="float-left text-gray">{amount}</span>
               <br />
-              <span className="float-left text-gray">
-                {moment(payment.expireAt * 1000).format()}
-              </span>
+              <span className="float-left text-gray">{moment(expireAt * 1000).format()}</span>
               <br />
-              <span className="float-left text-gray">{payment.received}</span>
+              <span className="float-left text-gray">{received}</span>
             </Col>
           </Row>
           <div />

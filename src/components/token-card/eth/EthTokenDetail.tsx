@@ -3,6 +3,7 @@ import './eth-token-card.css';
 import { Card, CardTitle, Row, Col } from 'reactstrap';
 import { IEthToken } from '../../../ethTypes';
 import uuidv4 from 'uuid/v4';
+import { getAddressURLFromEtherScan } from 'src/utils/helpers';
 
 interface IProps {
   ethToken?: IEthToken;
@@ -59,9 +60,11 @@ class EthTokenDetail extends React.Component<IProps, {}> {
               <br />
               <span className="float-left text-gray">{symbol}</span>
               <br />
-              {minterList.map((item) => (
+              {minters.map((item) => (
                 <span key={uuidv4()} className="float-left text-gray">
-                  {item}
+                  <a href={getAddressURLFromEtherScan(item, network)} target="_blank">
+                    <small>{item}</small>
+                  </a>
                 </span>
               ))}
               <br />
@@ -71,7 +74,11 @@ class EthTokenDetail extends React.Component<IProps, {}> {
 
               <br />
               <span className="float-left text-gray">
-                <small>{address}</small>
+                {address !== undefined ? (
+                  <a href={getAddressURLFromEtherScan(address, network)} target="_blank">
+                    <small>{address}</small>
+                  </a>
+                ) : null}
               </span>
             </Col>
           </Row>
