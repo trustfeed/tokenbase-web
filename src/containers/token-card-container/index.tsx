@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import Layout from '../../components/layout';
-import { getEthToken, finaliseEthToken } from '../../redux/token/actions';
+import { getEthToken, clearEthToken, finaliseEthToken } from '../../redux/token/actions';
 import { Container } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { paths } from '../../routes';
@@ -17,6 +17,7 @@ interface IProps {
   location: H.Location;
   ethToken?: IEthToken;
   getEthToken: (id: string) => void;
+  clearEthToken: () => void;
   finaliseEthToken: (id: string) => void;
   isGettingEthToken: boolean;
 }
@@ -36,6 +37,9 @@ export class EthTokenContainer extends React.Component<IProps, IState> {
     const id = params.id;
 
     this.setState({ id }, () => this.props.getEthToken(id));
+  }
+  public componentWillUnmount() {
+    this.props.clearEthToken();
   }
 
   public render(): React.ReactNode {
@@ -104,7 +108,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getEthToken: (id) => dispatch(getEthToken(id)),
-  finaliseEthToken: (id) => dispatch(finaliseEthToken(id))
+  finaliseEthToken: (id) => dispatch(finaliseEthToken(id)),
+  clearEthToken: () => dispatch(clearEthToken())
 });
 
 export default connect(

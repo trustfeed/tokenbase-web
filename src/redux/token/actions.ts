@@ -29,6 +29,11 @@ export const getEthToken = (id) => ({
   payload: { id }
 });
 
+export const CREAR_ETH_TOKEN = 'CREAR_ETH_TOKEN';
+export const clearEthToken = () => ({
+  type: CREAR_ETH_TOKEN
+});
+
 export const FINALISE_ETH_TOKEN = 'FINALISE_ETH_TOKEN';
 export const FINALISE_ETH_TOKEN_SUCCEEDED = 'FINALISE_ETH_TOKEN_SUCCEEDED';
 export const FINALISE_ETH_TOKEN_FAILED = 'FINALISE_ETH_TOKEN_FAILED';

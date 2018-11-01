@@ -6,7 +6,12 @@ import { Container } from 'reactstrap';
 import Layout from '../../components/layout';
 import TokenForm from '../../components/token-form';
 // import { NotificationManager } from 'react-notifications';
-import { createEthToken, updateEthToken, getEthToken } from '../../redux/token/actions';
+import {
+  createEthToken,
+  updateEthToken,
+  getEthToken,
+  clearEthToken
+} from '../../redux/token/actions';
 import { changeQueryStringToJSON } from '../../utils/helpers';
 import { paths } from 'src/routes';
 import { Link } from 'react-router-dom';
@@ -21,6 +26,7 @@ interface IProps {
   createEthToken: (body) => void;
   updateEthToken: (body, id) => void;
   getEthToken: (id: string) => void;
+  clearEthToken: () => void;
   ethToken?: IEthToken;
   isGettingEthToken: boolean;
 }
@@ -41,6 +47,10 @@ class OnChainDataForm extends React.Component<IProps, IState> {
     if (id !== undefined) {
       this.setState({ id }, () => this.props.getEthToken(id));
     }
+  }
+
+  public componentWillUnmount() {
+    this.props.clearEthToken();
   }
 
   public componentWillReceiveProps(nextProps) {
@@ -92,7 +102,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   createEthToken: (body) => dispatch(createEthToken(body)),
   updateEthToken: (body, id) => dispatch(updateEthToken(body, id)),
-  getEthToken: (id) => dispatch(getEthToken(id))
+  getEthToken: (id) => dispatch(getEthToken(id)),
+  clearEthToken: () => dispatch(clearEthToken())
 });
 
 export default connect(

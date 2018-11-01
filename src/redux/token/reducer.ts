@@ -79,6 +79,13 @@ export default function user(state = initialState, action) {
         isGettingEthToken: false,
         ethToken: undefined
       };
+
+    case tokenTypes.CREAR_ETH_TOKEN:
+      return {
+        ...state,
+        ethToken: undefined
+      };
+
     case tokenTypes.FINALISE_ETH_TOKEN:
       return {
         ...state,
