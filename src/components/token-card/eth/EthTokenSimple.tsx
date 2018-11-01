@@ -4,7 +4,7 @@ import { Card, CardTitle } from 'reactstrap';
 import { IEthToken } from '../../../ethTypes';
 
 interface IProps {
-  ethToken: IEthToken | undefined;
+  ethToken?: IEthToken;
 }
 
 const mockupEthToken: IEthToken = {

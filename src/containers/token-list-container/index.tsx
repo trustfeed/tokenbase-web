@@ -44,7 +44,7 @@ const mockupEthTokenlist = [
 
 interface IEthTokensProps {
   t: (key: string) => string;
-  accessToken: string | undefined;
+  accessToken?: string;
   ethTokens: IEthToken[];
   isGettingEthTokens: boolean;
   isGettingWeb3: boolean;

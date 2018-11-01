@@ -7,7 +7,7 @@ import * as H from 'history';
 interface IRoutes {
   path: string;
   component: React.ReactNode;
-  label: string | undefined;
+  label?: string;
 }
 
 interface IProps {

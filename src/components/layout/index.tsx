@@ -12,7 +12,7 @@ interface ILayoutProps {
   history: H.History;
   location: H.Location;
   children?: React.ReactNode;
-  accessToken: string | undefined;
+  accessToken?: string;
   showSidebar: boolean;
   getUser: () => void;
   platform: string;

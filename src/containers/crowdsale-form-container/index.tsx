@@ -5,7 +5,7 @@ import { translate } from 'react-i18next';
 import { Container } from 'reactstrap';
 import Layout from '../../components/layout';
 import CreateCrowdsale from '../../components/crowdsale-form';
-import { NotificationManager } from 'react-notifications';
+// import { NotificationManager } from 'react-notifications';
 import { createEthCrowdsale } from '../../redux/crowdsale/actions';
 import { changeQueryStringToJSON } from '../../utils/helpers';
 import * as H from 'history';
@@ -15,9 +15,6 @@ interface IOnChainDataFormProps {
   history: H.History;
   location: H.Location;
   createEthCrowdsale: (body) => void;
-  hasCampaignCreated: boolean | undefined;
-  isCreatingCampaign: boolean | undefined;
-  hasOnChainDataUpdated: boolean | undefined;
 }
 
 class OnChainDataForm extends React.Component<IOnChainDataFormProps, {}> {
@@ -32,19 +29,16 @@ class OnChainDataForm extends React.Component<IOnChainDataFormProps, {}> {
   }
 
   public componentWillReceiveProps(nextProps) {
-    const hasCreatedNext = nextProps.hasCampaignCreated;
-    const hasCreatedCurrent = this.props.hasCampaignCreated;
-
-    const hasOnChainDataUpdatedNext = nextProps.hasOnChainDataUpdated;
-    const hasOnChainDataUpdatedCurrent = this.props.hasOnChainDataUpdated;
-
-    if (hasCreatedNext && !hasCreatedCurrent) {
-      NotificationManager.success('Success', 'Campaign has been created successfully');
-    }
-
-    if (hasOnChainDataUpdatedNext && !hasOnChainDataUpdatedCurrent) {
-      NotificationManager.success('Success', 'Campaign has been updated successfully');
-    }
+    // const hasCreatedNext = nextProps.hasCampaignCreated;
+    // const hasCreatedCurrent = this.props.hasCampaignCreated;
+    // const hasOnChainDataUpdatedNext = nextProps.hasOnChainDataUpdated;
+    // const hasOnChainDataUpdatedCurrent = this.props.hasOnChainDataUpdated;
+    // if (hasCreatedNext && !hasCreatedCurrent) {
+    //   NotificationManager.success('Success', 'Campaign has been created successfully');
+    // }
+    // if (hasOnChainDataUpdatedNext && !hasOnChainDataUpdatedCurrent) {
+    //   NotificationManager.success('Success', 'Campaign has been updated successfully');
+    // }
   }
 
   public render(): React.ReactNode {

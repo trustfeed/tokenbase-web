@@ -4,7 +4,7 @@ import { Row, Col, Card, CardBody, Container } from 'reactstrap';
 interface IProps {
   title: string;
   isVerified: boolean;
-  message: string | undefined;
+  message?: string;
 }
 
 class EmailVerificationCard extends React.Component<IProps, {}> {

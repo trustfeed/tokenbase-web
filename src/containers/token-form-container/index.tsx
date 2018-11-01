@@ -5,7 +5,7 @@ import { translate } from 'react-i18next';
 import { Container } from 'reactstrap';
 import Layout from '../../components/layout';
 import TokenForm from '../../components/token-form';
-import { NotificationManager } from 'react-notifications';
+// import { NotificationManager } from 'react-notifications';
 import { createEthToken, updateEthToken, getEthToken } from '../../redux/token/actions';
 import { changeQueryStringToJSON } from '../../utils/helpers';
 import { paths } from 'src/routes';
@@ -21,16 +21,12 @@ interface IProps {
   createEthToken: (body) => void;
   updateEthToken: (body, id) => void;
   getEthToken: (id: string) => void;
-  ethToken: IEthToken | undefined;
+  ethToken?: IEthToken;
   isGettingEthToken: boolean;
-
-  hasCampaignCreated: boolean | undefined;
-  isCreatingCampaign: boolean | undefined;
-  hasOnChainDataUpdated: boolean | undefined;
 }
 
 interface IState {
-  id: string | undefined;
+  id?: string;
 }
 
 class OnChainDataForm extends React.Component<IProps, IState> {
@@ -48,19 +44,16 @@ class OnChainDataForm extends React.Component<IProps, IState> {
   }
 
   public componentWillReceiveProps(nextProps) {
-    const hasCreatedNext = nextProps.hasCampaignCreated;
-    const hasCreatedCurrent = this.props.hasCampaignCreated;
-
-    const hasOnChainDataUpdatedNext = nextProps.hasOnChainDataUpdated;
-    const hasOnChainDataUpdatedCurrent = this.props.hasOnChainDataUpdated;
-
-    if (hasCreatedNext && !hasCreatedCurrent) {
-      NotificationManager.success('Success', 'Campaign has been created successfully');
-    }
-
-    if (hasOnChainDataUpdatedNext && !hasOnChainDataUpdatedCurrent) {
-      NotificationManager.success('Success', 'Campaign has been updated successfully');
-    }
+    // const hasCreatedNext = nextProps.hasCampaignCreated;
+    // const hasCreatedCurrent = this.props.hasCampaignCreated;
+    // const hasOnChainDataUpdatedNext = nextProps.hasOnChainDataUpdated;
+    // const hasOnChainDataUpdatedCurrent = this.props.hasOnChainDataUpdated;
+    // if (hasCreatedNext && !hasCreatedCurrent) {
+    //   NotificationManager.success('Success', 'Campaign has been created successfully');
+    // }
+    // if (hasOnChainDataUpdatedNext && !hasOnChainDataUpdatedCurrent) {
+    //   NotificationManager.success('Success', 'Campaign has been updated successfully');
+    // }
   }
 
   public render(): React.ReactNode {

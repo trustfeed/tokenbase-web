@@ -1,0 +1,10 @@
+.token-payment-card {
+  border-radius: 0px !important;
+  border-color: #1082fc !important;
+  color: #1082fc;
+}
+.token-title {
+  font-size: 24px;
+  margin: 10px;
+  margin-top: 25px;
+}

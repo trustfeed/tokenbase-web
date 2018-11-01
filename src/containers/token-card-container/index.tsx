@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { paths } from '../../routes';
 import { changeQueryStringToJSON } from '../../utils/helpers';
 import EthToken from '../../components/token-card/eth/EthTokenDetail';
+import EthTokenPayment from '../../components/token-payment-card';
 import Spinner from 'src/components/spinner';
 import { IEthToken } from '../../ethTypes';
 import * as H from 'history';
@@ -14,7 +15,7 @@ import * as H from 'history';
 interface IProps {
   history: H.History;
   location: H.Location;
-  ethToken: IEthToken | undefined;
+  ethToken?: IEthToken;
   getEthToken: (id: string) => void;
   finaliseEthToken: (id: string) => void;
   isGettingEthToken: boolean;
@@ -39,6 +40,11 @@ export class EthTokenContainer extends React.Component<IProps, IState> {
 
   public render(): React.ReactNode {
     const { isGettingEthToken, ethToken, location, history } = this.props;
+    let payment;
+    if (ethToken) {
+      payment = ethToken.payment;
+    }
+    const isPaymentAvailable = payment !== undefined;
     return (
       <Layout location={location} history={history} showSidebar={true}>
         <Container>
@@ -46,28 +52,38 @@ export class EthTokenContainer extends React.Component<IProps, IState> {
             <Link to={paths.ethTokens}>{'Back'}</Link>
           </div>
           <br />
-          {isGettingEthToken ? (
-            <Spinner />
-          ) : (
-            <div style={{ width: 400, margin: 'auto' }}>
-              <Link
-                className="btn btn-outline-secondary btn-block"
-                to={`${paths.createEthToken}?id=${this.state.id}`}
-              >
-                {'Edit'}
-              </Link>
-              <br />
-              <EthToken ethToken={ethToken} />
-              <br />
-              <button
-                onClick={this.handleDeploy}
-                className="btn btn-outline-primary btn-block"
-                disabled={!this.state.id}
-              >
-                {'Deploy'}
-              </button>
-            </div>
-          )}
+          <div style={{ width: 600, margin: 'auto' }}>
+            {isGettingEthToken ? (
+              <Spinner />
+            ) : (
+              <div>
+                {isPaymentAvailable ? null : (
+                  <Link
+                    className="btn btn-outline-secondary btn-block"
+                    to={`${paths.createEthToken}?id=${this.state.id}`}
+                  >
+                    {'Edit'}
+                  </Link>
+                )}
+                <br />
+
+                <EthToken ethToken={ethToken} />
+
+                <br />
+                {isPaymentAvailable ? (
+                  <EthTokenPayment payment={payment} />
+                ) : (
+                  <button
+                    onClick={this.handleDeploy}
+                    className="btn btn-outline-primary btn-block"
+                    disabled={this.state.id !== undefined && isPaymentAvailable}
+                  >
+                    {'Deploy'}
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
         </Container>
       </Layout>
     );
