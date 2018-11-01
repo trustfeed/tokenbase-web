@@ -6,16 +6,24 @@ import EthTokenSimple from '../../token-card/eth/EthTokenSimple';
 import { IEthToken } from '../../../ethTypes';
 import { Col, Row, ButtonGroup, Button } from 'reactstrap';
 
+const ALL = 'ALL';
+const DRAFT = 'DRAFT';
+const PENDING = 'PAYMENT_PENDING';
+const DEPLOYED = 'DEPLOYED';
+
+type FilterKey = 'ALL' | 'DRAFT' | 'PAYMENT_PENDING' | 'DEPLOYED';
+
 interface IProps {
   ethTokens: IEthToken[];
 }
+
 interface IState {
-  filterKey: string;
+  filterKey: FilterKey;
 }
 
 class TokenList extends React.Component<IProps, IState> {
   public readonly state: IState = {
-    filterKey: 'ALL'
+    filterKey: ALL
   };
   public render() {
     return (
@@ -27,11 +35,11 @@ class TokenList extends React.Component<IProps, IState> {
   }
   private renderFilterButtons = () => {
     const ethTokens = this.props.ethTokens || [];
-    const filterKeyList = ['ALL', 'DRAFT', 'PAYMENT_PENDING', 'DEPLOYED'];
+    const filterKeyList = [ALL, DRAFT, PENDING, DEPLOYED];
 
-    return filterKeyList.map((filterKey) => {
+    return filterKeyList.map((filterKey: FilterKey) => {
       let sum = ethTokens.length;
-      if (filterKey !== 'ALL') {
+      if (filterKey !== ALL) {
         sum = ethTokens.filter((item) => item.status === filterKey).length;
       }
       return (
@@ -50,10 +58,10 @@ class TokenList extends React.Component<IProps, IState> {
   };
   private renderTokenList = () => {
     const ethTokens = this.props.ethTokens || [];
-    const { filterKey } = this.state;
+    const filterKey: FilterKey = this.state.filterKey;
 
     let list = ethTokens;
-    if (filterKey !== 'ALL') {
+    if (filterKey !== ALL) {
       list = ethTokens.filter((item) => item.status === filterKey);
     }
 
