@@ -44,8 +44,6 @@ export class EthTokenContainer extends React.Component<IProps, IState> {
     if (ethToken) {
       payment = ethToken.payment;
     }
-
-    console.log(ethToken, payment);
     const isPaymentAvailable = payment !== undefined;
     return (
       <Layout location={location} history={history} showSidebar={true}>
@@ -54,34 +52,38 @@ export class EthTokenContainer extends React.Component<IProps, IState> {
             <Link to={paths.ethTokens}>{'Back'}</Link>
           </div>
           <br />
-          {isGettingEthToken ? (
-            <Spinner />
-          ) : (
-            <div style={{ width: 400, margin: 'auto' }}>
-              {isPaymentAvailable ? null : (
-                <Link
-                  className="btn btn-outline-secondary btn-block"
-                  to={`${paths.createEthToken}?id=${this.state.id}`}
-                >
-                  {'Edit'}
-                </Link>
-              )}
-              <br />
-              <EthToken ethToken={ethToken} />
-              <br />
-              {isPaymentAvailable ? (
-                <EthTokenPayment payment={payment} />
-              ) : (
-                <button
-                  onClick={this.handleDeploy}
-                  className="btn btn-outline-primary btn-block"
-                  disabled={this.state.id !== undefined && isPaymentAvailable}
-                >
-                  {'Deploy'}
-                </button>
-              )}
-            </div>
-          )}
+          <div style={{ width: 600, margin: 'auto' }}>
+            {isGettingEthToken ? (
+              <Spinner />
+            ) : (
+              <div>
+                {isPaymentAvailable ? null : (
+                  <Link
+                    className="btn btn-outline-secondary btn-block"
+                    to={`${paths.createEthToken}?id=${this.state.id}`}
+                  >
+                    {'Edit'}
+                  </Link>
+                )}
+                <br />
+
+                <EthToken ethToken={ethToken} />
+
+                <br />
+                {isPaymentAvailable ? (
+                  <EthTokenPayment payment={payment} />
+                ) : (
+                  <button
+                    onClick={this.handleDeploy}
+                    className="btn btn-outline-primary btn-block"
+                    disabled={this.state.id !== undefined && isPaymentAvailable}
+                  >
+                    {'Deploy'}
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
         </Container>
       </Layout>
     );
