@@ -45,6 +45,9 @@ export class EthTokenContainer extends React.Component<IProps, IState> {
       payment = ethToken.payment;
     }
     const isPaymentAvailable = payment !== undefined;
+    const isPaymentComplete = payment !== undefined && payment.status === 'COMPLETE';
+    const showPayment = isPaymentAvailable && !isPaymentComplete;
+
     return (
       <Layout location={location} history={history} showSidebar={true}>
         <Container>
@@ -57,22 +60,21 @@ export class EthTokenContainer extends React.Component<IProps, IState> {
               <Spinner />
             ) : (
               <div>
-                {isPaymentAvailable ? null : (
+                {!isPaymentAvailable ? (
                   <Link
                     className="btn btn-outline-secondary btn-block"
                     to={`${paths.createEthToken}?id=${this.state.id}`}
                   >
                     {'Edit'}
                   </Link>
-                )}
-                <br />
+                ) : null}
 
+                <br />
                 <EthToken ethToken={ethToken} />
-
                 <br />
-                {isPaymentAvailable ? (
-                  <EthTokenPayment payment={payment} />
-                ) : (
+
+                {showPayment ? <EthTokenPayment payment={payment} /> : null}
+                {!isPaymentAvailable ? (
                   <button
                     onClick={this.handleDeploy}
                     className="btn btn-outline-primary btn-block"
@@ -80,7 +82,7 @@ export class EthTokenContainer extends React.Component<IProps, IState> {
                   >
                     {'Deploy'}
                   </button>
-                )}
+                ) : null}
               </div>
             )}
           </div>

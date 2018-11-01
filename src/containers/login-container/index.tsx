@@ -23,7 +23,7 @@ interface IProps {
 
   signIn: (body) => void;
   isSigningIn: boolean;
-  accessToken: string;
+  accessToken?: string;
 }
 
 interface IState {

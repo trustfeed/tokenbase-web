@@ -8,6 +8,7 @@ export interface IEthToken {
   minters: string[];
   status: string;
   payment?: IEthTokenPayment;
+  address?: string;
 }
 
 export interface IEthTokenPayment {
