@@ -61,7 +61,7 @@ class EthTokenListContainer extends React.Component<IEthTokensProps, {}> {
     return (
       <Layout location={location} history={history} showSidebar={true}>
         <Container>
-          <div style={{ margin: 'auto' }}>
+          <div style={{ margin: 20 }}>
             <br />
             <div className="text-center">
               <Link to={paths.createEthToken} className="btn btn-outline-primary">
