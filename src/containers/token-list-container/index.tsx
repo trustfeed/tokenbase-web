@@ -29,16 +29,6 @@ const mockupEthTokenlist = [
     mintable: true,
     minters: ['0x432343'],
     status: 'DRAFT'
-  },
-  {
-    id: 'fdsafdsa5fas',
-    network: 'rinkeby(mockup)',
-    name: 'Delta Token',
-    symbol: 'DT',
-    decimals: 18,
-    mintable: true,
-    minters: ['0x432343'],
-    status: 'DRAFT'
   }
 ];
 
@@ -71,16 +61,14 @@ class EthTokenListContainer extends React.Component<IEthTokensProps, {}> {
     return (
       <Layout location={location} history={history} showSidebar={true}>
         <Container>
-          <div style={{ width: 400, margin: 'auto' }}>
-            <h4
-              className="text-center"
-              style={{ color: 'black', fontSize: 24, paddingTop: 85, paddingBottom: 15 }}
-            >
-              {'Ethereum Tokens'}
-            </h4>
-            <Link to={paths.createEthToken} className="btn btn-outline-primary btn-block">
-              {'Create Token'}
-            </Link>
+          <div style={{ margin: 'auto' }}>
+            <br />
+            <div className="text-center">
+              <Link to={paths.createEthToken} className="btn btn-outline-primary">
+                {'Create Ethereum Token'}
+              </Link>
+            </div>
+            <br />
             {isGettingEthTokens ? (
               <Spinner />
             ) : (

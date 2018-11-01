@@ -1,5 +1,8 @@
 .token-list .token-card:hover {
   border-radius: 20px !important;
   border-color: #1082fc !important;
-  color: #1082fc;
+}
+
+.token-list .token-card:hover .token-title{
+  color: #1082fc !important;
 }

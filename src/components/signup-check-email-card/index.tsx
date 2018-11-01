@@ -1,0 +1,38 @@
+import * as React from 'react';
+import { Col, Row, Card, CardBody, Container } from 'reactstrap';
+import { Link } from 'react-router-dom';
+import { paths } from 'src/routes';
+
+interface IProps {
+  t: (key: string) => string;
+}
+
+class SignupCheckEmailCard extends React.Component<IProps, {}> {
+  public render() {
+    const { t } = this.props;
+    return (
+      <Row>
+        <Col sm={10} md={8} lg={5} className="mr-auto ml-auto">
+          <Container>
+            <Card className="signup-card">
+              <CardBody>
+                <br />
+                <div className="text-center">
+                  <p>{t('signup.checkYourEmailMessage')}</p>
+                </div>
+                <div className="text-center">
+                  <small>
+                    <Link to={paths.login}>{t('signup.linkToLogin')}</Link>
+                  </small>
+                </div>
+                <br />
+              </CardBody>
+            </Card>
+          </Container>
+        </Col>
+      </Row>
+    );
+  }
+}
+
+export default SignupCheckEmailCard;

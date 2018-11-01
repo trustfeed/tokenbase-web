@@ -22,7 +22,7 @@ const mockupEthToken: IEthToken = {
 class EthTokenDetail extends React.Component<IProps, {}> {
   public render() {
     const ethToken = this.props.ethToken || mockupEthToken || {};
-    const { name, symbol, status, network, mintable, minters = [] } = ethToken;
+    const { name, symbol, status, network, mintable, minters = [], address } = ethToken;
     const minterList = minters.map((item) => <small key={item}>{item}</small>);
     return (
       <Card body={true} className="token-card">
@@ -33,10 +33,13 @@ class EthTokenDetail extends React.Component<IProps, {}> {
         <div className="text-center">
           <Row>
             <Col xs={4} sm={4} md={4} lg={4} className="text-gray">
+              <span className="float-right">{'Status: '}</span>
+              <br />
               <span className="float-right">{'Name: '}</span>
               <br />
               <span className="float-right">{'Symbol: '}</span>
               <br />
+
               <span className="float-right">{'Minters: '}</span>
               {minterList.map(() => (
                 <br key={uuidv4()} />
@@ -45,9 +48,13 @@ class EthTokenDetail extends React.Component<IProps, {}> {
               <br />
               <span className="float-right">{'Network: '}</span>
               <br />
-              <span className="float-right">{'Status: '}</span>
+              {address !== undefined ? (
+                <span className="float-right">{'Contract Address: '}</span>
+              ) : null}
             </Col>
             <Col xs={8} sm={8} md={8} lg={8}>
+              <span className="float-left text-gray">{status}</span>
+              <br />
               <span className="float-left text-gray">{name}</span>
               <br />
               <span className="float-left text-gray">{symbol}</span>
@@ -61,8 +68,11 @@ class EthTokenDetail extends React.Component<IProps, {}> {
               <span className="float-left text-gray">{mintable ? 'True' : 'False'}</span>
               <br />
               <span className="float-left text-gray">{network}</span>
+
               <br />
-              <span className="float-left text-gray">{status}</span>
+              <span className="float-left text-gray">
+                <small>{address}</small>
+              </span>
             </Col>
           </Row>
         </div>
