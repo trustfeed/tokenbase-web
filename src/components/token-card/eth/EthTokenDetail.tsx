@@ -23,7 +23,7 @@ const mockupEthToken: IEthToken = {
 class EthTokenDetail extends React.Component<IProps, {}> {
   public render() {
     const ethToken = this.props.ethToken || mockupEthToken || {};
-    const { name, symbol, status, network, mintable, minters = [], address } = ethToken;
+    const { name, symbol, status, network, mintable, minters = [], publicAddress } = ethToken;
     const minterList = minters.map((item) => <small key={item}>{item}</small>);
     return (
       <Card body={true} className="token-card">
@@ -49,7 +49,7 @@ class EthTokenDetail extends React.Component<IProps, {}> {
               <br />
               <span className="float-right">{'Network: '}</span>
               <br />
-              {address !== undefined ? (
+              {publicAddress !== undefined ? (
                 <span className="float-right">{'Contract Address: '}</span>
               ) : null}
             </Col>
@@ -74,9 +74,9 @@ class EthTokenDetail extends React.Component<IProps, {}> {
 
               <br />
               <span className="float-left text-gray">
-                {address !== undefined ? (
-                  <a href={getAddressURLFromEtherScan(address, network)} target="_blank">
-                    <small>{address}</small>
+                {publicAddress !== undefined ? (
+                  <a href={getAddressURLFromEtherScan(publicAddress, network)} target="_blank">
+                    <small>{publicAddress}</small>
                   </a>
                 ) : null}
               </span>
