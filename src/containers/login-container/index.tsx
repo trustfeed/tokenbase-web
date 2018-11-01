@@ -83,7 +83,7 @@ export class LoginContainer extends React.Component<IProps, IState> {
           <div className="blanket">
             <div style={{ paddingTop: 240, paddingBottom: 200 }}>
               {isSingnUp ? (
-                showEmailCheckMessage || 1 ? (
+                showEmailCheckMessage ? (
                   <SignupCheckEmailCard t={t} />
                 ) : (
                   <SignupCard handleSignUp={this.signUp} t={t} />

@@ -26,18 +26,27 @@ class TokenList extends React.Component<IProps, IState> {
     );
   }
   private renderFilterButtons = () => {
+    const ethTokens = this.props.ethTokens || [];
     const filterKeyList = ['ALL', 'DRAFT', 'PAYMENT_PENDING', 'DEPLOYED'];
-    return filterKeyList.map((item) => (
-      <Button
-        size="sm"
-        color="primary"
-        outline={true}
-        onClick={() => this.setState({ filterKey: item })}
-        active={this.state.filterKey === item}
-      >
-        {item}
-      </Button>
-    ));
+
+    return filterKeyList.map((filterKey) => {
+      let sum = ethTokens.length;
+      if (filterKey !== 'ALL') {
+        sum = ethTokens.filter((item) => item.status === filterKey).length;
+      }
+      return (
+        <Button
+          size="sm"
+          color="primary"
+          outline={true}
+          onClick={() => this.setState({ filterKey })}
+          active={this.state.filterKey === filterKey}
+          key={filterKey}
+        >
+          {filterKey} ({sum})
+        </Button>
+      );
+    });
   };
   private renderTokenList = () => {
     const ethTokens = this.props.ethTokens || [];
@@ -58,7 +67,6 @@ class TokenList extends React.Component<IProps, IState> {
             to={`${paths.ethToken}?id=${item.id}`}
             style={{ margin: 10, textDecoration: 'none' }}
             className="text-center token-list"
-            key={item.id}
           >
             <EthTokenSimple ethToken={item} />
           </Link>
