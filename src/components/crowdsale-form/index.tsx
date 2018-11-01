@@ -50,7 +50,7 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
     return (
       <Form>
         <Row>
-          <Col xs={10} sm={8} md={7} lg={5} className="mr-auto ml-auto">
+          <Col xs={10} sm={8} md={7} lg={6} className="mr-auto ml-auto">
             <FormGroup>
               <Label className="text-gray">{t('ethCrowdsale.goal')}</Label>
               <Slider

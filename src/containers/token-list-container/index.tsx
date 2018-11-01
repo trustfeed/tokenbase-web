@@ -69,12 +69,14 @@ class EthTokenListContainer extends React.Component<IEthTokensProps, {}> {
               </Link>
             </div>
             <br />
+            <hr />
             {isGettingEthTokens ? (
               <Spinner />
             ) : (
               <EthTokenList ethTokens={[...ethTokens, ...mockupEthTokenlist]} />
             )}
           </div>
+          <hr />
         </Container>
       </Layout>
     );
