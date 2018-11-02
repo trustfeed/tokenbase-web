@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { Card, CardTitle, Row, Col } from 'reactstrap';
-import { IEthTokenPayment } from '../../ethTypes';
-import './token-payment-card.css';
+import { IEthPaymentType } from '../../ethTypes';
+import './index.css';
 import * as moment from 'moment';
 import { getAddressURLFromEtherScan } from 'src/utils/helpers';
 interface IProps {
-  payment: IEthTokenPayment;
+  payment: IEthPaymentType;
 }
 
-const mockupEthToken: IEthTokenPayment = {
+const mockupEthToken: IEthPaymentType = {
   amount: '1065902250000000',
   expireAt: 1540987663,
   id: '5bd970dfba94900001b0ad11',

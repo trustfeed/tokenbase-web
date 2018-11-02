@@ -1,89 +1,111 @@
-// import * as React from 'react';
-// import { connect } from 'react-redux';
-// import Layout from '../../components/layout';
-// import Spinner from '../../components/spinner';
-// import EthFilterList from '../../components/list-filter/eth';
-// import EThTokenList from '../../components/token-list/eth';
-// import { translate } from 'react-i18next';
-// import { getEthCrowdsales } from '../../redux/crowdsale/actions';
-// import { Container } from 'reactstrap';
-// import { Link } from 'react-router-dom';
-// import { paths } from 'src/routes';
-// import { IEthToken } from '../../ethTypes';
-// import * as H from 'history';
+import * as React from 'react';
+import { connect } from 'react-redux';
+import Layout from '../../components/layout';
+import Spinner from '../../components/spinner';
+import EthFilterList from '../../components/list-filter/eth';
+import EThCrowdsaleList from '../../components/crowdsale-list/eth';
+import { translate } from 'react-i18next';
+import { getEthTokens } from '../../redux/token/actions';
+import { Container } from 'reactstrap';
+import { Link } from 'react-router-dom';
+import { paths } from 'src/routes';
+import { IEthCrowdsale, EthStatusType } from '../../ethTypes';
+import * as H from 'history';
 
-// interface IEthCrowdsalesProps {
-//   t: (key: string) => string;
-//   history: H.History;
-//   location: H.Location;
-//   accessToken?: string;
-//   ethCrowdsales: IEthToken[];
-//   isGettingEthCrowdsales: boolean;
-//   isGettingWeb3: boolean;
-//   getEthCrowdsales: () => void;
-// }
+const mockupList = [
+  {
+    goal: '1',
+    cap: '100',
+    duration: 60,
+    id: '5bcd38c4137a0032b9ec0a89',
+    minted: true,
+    name: 'Some ID, Just for user',
+    network: 'parity.trustfeed.io',
+    openingTime: 10,
+    rate: '1',
+    status: 'DRAFT',
+    wallet: '0x3Aa9CE734DD21FA5E6962978e2ccc7f4Ac513348',
+    token: '0x3Aa7E32BD54'
+  }
+];
 
-// class EthTokenListContainer extends React.Component<IEthCrowdsalesProps, {}> {
-//   public componentDidMount() {
-//     this.props.getEthCrowdsales();
-//   }
-//   public componentWillReceiveProps(nextProps) {
-//     const accessTokenNext = nextProps.accessToken;
-//     const accessTokenCurrent = this.props.accessToken;
-//     if (nextProps.accessToken !== undefined && accessTokenNext !== accessTokenCurrent) {
-//       nextProps.getEthCrowdsales();
-//     }
-//   }
+interface IEthTokensProps {
+  t: (key: string) => string;
+  history: H.History;
+  location: H.Location;
+  accessToken?: string;
+  ethCrowdsales: IEthCrowdsale[];
+  isGettingEthTokens: boolean;
+  isGettingWeb3: boolean;
+  getEthTokens: () => void;
+}
+interface IState {
+  selectedFilterKey: EthStatusType;
+}
 
-//   public render(): React.ReactNode {
-//     const isGettingEthCrowdsales: boolean = this.props.isGettingEthCrowdsales;
-//     const { ethCrowdsales = [], history, location } = this.props;
-//     return (
-//       <Layout location={location} history={history} showSidebar={true}>
-//         <Container>
-//           <div style={{ margin: 20 }}>
-//             <br />
-//             <div className="text-center">
-//               <Link to={paths.createEthToken} className="btn btn-outline-primary">
-//                 {'Create Ethereum Token'}
-//               </Link>
-//             </div>
-//             <br />
-//             <hr />
-//             {isGettingEthCrowdsales ? (
-//               <Spinner />
-//             ) : (
-//               <EthFilterList list={ethCrowdsales}
-//               selectedFilterKey={this.state.selectedFilterKey}
-//               renderList={this.renderTokenList} />
-//             )}
-//           </div>
-//           <hr />
-//         </Container>
-//       </Layout>
-//     );
-//   }
+class EthTokenListContainer extends React.Component<IEthTokensProps, IState> {
+  public readonly state: IState = {
+    selectedFilterKey: 'ALL'
+  };
+  public componentDidMount() {
+    this.props.getEthTokens();
+  }
+  public componentWillReceiveProps(nextProps) {
+    const accessTokenNext = nextProps.accessToken;
+    const accessTokenCurrent = this.props.accessToken;
+    if (nextProps.accessToken !== undefined && accessTokenNext !== accessTokenCurrent) {
+      nextProps.getEthTokens();
+    }
+  }
 
-//   private renderTokenList = (list, selectedFilterKey)=> {
-//     return (
-//       <EThTokenList eth/>
-//     )
-//   }
-// }
+  public render(): React.ReactNode {
+    const isGettingEthTokens: boolean = this.props.isGettingEthTokens;
+    const { ethCrowdsales = [], history, location } = this.props;
+    return (
+      <Layout location={location} history={history} showSidebar={true}>
+        <Container>
+          <div style={{ margin: 20 }}>
+            <br />
+            <div className="text-center">
+              <Link to={paths.createEthCrowdsale} className="btn btn-outline-primary">
+                {'Create Ethereum Crowdsale'}
+              </Link>
+            </div>
+            <br />
+            <hr />
+            {isGettingEthTokens ? (
+              <Spinner />
+            ) : (
+              <EthFilterList
+                list={[...ethCrowdsales, ...mockupList]}
+                selectedFilterKey={this.state.selectedFilterKey}
+                handleSelect={(selectedFilterKey) => this.setState({ selectedFilterKey })}
+                renderList={(list, selectedFilterKey) => (
+                  <EThCrowdsaleList ethCrowdsales={list} selectedFilterKey={selectedFilterKey} />
+                )}
+              />
+            )}
+          </div>
+          <hr />
+        </Container>
+      </Layout>
+    );
+  }
+}
 
-// const EthTokenListContainerWithI18n = translate('translations')(EthTokenListContainer);
+const EthTokenListContainerWithI18n = translate('translations')(EthTokenListContainer);
 
-// const mapStateToProps = (state) => ({
-//   ethCrowdsales: state.token.ethCrowdsales,
-//   isGettingEthCrowdsales: state.token.isGettingEthCrowdsales,
-//   accessToken: state.user.accessToken
-// });
+const mapStateToProps = (state) => ({
+  ethCrowdsales: state.token.ethCrowdsales,
+  isGettingEthTokens: state.token.isGettingEthTokens,
+  accessToken: state.user.accessToken
+});
 
-// const mapDispatchToProps = (dispatch) => ({
-//   getEthCrowdsales: () => dispatch(getEthCrowdsales())
-// });
+const mapDispatchToProps = (dispatch) => ({
+  getEthTokens: () => dispatch(getEthTokens())
+});
 
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(EthTokenListContainerWithI18n);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(EthTokenListContainerWithI18n);

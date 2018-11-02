@@ -1,13 +1,13 @@
 import * as React from 'react';
-import './index.css';
+import './crowdsale-list.css';
 import { Link } from 'react-router-dom';
 import { paths } from 'src/routes';
-import EthTokenSimple from '../../token-card/eth/Simple';
-import { IEthToken, EthStatusType } from '../../../ethTypes';
+import EthCrowdsaleSimple from '../../crowdsale-card/eth/Simple';
+import { IEthCrowdsale, EthStatusType } from '../../../ethTypes';
 import { Col, Row } from 'reactstrap';
 
 interface IProps {
-  ethTokens: IEthToken[];
+  ethCrowdsales: IEthCrowdsale[];
   selectedFilterKey: EthStatusType;
 }
 
@@ -17,12 +17,12 @@ class TokenList extends React.Component<IProps, {}> {
   }
 
   private renderTokenList = () => {
-    const ethTokens = this.props.ethTokens || [];
+    const ethCrowdsales = this.props.ethCrowdsales || [];
     const selectedFilterKey: EthStatusType = this.props.selectedFilterKey;
 
-    let list = ethTokens;
+    let list = ethCrowdsales;
     if (selectedFilterKey !== 'ALL') {
-      list = ethTokens.filter((item) => item.status === selectedFilterKey);
+      list = ethCrowdsales.filter((item) => item.status === selectedFilterKey);
     }
 
     const tokenCardlist = list.map((item) => {
@@ -32,11 +32,11 @@ class TokenList extends React.Component<IProps, {}> {
       return (
         <Col xs={6} sm={6} md={6} lg={4} key={item.id}>
           <Link
-            to={`${paths.ethToken}?id=${item.id}`}
+            to={`${paths.ethCrowdsale}?id=${item.id}`}
             style={{ margin: 10, textDecoration: 'none' }}
             className="text-center token-list"
           >
-            <EthTokenSimple ethToken={item} />
+            <EthCrowdsaleSimple ethCrowdsale={item} />
           </Link>
         </Col>
       );
