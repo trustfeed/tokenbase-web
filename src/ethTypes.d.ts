@@ -1,4 +1,4 @@
-export type EthFilterKeyType = 'ALL' | 'DRAFT' | 'PAYMENT_PENDING' | 'DEPLOYED';
+export type EthStatusType = 'ALL' | 'DRAFT' | 'PAYMENT_PENDING' | 'PENDING_DEPLOYMENT' | 'DEPLOYED';
 
 export interface IEthCrowdsale {
   goal: string;

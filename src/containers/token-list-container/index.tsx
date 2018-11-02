@@ -2,13 +2,14 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import Layout from '../../components/layout';
 import Spinner from '../../components/spinner';
-import EthTokenFilterList from '../../components/token-list/eth/token-filter-list';
+import EthFilterList from '../../components/list-filter/eth';
+import EThTokenList from '../../components/token-list/eth';
 import { translate } from 'react-i18next';
 import { getEthTokens } from '../../redux/token/actions';
 import { Container } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { paths } from 'src/routes';
-import { IEthToken } from '../../ethTypes';
+import { IEthToken, EthStatusType } from '../../ethTypes';
 import * as H from 'history';
 
 const mockupEthTokenlist = [
@@ -44,8 +45,14 @@ interface IEthTokensProps {
   isGettingWeb3: boolean;
   getEthTokens: () => void;
 }
+interface IState {
+  selectedFilterKey: EthStatusType;
+}
 
-class EthTokenListContainer extends React.Component<IEthTokensProps, {}> {
+class EthTokenListContainer extends React.Component<IEthTokensProps, IState> {
+  public readonly state: IState = {
+    selectedFilterKey: 'ALL'
+  };
   public componentDidMount() {
     this.props.getEthTokens();
   }
@@ -75,7 +82,14 @@ class EthTokenListContainer extends React.Component<IEthTokensProps, {}> {
             {isGettingEthTokens ? (
               <Spinner />
             ) : (
-              <EthTokenFilterList ethTokens={[...ethTokens, ...mockupEthTokenlist]} />
+              <EthFilterList
+                list={[...ethTokens, ...mockupEthTokenlist]}
+                selectedFilterKey={this.state.selectedFilterKey}
+                handleSelect={(selectedFilterKey) => this.setState({ selectedFilterKey })}
+                renderList={(list, selectedFilterKey) => (
+                  <EThTokenList ethTokens={list} selectedFilterKey={selectedFilterKey} />
+                )}
+              />
             )}
           </div>
           <hr />
