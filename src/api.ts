@@ -18,8 +18,9 @@ export const getEthTokensAPI = () => `${HOST}/eth/tokens`;
 export const getEthTokenAPI = (id) => `${HOST}/eth/tokens/${id}`;
 export const getFinaliseEthTokenAPI = () => `${HOST}/eth/tokens/finalise`;
 
-export const getCreateEthCrowdsalesAPI = () => `${HOST}/eth/crowdsales`;
-export const getFinaliseEthCrowdsalesAPI = () => `${HOST}/eth/crowdsales/finalise`;
+export const getEthCrowdsalesAPI = () => `${HOST}/eth/crowdsales`;
+export const getEthCrowdsaleAPI = (id) => `${HOST}/eth/crowdsales/${id}`;
+export const getFinaliseEthCrowdsaleAPI = () => `${HOST}/eth/crowdsales/finalise`;
 
 export const getUserAPI = (id?: string) => `${HOST}/users${id ? `/${id}` : ''}`;
 export const getAuthAPI = () => `${HOST}/auth`;
