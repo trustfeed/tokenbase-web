@@ -34,7 +34,7 @@ export class LoginContainer extends React.Component<IProps, IState> {
     showEmailCheckMessage: false
   };
   public componentWillReceiveProps(nextProps) {
-    const { t, history } = nextProps;
+    const { history } = nextProps;
     const accessTokenNext = nextProps.accessToken;
     const accessTokenCurrent = this.props.accessToken;
     const hasAccessToken = !accessTokenCurrent && accessTokenNext;
