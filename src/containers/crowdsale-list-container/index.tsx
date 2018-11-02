@@ -3,35 +3,29 @@ import { connect } from 'react-redux';
 import Layout from '../../components/layout';
 import Spinner from '../../components/spinner';
 import EthFilterList from '../../components/list-filter/eth';
-import EThTokenList from '../../components/token-list/eth';
+import EThCrowdsaleList from '../../components/crowdsale-list/eth';
 import { translate } from 'react-i18next';
 import { getEthTokens } from '../../redux/token/actions';
 import { Container } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { paths } from 'src/routes';
-import { IEthToken, EthStatusType } from '../../ethTypes';
+import { IEthCrowdsale, EthStatusType } from '../../ethTypes';
 import * as H from 'history';
 
-const mockupEthTokenlist = [
+const mockupList = [
   {
-    id: 'fdsafds63afas',
-    network: 'rinkeby(mockup)',
-    name: 'Theta Coin',
-    symbol: 'TC',
-    decimals: 18,
-    mintable: true,
-    minters: ['0x432343'],
-    status: 'DRAFT'
-  },
-  {
-    id: 'fdsafds11afas',
-    network: 'rinkeby(mockup)',
-    name: 'Beta Coin',
-    symbol: 'BC',
-    decimals: 18,
-    mintable: true,
-    minters: ['0x432343'],
-    status: 'DRAFT'
+    goal: '1',
+    cap: '100',
+    duration: 60,
+    id: '5bcd38c4137a0032b9ec0a89',
+    minted: true,
+    name: 'Some ID, Just for user',
+    network: 'parity.trustfeed.io',
+    openingTime: 10,
+    rate: '1',
+    status: 'DRAFT',
+    wallet: '0x3Aa9CE734DD21FA5E6962978e2ccc7f4Ac513348',
+    token: '0x3Aa7E32BD54'
   }
 ];
 
@@ -40,7 +34,7 @@ interface IEthTokensProps {
   history: H.History;
   location: H.Location;
   accessToken?: string;
-  ethTokens: IEthToken[];
+  ethCrowdsales: IEthCrowdsale[];
   isGettingEthTokens: boolean;
   isGettingWeb3: boolean;
   getEthTokens: () => void;
@@ -66,15 +60,15 @@ class EthTokenListContainer extends React.Component<IEthTokensProps, IState> {
 
   public render(): React.ReactNode {
     const isGettingEthTokens: boolean = this.props.isGettingEthTokens;
-    const { ethTokens = [], history, location } = this.props;
+    const { ethCrowdsales = [], history, location } = this.props;
     return (
       <Layout location={location} history={history} showSidebar={true}>
         <Container>
           <div style={{ margin: 20 }}>
             <br />
             <div className="text-center">
-              <Link to={paths.createEthToken} className="btn btn-outline-primary">
-                {'Create Ethereum Token'}
+              <Link to={paths.createEthCrowdsale} className="btn btn-outline-primary">
+                {'Create Ethereum Crowdsale'}
               </Link>
             </div>
             <br />
@@ -83,11 +77,11 @@ class EthTokenListContainer extends React.Component<IEthTokensProps, IState> {
               <Spinner />
             ) : (
               <EthFilterList
-                list={[...ethTokens, ...mockupEthTokenlist]}
+                list={[...ethCrowdsales, ...mockupList]}
                 selectedFilterKey={this.state.selectedFilterKey}
                 handleSelect={(selectedFilterKey) => this.setState({ selectedFilterKey })}
                 renderList={(list, selectedFilterKey) => (
-                  <EThTokenList ethTokens={list} selectedFilterKey={selectedFilterKey} />
+                  <EThCrowdsaleList ethCrowdsales={list} selectedFilterKey={selectedFilterKey} />
                 )}
               />
             )}
@@ -102,7 +96,7 @@ class EthTokenListContainer extends React.Component<IEthTokensProps, IState> {
 const EthTokenListContainerWithI18n = translate('translations')(EthTokenListContainer);
 
 const mapStateToProps = (state) => ({
-  ethTokens: state.token.ethTokens,
+  ethCrowdsales: state.token.ethCrowdsales,
   isGettingEthTokens: state.token.isGettingEthTokens,
   accessToken: state.user.accessToken
 });

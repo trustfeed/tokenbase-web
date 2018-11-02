@@ -1,31 +1,35 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import Layout from '../../components/layout';
-import { getEthToken, clearEthToken, finaliseEthToken } from '../../redux/token/actions';
+import {
+  getEthCrowdsale,
+  clearEthCrowdsale,
+  finaliseEthCrowdsale
+} from '../../redux/crowdsale/actions';
 import { Container } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { paths } from '../../routes';
 import { changeQueryStringToJSON } from '../../utils/helpers';
-import EthToken from '../../components/token-card/eth/Detail';
+import EthCrowdsale from '../../components/crowdsale-card/eth/Detail';
 import EthPayment from '../../components/payment-card';
 import Spinner from 'src/components/spinner';
-import { IEthToken } from '../../ethTypes';
+import { IEthCrowdsale } from '../../ethTypes';
 import * as H from 'history';
 
 interface IProps {
   history: H.History;
   location: H.Location;
-  ethToken?: IEthToken;
-  getEthToken: (id: string) => void;
-  clearEthToken: () => void;
-  finaliseEthToken: (id: string) => void;
-  isGettingEthToken: boolean;
+  ethCrowdsale?: IEthCrowdsale;
+  getEthCrowdsale: (id: string) => void;
+  clearEthCrowdsale: () => void;
+  finaliseEthCrowdsale: (id: string) => void;
+  isGettingEthCrowdsale: boolean;
 }
 
 interface IState {
   id: string;
 }
-export class EthTokenContainer extends React.Component<IProps, IState> {
+export class EthCrowdsaleContainer extends React.Component<IProps, IState> {
   public readonly state = {
     id: ''
   };
@@ -36,17 +40,17 @@ export class EthTokenContainer extends React.Component<IProps, IState> {
     const params = changeQueryStringToJSON(queryString);
     const id = params.id;
 
-    this.setState({ id }, () => this.props.getEthToken(id));
+    this.setState({ id }, () => this.props.getEthCrowdsale(id));
   }
   public componentWillUnmount() {
-    this.props.clearEthToken();
+    this.props.clearEthCrowdsale();
   }
 
   public render(): React.ReactNode {
-    const { isGettingEthToken, ethToken, location, history } = this.props;
+    const { isGettingEthCrowdsale, ethCrowdsale, location, history } = this.props;
     let payment;
-    if (ethToken) {
-      payment = ethToken.payment;
+    if (ethCrowdsale) {
+      payment = ethCrowdsale.payment;
     }
     const isPaymentAvailable = payment !== undefined;
     const isPaymentComplete = payment !== undefined && payment.status === 'COMPLETE';
@@ -56,25 +60,25 @@ export class EthTokenContainer extends React.Component<IProps, IState> {
       <Layout location={location} history={history} showSidebar={true}>
         <Container>
           <div style={{ margin: 20 }}>
-            <Link to={paths.ethTokens}>{'Back'}</Link>
+            <Link to={paths.ethCrowdsales}>{'Back'}</Link>
           </div>
           <br />
           <div style={{ width: 600, margin: 'auto' }}>
-            {isGettingEthToken ? (
+            {isGettingEthCrowdsale ? (
               <Spinner />
             ) : (
               <div>
                 {!isPaymentAvailable ? (
                   <Link
                     className="btn btn-outline-secondary btn-block"
-                    to={`${paths.createEthToken}?id=${this.state.id}`}
+                    to={`${paths.createEthCrowdsale}?id=${this.state.id}`}
                   >
                     {'Edit'}
                   </Link>
                 ) : null}
 
                 <br />
-                <EthToken ethToken={ethToken} />
+                <EthCrowdsale ethCrowdsale={ethCrowdsale} />
                 <br />
 
                 {showPayment ? <EthPayment payment={payment} /> : null}
@@ -97,22 +101,22 @@ export class EthTokenContainer extends React.Component<IProps, IState> {
   private handleDeploy = (e) => {
     e.preventDefault();
     const { id } = this.state;
-    this.props.finaliseEthToken(id);
+    this.props.finaliseEthCrowdsale(id);
   };
 }
 
 const mapStateToProps = (state) => ({
-  ethToken: state.token.ethToken,
-  isGettingEthToken: state.token.isGettingEthToken
+  ethCrowdsale: state.crowdsale.ethCrowdsale,
+  isGettingEthCrowdsale: state.crowdsale.isGettingEthCrowdsale
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getEthToken: (id) => dispatch(getEthToken(id)),
-  finaliseEthToken: (id) => dispatch(finaliseEthToken(id)),
-  clearEthToken: () => dispatch(clearEthToken())
+  getEthCrowdsale: (id) => dispatch(getEthCrowdsale(id)),
+  finaliseEthCrowdsale: (id) => dispatch(finaliseEthCrowdsale(id)),
+  clearEthCrowdsale: () => dispatch(clearEthCrowdsale())
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(EthTokenContainer);
+)(EthCrowdsaleContainer);

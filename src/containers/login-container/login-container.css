@@ -1,5 +1,6 @@
 
 .full-page-background {
+  overflow-x: hidden !important;
   top: 0px;
   left: 0px;
   z-index: -11;

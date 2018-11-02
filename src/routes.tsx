@@ -10,6 +10,8 @@ import CreateEthTokenContainer from './containers/token-form-container';
 import CreateEthCrowdsaleContainer from './containers/crowdsale-form-container';
 import EthTokens from './containers/token-list-container';
 import EthToken from './containers/token-card-container';
+import EthCrowdsales from './containers/crowdsale-list-container';
+import EthCrowdsale from './containers/crowdsale-card-container';
 
 export const appHistory = createHistory();
 
@@ -20,6 +22,8 @@ export const paths = {
   emailVerification: '/email-verification',
   ethTokens: '/eth/tokens',
   ethToken: '/eth/token',
+  ethCrowdsales: '/eth/crowdsales',
+  ethCrowdsale: '/eth/crowdsale',
   createEthToken: '/eth/token/contract',
   createEthCrowdsale: '/eth/crowdsale/contract/'
 };
@@ -31,24 +35,34 @@ export const routeList = [
     label: 'home'
   },
   {
+    path: paths.ethCrowdsales,
+    component: EthCrowdsales,
+    label: 'Crowdsale List'
+  },
+  {
+    path: paths.ethCrowdsale,
+    component: EthCrowdsale,
+    label: 'Crowdsale Card'
+  },
+  {
     path: paths.ethTokens,
     component: EthTokens,
-    label: 'eth tokens'
+    label: 'token List'
   },
   {
     path: paths.ethToken,
     component: EthToken,
-    label: 'eth token'
+    label: 'token card'
   },
   {
     path: paths.createEthToken,
     component: CreateEthTokenContainer,
-    label: 'token'
+    label: 'create token'
   },
   {
     path: paths.createEthCrowdsale,
     component: CreateEthCrowdsaleContainer,
-    label: 'crowdsale'
+    label: 'create crowdsale'
   },
   {
     path: paths.login,

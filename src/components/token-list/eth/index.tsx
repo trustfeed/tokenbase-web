@@ -1,14 +1,14 @@
 import * as React from 'react';
-import './token-list.css';
+import './index.css';
 import { Link } from 'react-router-dom';
 import { paths } from 'src/routes';
-import EthTokenSimple from '../../../token-card/eth/EthTokenSimple';
-import { IEthToken, EthFilterKeyType } from '../../../../ethTypes';
+import EthTokenSimple from '../../token-card/eth/Simple';
+import { IEthToken, EthStatusType } from '../../../ethTypes';
 import { Col, Row } from 'reactstrap';
 
 interface IProps {
   ethTokens: IEthToken[];
-  filterKey: EthFilterKeyType;
+  selectedFilterKey: EthStatusType;
 }
 
 class TokenList extends React.Component<IProps, {}> {
@@ -18,11 +18,11 @@ class TokenList extends React.Component<IProps, {}> {
 
   private renderTokenList = () => {
     const ethTokens = this.props.ethTokens || [];
-    const filterKey: EthFilterKeyType = this.props.filterKey;
+    const selectedFilterKey: EthStatusType = this.props.selectedFilterKey;
 
     let list = ethTokens;
-    if (filterKey !== 'ALL') {
-      list = ethTokens.filter((item) => item.status === filterKey);
+    if (selectedFilterKey !== 'ALL') {
+      list = ethTokens.filter((item) => item.status === selectedFilterKey);
     }
 
     const tokenCardlist = list.map((item) => {

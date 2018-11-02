@@ -1,5 +1,5 @@
 import * as React from 'react';
-import './eth-token-card.css';
+import './index.css';
 import { Card, CardTitle } from 'reactstrap';
 import { IEthToken } from '../../../ethTypes';
 
