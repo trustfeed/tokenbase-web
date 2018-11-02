@@ -3,6 +3,8 @@ import {
   // Collapse,
   Navbar,
   Nav,
+  NavItem,
+  NavLink,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
@@ -24,9 +26,11 @@ interface IHeaderProps {
     changeLanguage: (lang: string) => void;
   };
   t: (key: string) => string;
-  background?: string;
   platform: string;
+  isAuth: boolean;
   setPlatform: (platform: string) => void;
+  logout: () => void;
+  background?: string;
 }
 
 interface IHeaderStates {
@@ -41,7 +45,7 @@ class Header extends React.Component<IHeaderProps, IHeaderStates> {
   };
 
   public render(): React.ReactNode {
-    const { background } = this.props;
+    const { background, isAuth, logout } = this.props;
     return (
       <Navbar expand="sm" fixed={'top'} color={background ? background : 'black'}>
         <Container fluid={true}>
@@ -54,6 +58,13 @@ class Header extends React.Component<IHeaderProps, IHeaderStates> {
           <Nav navbar={true}>
             {this.renderBlockchainPlatformDropdown()}
             {this.renderI18nDropdown()}
+            {isAuth ? (
+              <NavItem>
+                <NavLink onClick={logout} style={{ cursor: 'pointer' }}>
+                  {'Logout'}
+                </NavLink>
+              </NavItem>
+            ) : null}
           </Nav>
         </Container>
       </Navbar>

@@ -2,7 +2,6 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import Layout from '../../components/layout';
 import EmailVerificationCard from '../../components/email-verification-card';
-import { NotificationManager } from 'react-notifications';
 import { changeQueryStringToJSON } from '../../utils/helpers';
 import { verifyEmail } from '../../redux/user/actions';
 import { translate } from 'react-i18next';
@@ -29,23 +28,7 @@ export class EmailVerificationCardContainer extends React.Component<IProps, {}> 
     const tokenBody = { token };
     this.props.verifyEmail(tokenBody);
   }
-  public componentWillReceiveProps(nextProps) {
-    const { t } = nextProps;
-    const isEmailVerifiedNext = nextProps.isEmailVerified;
-    const isEmailVerifiedCurrent = this.props.isEmailVerified;
-    const isEmailVerified: boolean = !isEmailVerifiedCurrent && isEmailVerifiedNext;
-    const isVerifyingEmailNext = nextProps.isVerifyingEmail;
-    const isVerifyingEmailCurrent = this.props.isVerifyingEmail;
-    const isVerifyingEmailRequestComplete = !isVerifyingEmailNext && isVerifyingEmailCurrent;
 
-    if (isVerifyingEmailRequestComplete) {
-      if (isEmailVerified) {
-        NotificationManager.success('Success', t('emailVerificationCard.verificationSuccessful'));
-      } else {
-        NotificationManager.error('Error', t('emailVerificationCard.verificationFailed'));
-      }
-    }
-  }
   public render(): React.ReactNode {
     const { location, history, t, isVerifyingEmail, isEmailVerified, errorMessage } = this.props;
 

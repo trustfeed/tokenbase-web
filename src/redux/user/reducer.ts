@@ -4,6 +4,14 @@ const initialState = { platform: 'ethereum' };
 
 export default function user(state = initialState, action) {
   switch (action.type) {
+    case consts.REMOVE_ACCESS_TOKEN:
+      return {
+        ...state,
+        accessToken: undefined,
+        isSignUpSuccessful: undefined,
+        isEmailVerified: undefined,
+        errorMessage: undefined
+      };
     case consts.SIGN_IN:
       return {
         ...state,

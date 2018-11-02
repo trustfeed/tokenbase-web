@@ -5,7 +5,6 @@ import { translate } from 'react-i18next';
 import { Container } from 'reactstrap';
 import Layout from '../../components/layout';
 import TokenForm from '../../components/token-form';
-// import { NotificationManager } from 'react-notifications';
 import {
   createEthToken,
   updateEthToken,
@@ -35,7 +34,7 @@ interface IState {
   id?: string;
 }
 
-class OnChainDataForm extends React.Component<IProps, IState> {
+class EthTokenForm extends React.Component<IProps, IState> {
   public readonly state = {
     id: undefined
   };
@@ -51,19 +50,6 @@ class OnChainDataForm extends React.Component<IProps, IState> {
 
   public componentWillUnmount() {
     this.props.clearEthToken();
-  }
-
-  public componentWillReceiveProps(nextProps) {
-    // const hasCreatedNext = nextProps.hasCampaignCreated;
-    // const hasCreatedCurrent = this.props.hasCampaignCreated;
-    // const hasOnChainDataUpdatedNext = nextProps.hasOnChainDataUpdated;
-    // const hasOnChainDataUpdatedCurrent = this.props.hasOnChainDataUpdated;
-    // if (hasCreatedNext && !hasCreatedCurrent) {
-    //   NotificationManager.success('Success', 'Campaign has been created successfully');
-    // }
-    // if (hasOnChainDataUpdatedNext && !hasOnChainDataUpdatedCurrent) {
-    //   NotificationManager.success('Success', 'Campaign has been updated successfully');
-    // }
   }
 
   public render(): React.ReactNode {
@@ -93,7 +79,7 @@ class OnChainDataForm extends React.Component<IProps, IState> {
   }
 }
 
-const WithTranslation = translate('translations')(OnChainDataForm);
+const WithTranslation = translate('translations')(EthTokenForm);
 
 const mapStateToProps = (state) => ({
   ethToken: state.token.ethToken,

@@ -9,6 +9,8 @@ import { Container } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { paths } from 'src/routes';
 import { IEthToken } from '../../ethTypes';
+import * as H from 'history';
+
 const mockupEthTokenlist = [
   {
     id: 'fdsafds63afas',
@@ -34,6 +36,8 @@ const mockupEthTokenlist = [
 
 interface IEthTokensProps {
   t: (key: string) => string;
+  history: H.History;
+  location: H.Location;
   accessToken?: string;
   ethTokens: IEthToken[];
   isGettingEthTokens: boolean;
@@ -43,9 +47,7 @@ interface IEthTokensProps {
 
 class EthTokenListContainer extends React.Component<IEthTokensProps, {}> {
   public componentDidMount() {
-    if (this.props.accessToken !== undefined) {
-      this.props.getEthTokens();
-    }
+    this.props.getEthTokens();
   }
   public componentWillReceiveProps(nextProps) {
     const accessTokenNext = nextProps.accessToken;
@@ -57,7 +59,7 @@ class EthTokenListContainer extends React.Component<IEthTokensProps, {}> {
 
   public render(): React.ReactNode {
     const isGettingEthTokens: boolean = this.props.isGettingEthTokens;
-    const { ethTokens = [] } = this.props;
+    const { ethTokens = [], history, location } = this.props;
     return (
       <Layout location={location} history={history} showSidebar={true}>
         <Container>

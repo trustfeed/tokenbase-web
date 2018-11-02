@@ -6,7 +6,6 @@ import SignupCard from 'src/components/signup-form';
 import SignupCheckEmailCard from 'src/components/signup-check-email-card';
 import './login-container.css';
 import { paths } from 'src/routes';
-import { NotificationManager } from 'react-notifications';
 import { signIn, signUp } from '../../redux/user/actions';
 import { translate } from 'react-i18next';
 import * as H from 'history';
@@ -45,12 +44,8 @@ export class LoginContainer extends React.Component<IProps, IState> {
 
     if (isSigningInRequestComplete) {
       if (hasAccessToken) {
-        NotificationManager.success('Success', t('login.success'));
-
         // navigate to home
         history.push(paths.home);
-      } else {
-        NotificationManager.error('Error', t('login.failure'));
       }
     }
 
@@ -63,12 +58,9 @@ export class LoginContainer extends React.Component<IProps, IState> {
 
     if (isSigningUpRequestComplete) {
       if (isSignUpSuccessful) {
-        NotificationManager.success('Success', t('signup.success'));
         this.setState({ showEmailCheckMessage: true });
         // navigate to home
         history.push(paths.login);
-      } else {
-        NotificationManager.error('Error', t('signup.failure'));
       }
     }
   }
