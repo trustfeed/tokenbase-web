@@ -3,26 +3,41 @@ import { connect } from 'react-redux';
 import Footer from '../footer';
 import Header from '../header';
 import Sidebar from '../sidebar';
-import { setPlatform } from '../../redux/user/actions';
-import { routeList } from '../../routes';
+import * as userActions from '../../redux/user/actions';
+import { routeList, paths } from '../../routes';
 import './layout.css';
 import * as H from 'history';
+import { Redirect } from 'react-router';
 
 interface ILayoutProps {
   history: H.History;
   location: H.Location;
   children?: React.ReactNode;
-  accessToken?: string;
   showSidebar: boolean;
-  getUser: () => void;
+  accessToken?: string;
+  removeAccessToken: () => void;
   platform: string;
   setPlatform: (platform: string) => void;
 }
 
 class Layout extends React.Component<ILayoutProps, {}> {
   public render() {
-    const { history, location, children, platform, accessToken, showSidebar } = this.props;
-    const isAuth = !!accessToken;
+    const {
+      history,
+      location,
+      children,
+      platform,
+      accessToken,
+      showSidebar,
+      setPlatform,
+      removeAccessToken
+    } = this.props;
+    const isAuth = accessToken !== undefined;
+
+    // Handle accessToken
+    if (accessToken === undefined && location.pathname !== paths.login) {
+      return <Redirect to={paths.login} />;
+    }
 
     if (showSidebar) {
       return (
@@ -35,7 +50,8 @@ class Layout extends React.Component<ILayoutProps, {}> {
                 location={location}
                 isAuth={isAuth}
                 platform={platform}
-                setPlatform={this.props.setPlatform}
+                setPlatform={setPlatform}
+                logout={removeAccessToken}
               />
               {children}
             </div>
@@ -52,6 +68,9 @@ class Layout extends React.Component<ILayoutProps, {}> {
             history={history}
             location={location}
             isAuth={isAuth}
+            platform={platform}
+            setPlatform={setPlatform}
+            logout={removeAccessToken}
             background={'transparent'}
           />
           {children}
@@ -68,7 +87,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setPlatform: (platform) => dispatch(setPlatform(platform))
+  setPlatform: (platform) => dispatch(userActions.setPlatform(platform)),
+  removeAccessToken: () => dispatch(userActions.removeAccessToken())
 });
 
 export default connect(

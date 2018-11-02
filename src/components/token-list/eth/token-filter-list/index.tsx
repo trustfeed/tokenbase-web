@@ -23,8 +23,10 @@ class FilterButtons extends React.Component<IProps, IState> {
     const ethTokens = this.props.ethTokens || [];
     return (
       <div className="text-center">
-        <ButtonGroup>{this.renderFilterButtonList(filterKeys, ethTokens)}</ButtonGroup>
+        <div className="py-3">{this.renderFilterButtonList(filterKeys, ethTokens)}</div>
+        <div className="py-3">
         <TokenList ethTokens={ethTokens} filterKey={currentFilterKey} />
+        </div>
       </div>
     );
   }
@@ -33,7 +35,7 @@ class FilterButtons extends React.Component<IProps, IState> {
     filterKeys: EthFilterKeyType[],
     ethTokens: IEthToken[]
   ): React.ReactNode => {
-    return filterKeys.map((filterKey: EthFilterKeyType) => {
+    const buttons= filterKeys.map((filterKey: EthFilterKeyType) => {
       let sum = ethTokens.length;
       if (filterKey !== 'ALL') {
         sum = ethTokens.filter((item) => item.status === filterKey).length;
@@ -51,6 +53,9 @@ class FilterButtons extends React.Component<IProps, IState> {
         </Button>
       );
     });
+    return (
+      <ButtonGroup>{buttons}</ButtonGroup>
+    )
   };
 }
 
