@@ -91,7 +91,7 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
             </FormGroup>
             <br />
             <FormGroup>
-              <Label className="text-left text-gray">{t('ethToken.pricePerEtherer')}</Label>
+              <Label className="text-left text-gray">{t('ethToken.pricePerEther')}</Label>
               <br />
               {this.renderRadioPricePerEther()}
             </FormGroup>
@@ -100,7 +100,7 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
           <Col sm={12} md={12} lg={12}>
             <div className="py-3 text-center">
               <button className="btn btn-outline-primary" onClick={this.handleSubmit}>
-                {t('ethCrowdsale.submit')}
+                {t('form.submit')}
               </button>
             </div>
           </Col>

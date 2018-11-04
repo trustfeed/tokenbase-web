@@ -7,6 +7,7 @@ import { IEthCrowdsale, EthStatusType } from '../../../ethTypes';
 import { Col, Row } from 'reactstrap';
 
 interface IProps {
+  t: (key: string) => string;
   ethCrowdsales: IEthCrowdsale[];
   selectedFilterKey: EthStatusType;
 }
@@ -17,6 +18,7 @@ class TokenList extends React.Component<IProps, {}> {
   }
 
   private renderTokenList = () => {
+    const { t } = this.props;
     const ethCrowdsales = this.props.ethCrowdsales || [];
     const selectedFilterKey: EthStatusType = this.props.selectedFilterKey;
 
@@ -36,7 +38,7 @@ class TokenList extends React.Component<IProps, {}> {
             style={{ margin: 10, textDecoration: 'none' }}
             className="text-center token-list"
           >
-            <EthCrowdsaleSimple ethCrowdsale={item} />
+            <EthCrowdsaleSimple ethCrowdsale={item} t={t} />
           </Link>
         </Col>
       );

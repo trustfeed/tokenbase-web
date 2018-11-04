@@ -4,6 +4,7 @@ import { Card, CardTitle } from 'reactstrap';
 import { IEthCrowdsale } from '../../../ethTypes';
 
 interface IProps {
+  t: (key: string) => string;
   ethCrowdsale?: IEthCrowdsale;
 }
 

@@ -35,7 +35,7 @@ interface IState {
 }
 
 class EthTokenForm extends React.Component<IProps, IState> {
-  public readonly state = {
+  public readonly state: IState = {
     id: undefined
   };
   public componentDidMount() {
@@ -62,7 +62,7 @@ class EthTokenForm extends React.Component<IProps, IState> {
             <Link to={id ? `${paths.ethToken}?id=${id}` : paths.ethTokens}>{'Back'}</Link>
           </div>
           <br />
-          <h5 className="text-center">{t('ethToken.title')}</h5>
+          <h5 className="text-center">{t(id ? 'ethToken.updateTitle' : 'ethToken.createTitle')}</h5>
           <br />
           {isGettingEthToken ? (
             <Spinner />

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import Layout from '../../components/layout';
+import { translate } from 'react-i18next';
 import {
   getEthCrowdsale,
   clearEthCrowdsale,
@@ -17,6 +18,7 @@ import { IEthCrowdsale } from '../../ethTypes';
 import * as H from 'history';
 
 interface IProps {
+  t: (key: string) => string;
   history: H.History;
   location: H.Location;
   ethCrowdsale?: IEthCrowdsale;
@@ -47,7 +49,7 @@ export class EthCrowdsaleContainer extends React.Component<IProps, IState> {
   }
 
   public render(): React.ReactNode {
-    const { isGettingEthCrowdsale, ethCrowdsale, location, history } = this.props;
+    const { isGettingEthCrowdsale, ethCrowdsale, location, history, t } = this.props;
     let payment;
     if (ethCrowdsale) {
       payment = ethCrowdsale.payment;
@@ -78,7 +80,7 @@ export class EthCrowdsaleContainer extends React.Component<IProps, IState> {
                 ) : null}
 
                 <br />
-                <EthCrowdsale ethCrowdsale={ethCrowdsale} />
+                <EthCrowdsale ethCrowdsale={ethCrowdsale} t={t} />
                 <br />
 
                 {showPayment ? <EthPayment payment={payment} /> : null}
@@ -105,6 +107,8 @@ export class EthCrowdsaleContainer extends React.Component<IProps, IState> {
   };
 }
 
+const WithTranslation = translate('translations')(EthCrowdsaleContainer);
+
 const mapStateToProps = (state) => ({
   ethCrowdsale: state.crowdsale.ethCrowdsale,
   isGettingEthCrowdsale: state.crowdsale.isGettingEthCrowdsale
@@ -119,4 +123,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(EthCrowdsaleContainer);
+)(WithTranslation);

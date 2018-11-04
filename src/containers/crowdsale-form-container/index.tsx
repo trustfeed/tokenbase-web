@@ -9,32 +9,41 @@ import { createEthCrowdsale } from '../../redux/crowdsale/actions';
 import { changeQueryStringToJSON } from '../../utils/helpers';
 import * as H from 'history';
 
-interface IOnChainDataFormProps {
+interface IProps {
   t: (key: string) => string;
   history: H.History;
   location: H.Location;
   createEthCrowdsale: (body) => void;
 }
 
-class OnChainDataForm extends React.Component<IOnChainDataFormProps, {}> {
+interface IState {
+  id?: string;
+}
+
+class CrowdsaleFormContainer extends React.Component<IProps, IState> {
+  public readonly state: IState = {
+    id: undefined
+  };
   public componentDidMount() {
     const { location } = this.props;
     const queryString = location.search.slice(1);
     const params = changeQueryStringToJSON(queryString);
     const id = params.id;
     if (id !== undefined) {
-      // this.setState({ id }, () => this.props.getOwnedCampaign(id));
+      this.setState({ id });
     }
   }
 
   public render(): React.ReactNode {
     const { t, location, history } = this.props;
-
+    const { id } = this.state;
     return (
       <Layout location={location} history={history} showSidebar={true}>
         <Container>
           <br />
-          <h5 className="text-center">{t('ethCrowdsale.title')}</h5>
+          <h5 className="text-center">
+            {t(id ? 'ethCrowdsale.updateTitle' : 'ethCrowdsale.createTitle')}
+          </h5>
           <br />
           <CreateCrowdsale onSubmit={createEthCrowdsale} t={t} />
         </Container>
@@ -43,7 +52,7 @@ class OnChainDataForm extends React.Component<IOnChainDataFormProps, {}> {
   }
 }
 
-const WithTranslation = translate('translations')(OnChainDataForm);
+const WithTranslation = translate('translations')(CrowdsaleFormContainer);
 
 const mapStateToProps = (state) => ({});
 const mapDispatchToProps = (dispatch) => ({

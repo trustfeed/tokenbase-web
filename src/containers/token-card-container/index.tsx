@@ -13,6 +13,7 @@ import { IEthToken } from '../../ethTypes';
 import * as H from 'history';
 
 interface IProps {
+  t: (key: string) => string;
   history: H.History;
   location: H.Location;
   ethToken?: IEthToken;
