@@ -5,11 +5,12 @@ import { paths } from 'src/routes';
 
 interface IProps {
   t: (key: string) => string;
+  message: string;
 }
 
-class SignupCheckEmailCard extends React.Component<IProps, {}> {
+export default class SignupCheckEmailCard extends React.Component<IProps, {}> {
   public render() {
-    const { t } = this.props;
+    const { message, t } = this.props;
     return (
       <Row>
         <Col sm={10} md={8} lg={5} className="mr-auto ml-auto">
@@ -18,7 +19,7 @@ class SignupCheckEmailCard extends React.Component<IProps, {}> {
               <CardBody>
                 <br />
                 <div className="text-center">
-                  <p>{t('signup.checkYourEmailMessage')}</p>
+                  <p>{t(message)}</p>
                 </div>
                 <div className="text-center">
                   <small>
@@ -34,5 +35,3 @@ class SignupCheckEmailCard extends React.Component<IProps, {}> {
     );
   }
 }
-
-export default SignupCheckEmailCard;

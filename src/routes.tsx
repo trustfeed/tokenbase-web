@@ -3,9 +3,10 @@ import { Router, Route, Switch, Redirect } from 'react-router-dom';
 
 import createHistory from 'history/createBrowserHistory';
 
-import LoginContainer from './containers/login-container';
+import AuthContainer from './containers/auth-form-container';
 import HomeCotainer from './containers/home-container';
-import EmailVerificationCardContainer from './containers/email-verification-container';
+import EmailVerificationContainer from './containers/email-verification-container';
+import ResetPasswordContainer from './containers/reset-password-container';
 import CreateEthTokenContainer from './containers/token-form-container';
 import CreateEthCrowdsaleContainer from './containers/crowdsale-form-container';
 import EthTokens from './containers/token-list-container';
@@ -19,20 +20,23 @@ export const paths = {
   home: '/home',
   login: '/login',
   signup: '/signup',
+  forgotPassword: '/forget-password',
   emailVerification: '/email-verification',
-  ethTokens: '/eth/tokens',
-  ethToken: '/eth/token',
-  ethCrowdsales: '/eth/crowdsales',
-  ethCrowdsale: '/eth/crowdsale',
-  createEthToken: '/eth/token/contract',
-  createEthCrowdsale: '/eth/crowdsale/contract/'
+  resetPassword: '/password-reset',
+
+  ethTokens: 'base/eth/tokens',
+  ethToken: 'base/eth/token',
+  ethCrowdsales: 'base/eth/crowdsales',
+  ethCrowdsale: 'base/eth/crowdsale',
+  ethCreateToken: 'base/eth/token/contract',
+  ethCreateCrowdsale: 'base/eth/crowdsale/contract/'
 };
 
 export const routeList = [
   {
     path: paths.home,
     component: HomeCotainer,
-    label: 'home'
+    label: 'Home'
   },
   {
     path: paths.ethCrowdsales,
@@ -47,37 +51,47 @@ export const routeList = [
   {
     path: paths.ethTokens,
     component: EthTokens,
-    label: 'token List'
+    label: 'Token List'
   },
   {
     path: paths.ethToken,
     component: EthToken,
-    label: 'token card'
+    label: 'Token card'
   },
   {
-    path: paths.createEthToken,
+    path: paths.ethCreateToken,
     component: CreateEthTokenContainer,
-    label: 'create token'
+    label: 'Create token'
   },
   {
-    path: paths.createEthCrowdsale,
+    path: paths.ethCreateCrowdsale,
     component: CreateEthCrowdsaleContainer,
-    label: 'create crowdsale'
+    label: 'Create crowdsale'
   },
   {
     path: paths.login,
-    component: LoginContainer,
-    label: 'login'
+    component: AuthContainer,
+    label: 'Login'
   },
   {
     path: paths.signup,
-    component: LoginContainer,
-    label: 'signup'
+    component: AuthContainer,
+    label: 'Signup'
+  },
+  {
+    path: paths.forgotPassword,
+    component: AuthContainer,
+    label: 'Forgot Password'
   },
   {
     path: paths.emailVerification,
-    component: EmailVerificationCardContainer,
-    label: 'email verification'
+    component: EmailVerificationContainer,
+    label: 'Email Verification'
+  },
+  {
+    path: paths.resetPassword,
+    component: ResetPasswordContainer,
+    label: 'Reset Password'
   }
 ];
 
