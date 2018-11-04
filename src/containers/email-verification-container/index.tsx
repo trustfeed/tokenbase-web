@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import Layout from '../../components/layout';
-import EmailVerificationCard from '../../components/email-verification-card';
+import VerificationInfoCard from '../../components/verification-info-card';
 import { changeQueryStringToJSON } from '../../utils/helpers';
 import { verifyEmail } from '../../redux/user/actions';
 import { translate } from 'react-i18next';
@@ -36,21 +36,12 @@ export class EmailVerificationCardContainer extends React.Component<IProps, {}> 
     if (isEmailVerified) {
       message = t('emailVerificationCard.verifiedMsg');
     }
-    const title = t('emailVerificationCard.title');
     return (
       <Layout location={location} history={history} showSidebar={false}>
         <div className="full-page-background">
           <div className="blanket">
             <div style={{ paddingTop: 240, paddingBottom: 200 }}>
-              {isVerifyingEmail ? (
-                <Spinner />
-              ) : (
-                <EmailVerificationCard
-                  title={title}
-                  isVerified={isEmailVerified}
-                  message={message}
-                />
-              )}
+              {isVerifyingEmail ? <Spinner /> : <VerificationInfoCard t={t} message={message} />}
             </div>
           </div>
         </div>

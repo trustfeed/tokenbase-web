@@ -32,3 +32,19 @@ export const verifyEmail = (body) => ({
   type: VERIFY_EMAIL,
   payload: body
 });
+
+export const REQUEST_PASSWORD_RESET = 'REQUEST_PASSWORD_RESET';
+export const REQUEST_PASSWORD_RESET_SUCCEEDED = 'REQUEST_PASSWORD_RESET_SUCCEEDED';
+export const REQUEST_PASSWORD_RESET_FAILED = 'REQUEST_PASSWORD_RESET_FAILED';
+export const requestPasswordReset = (body) => ({
+  type: REQUEST_PASSWORD_RESET,
+  payload: body
+});
+
+export const RESET_PASSWORD = 'RESET_PASSWORD';
+export const RESET_PASSWORD_SUCCEEDED = 'RESET_PASSWORD_SUCCEEDED';
+export const RESET_PASSWORD_FAILED = 'RESET_PASSWORD_FAILED';
+export const resetPassword = (body) => ({
+  type: RESET_PASSWORD,
+  payload: body
+});

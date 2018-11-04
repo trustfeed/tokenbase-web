@@ -35,7 +35,7 @@ class Layout extends React.Component<ILayoutProps, {}> {
     const isAuth = accessToken !== undefined;
 
     // Handle accessToken
-    if (accessToken === undefined && location.pathname !== paths.login) {
+    if (accessToken === undefined && location.pathname.includes('/base')) {
       return <Redirect to={paths.login} />;
     }
 

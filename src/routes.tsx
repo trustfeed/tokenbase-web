@@ -3,7 +3,7 @@ import { Router, Route, Switch, Redirect } from 'react-router-dom';
 
 import createHistory from 'history/createBrowserHistory';
 
-import LoginContainer from './containers/login-container';
+import AuthContainer from './containers/auth-container';
 import HomeCotainer from './containers/home-container';
 import EmailVerificationCardContainer from './containers/email-verification-container';
 import CreateEthTokenContainer from './containers/token-form-container';
@@ -19,13 +19,15 @@ export const paths = {
   home: '/home',
   login: '/login',
   signup: '/signup',
+  forgotPassword: '/forget-password',
   emailVerification: '/email-verification',
-  ethTokens: '/eth/tokens',
-  ethToken: '/eth/token',
-  ethCrowdsales: '/eth/crowdsales',
-  ethCrowdsale: '/eth/crowdsale',
-  createEthToken: '/eth/token/contract',
-  createEthCrowdsale: '/eth/crowdsale/contract/'
+
+  ethTokens: 'base/eth/tokens',
+  ethToken: 'base/eth/token',
+  ethCrowdsales: 'base/eth/crowdsales',
+  ethCrowdsale: 'base/eth/crowdsale',
+  createEthToken: 'base/eth/token/contract',
+  createEthCrowdsale: 'base/eth/crowdsale/contract/'
 };
 
 export const routeList = [
@@ -66,13 +68,18 @@ export const routeList = [
   },
   {
     path: paths.login,
-    component: LoginContainer,
+    component: AuthContainer,
     label: 'login'
   },
   {
     path: paths.signup,
-    component: LoginContainer,
+    component: AuthContainer,
     label: 'signup'
+  },
+  {
+    path: paths.forgotPassword,
+    component: AuthContainer,
+    label: 'forgotPassword'
   },
   {
     path: paths.emailVerification,

@@ -50,6 +50,42 @@ export default function user(state = initialState, action) {
         isSigningUp: false,
         isSignUpSuccessful: false
       };
+    case consts.REQUEST_PASSWORD_RESET:
+      return {
+        ...state,
+        isRequestingPasswordReset: true,
+        isRequestPasswordResetSuccessful: undefined
+      };
+    case consts.REQUEST_PASSWORD_RESET_SUCCEEDED:
+      return {
+        ...state,
+        isRequestingPasswordReset: false,
+        isRequestPasswordResetSuccessful: true
+      };
+    case consts.REQUEST_PASSWORD_RESET_FAILED:
+      return {
+        ...state,
+        isRequestingPasswordReset: false,
+        isRequestPasswordResetSuccessful: false
+      };
+    case consts.RESET_PASSWORD:
+      return {
+        ...state,
+        isResetting: true,
+        isResetSuccessful: undefined
+      };
+    case consts.RESET_PASSWORD_SUCCEEDED:
+      return {
+        ...state,
+        isResetting: false,
+        isResetSuccessful: true
+      };
+    case consts.RESET_PASSWORD_FAILED:
+      return {
+        ...state,
+        isResetting: false,
+        isResetSuccessful: false
+      };
 
     case consts.VERIFY_EMAIL:
       return {
