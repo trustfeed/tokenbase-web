@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import Layout from '../../components/layout';
-import VerificationInfoCard from '../../components/verification-info-card';
+import MessageInfoCard from '../../components/message-info-card';
 import { changeQueryStringToJSON } from '../../utils/helpers';
 import { verifyEmail } from '../../redux/user/actions';
 import { translate } from 'react-i18next';
@@ -18,7 +18,7 @@ interface IProps {
   verifyEmail: (body) => void;
 }
 
-export class EmailVerificationCardContainer extends React.Component<IProps, {}> {
+export class TokenVerificationCardContainer extends React.Component<IProps, {}> {
   public componentDidMount() {
     const location = this.props.location || {};
     const search: string = location.search.slice(1);
@@ -41,7 +41,7 @@ export class EmailVerificationCardContainer extends React.Component<IProps, {}> 
         <div className="full-page-background">
           <div className="blanket">
             <div style={{ paddingTop: 240, paddingBottom: 200 }}>
-              {isVerifyingEmail ? <Spinner /> : <VerificationInfoCard t={t} message={message} />}
+              {isVerifyingEmail ? <Spinner /> : <MessageInfoCard t={t} message={message} />}
             </div>
           </div>
         </div>
@@ -49,7 +49,7 @@ export class EmailVerificationCardContainer extends React.Component<IProps, {}> 
     );
   }
 }
-const WithTranslation = translate('translations')(EmailVerificationCardContainer);
+const WithTranslation = translate('translations')(TokenVerificationCardContainer);
 
 const mapStateToProps = (state) => ({
   isVerifyingEmail: state.user.isVerifyingEmail,

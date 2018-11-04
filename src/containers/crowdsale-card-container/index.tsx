@@ -71,7 +71,7 @@ export class EthCrowdsaleContainer extends React.Component<IProps, IState> {
                 {!isPaymentAvailable ? (
                   <Link
                     className="btn btn-outline-secondary btn-block"
-                    to={`${paths.createEthCrowdsale}?id=${this.state.id}`}
+                    to={`${paths.ethCreateCrowdsale}?id=${this.state.id}`}
                   >
                     {'Edit'}
                   </Link>

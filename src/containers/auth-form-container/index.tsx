@@ -4,14 +4,14 @@ import Layout from 'src/components/layout';
 import LoginCard from 'src/components/login-form';
 import SignUpForm from 'src/components/signup-form';
 import ForgotPasswordForm from 'src/components/forgot-password-form';
-import VerificationInfoCard from 'src/components/verification-info-card';
+import MessageInfoCard from 'src/components/message-info-card';
 import './index.css';
-import { paths } from 'src/routes';
 import { signIn, signUp, requestPasswordReset } from '../../redux/user/actions';
 import { translate } from 'react-i18next';
 import * as H from 'history';
 import { Link } from 'react-router-dom';
 import { Col, Row, Container, Card, CardBody } from 'reactstrap';
+import { paths } from 'src/routes';
 
 interface IProps {
   t: (key: string) => string;
@@ -33,12 +33,12 @@ interface IProps {
 }
 
 interface IState {
-  showEmailCheckMessage: boolean;
+  showInfoMessage: boolean;
 }
 
 export class LoginContainer extends React.Component<IProps, IState> {
   public readonly state = {
-    showEmailCheckMessage: false
+    showInfoMessage: false
   };
   public componentWillReceiveProps(nextProps) {
     const { history } = nextProps;
@@ -55,7 +55,7 @@ export class LoginContainer extends React.Component<IProps, IState> {
     if (isSignUpComplete) {
       const isSignUpSuccessful = !this.props.isSignUpSuccessful && nextProps.isSignUpSuccessful;
       if (isSignUpSuccessful) {
-        this.setState({ showEmailCheckMessage: true });
+        this.setState({ showInfoMessage: true });
       }
     }
 
@@ -65,8 +65,7 @@ export class LoginContainer extends React.Component<IProps, IState> {
       const isRequestSuccessful =
         !this.props.isRequestPasswordResetSuccessful && nextProps.isRequestPasswordResetSuccessful;
       if (isRequestSuccessful) {
-        alert('jojo');
-        this.setState({ showEmailCheckMessage: true });
+        this.setState({ showInfoMessage: true });
       }
     }
   }
@@ -77,7 +76,7 @@ export class LoginContainer extends React.Component<IProps, IState> {
     const isSignUpPath = pathname === paths.signup;
     const isLoginPath = pathname === paths.login;
     const isForgotPasswordPath = pathname === paths.forgotPassword;
-    const { showEmailCheckMessage } = this.state;
+    const { showInfoMessage } = this.state;
 
     const message = 'verification.checkYourEmail';
 
@@ -87,8 +86,8 @@ export class LoginContainer extends React.Component<IProps, IState> {
           <div className="blanket">
             <div style={{ paddingTop: 180, paddingBottom: 200 }}>
               {isSignUpPath ? (
-                showEmailCheckMessage ? (
-                  <VerificationInfoCard message={message} t={t} />
+                showInfoMessage ? (
+                  <MessageInfoCard message={message} t={t} />
                 ) : (
                   <Row>
                     <Col sm={10} md={8} lg={5} className="mr-auto ml-auto">
@@ -107,8 +106,8 @@ export class LoginContainer extends React.Component<IProps, IState> {
               ) : null}
 
               {isForgotPasswordPath ? (
-                showEmailCheckMessage ? (
-                  <VerificationInfoCard message={message} t={t} />
+                showInfoMessage ? (
+                  <MessageInfoCard message={message} t={t} />
                 ) : (
                   <Row>
                     <Col sm={10} md={8} lg={5} className="mr-auto ml-auto">
@@ -129,7 +128,7 @@ export class LoginContainer extends React.Component<IProps, IState> {
     return (
       <Card className="login-card">
         <CardBody>
-          <h3 className="text-center">{t('login.signUpTitle')}</h3>
+          <h3 className="text-center">{t('auth..signUpTitle')}</h3>
           <br />
           <SignUpForm handleSignUp={this.signUp} t={t} />
           <br />
@@ -146,7 +145,7 @@ export class LoginContainer extends React.Component<IProps, IState> {
     return (
       <Card className="login-card">
         <CardBody>
-          <h3 className="text-center">{t('login.forgotPassword')}</h3>
+          <h3 className="text-center">{t('auth..forgotPassword')}</h3>
           <br />
           <ForgotPasswordForm handlePasswordResetRequest={this.requestPasswordReset} t={t} />
         </CardBody>
@@ -159,18 +158,18 @@ export class LoginContainer extends React.Component<IProps, IState> {
     return (
       <Card className="login-card">
         <CardBody>
-          <h3 className="text-center">{t('login.signUpTitle')}</h3>
+          <h3 className="text-center">{t('auth..signUpTitle')}</h3>
           <br />
           <LoginCard handleSignIn={this.signIn} t={t} />
           <br />
           <div className="float-left">
             <small>
-              <Link to={paths.forgotPassword}>{t('login.forgotPassword')}</Link>
+              <Link to={paths.forgotPassword}>{t('auth..forgotPassword')}</Link>
             </small>
           </div>
           <div className="float-right">
             <small>
-              <Link to={paths.signup}>{t('login.linkToSignUp')}</Link>
+              <Link to={paths.signup}>{t('auth..linkToSignUp')}</Link>
             </small>
           </div>
         </CardBody>

@@ -67,7 +67,7 @@ export class EthTokenContainer extends React.Component<IProps, IState> {
                 {!isPaymentAvailable ? (
                   <Link
                     className="btn btn-outline-secondary btn-block"
-                    to={`${paths.createEthToken}?id=${this.state.id}`}
+                    to={`${paths.ethCreateToken}?id=${this.state.id}`}
                   >
                     {'Edit'}
                   </Link>

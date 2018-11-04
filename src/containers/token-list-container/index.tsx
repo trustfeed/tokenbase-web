@@ -73,7 +73,7 @@ class EthTokenListContainer extends React.Component<IEthTokensProps, IState> {
           <div style={{ margin: 20 }}>
             <br />
             <div className="text-center">
-              <Link to={paths.createEthToken} className="btn btn-outline-primary">
+              <Link to={paths.ethCreateToken} className="btn btn-outline-primary">
                 {'Create Ethereum Token'}
               </Link>
             </div>

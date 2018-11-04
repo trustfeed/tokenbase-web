@@ -89,7 +89,7 @@ export function* resetPasswordSaga(action) {
   }
 }
 export function* watchResetPasswordSaga() {
-  yield takeLatest(consts.SIGN_IN, signInSaga);
+  yield takeLatest(consts.RESET_PASSWORD, resetPasswordSaga);
 }
 
 export function* signUpSaga(action) {

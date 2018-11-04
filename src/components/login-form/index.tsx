@@ -8,6 +8,7 @@ interface IProps {
   t: (key: string) => string;
   handleSignIn: (email: string, password: string) => void;
 }
+
 interface IState {
   email: string;
   emailValid: boolean;
@@ -43,7 +44,7 @@ export default class LoginForm extends React.Component<IProps, IState> {
             onChange={this.changeEmail}
             valid={this.state.emailValid}
             invalid={this.state.emailInvalid}
-            placeholder={t('signup.email')}
+            placeholder={t('auth.email')}
             autoComplete="new-password"
             maxLength={32}
           />
@@ -60,7 +61,7 @@ export default class LoginForm extends React.Component<IProps, IState> {
             onChange={this.changePassword}
             valid={this.state.passwordValid}
             invalid={this.state.passwordInvalid}
-            placeholder={t('signup.password')}
+            placeholder={t('auth.password')}
             autoComplete="new-password"
             maxLength={32}
           />
@@ -68,13 +69,13 @@ export default class LoginForm extends React.Component<IProps, IState> {
           <FormFeedback>{t('signup.passwordInvalidMessage')}</FormFeedback>
           <FormFeedback valid={true}>{t('signup.passwordValidMessage')}</FormFeedback>
           {!(passwordValid || passwordInvalid) ? (
-            <FormText>{t('signup.passwordMessage')}</FormText>
+            <FormText>{t('auth.passwordMessage')}</FormText>
           ) : null}
         </FormGroup>
         <br />
         <div className="text-center">
           <button className="btn btn-outline-primary" onClick={this.onSubmit}>
-            {t('login.submit')}
+            {t('form.submit')}
           </button>
         </div>
       </Form>

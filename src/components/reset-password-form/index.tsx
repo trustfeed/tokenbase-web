@@ -1,17 +1,13 @@
 import * as React from 'react';
 import { FormFeedback, FormText, Input, FormGroup, Form } from 'reactstrap';
-import { EMAIL_REGEX, PASSWORD_REGEX } from '../../utils/regex';
+import { PASSWORD_REGEX } from '../../utils/regex';
 import { getInputValidationState } from 'src/utils/helpers';
 
 interface IProps {
   t: (key: string) => string;
-  handleSignUp: (email: string, password: string) => void;
+  handleResetPassword: (password: string) => void;
 }
 interface IState {
-  email: string;
-  emailValid: boolean;
-  emailInvalid: boolean;
-
   password: string;
   passwordValid: boolean;
   passwordInvalid: boolean;
@@ -23,10 +19,6 @@ interface IState {
 
 class LoginCard extends React.Component<IProps, IState> {
   public readonly state: IState = {
-    email: '',
-    emailValid: false,
-    emailInvalid: false,
-
     password: '',
     passwordValid: false,
     passwordInvalid: false,
@@ -37,40 +29,13 @@ class LoginCard extends React.Component<IProps, IState> {
   };
   public render() {
     const t = (s) => s;
-    const {
-      emailInvalid,
-      passwordInvalid,
-      password2Invalid,
-      emailValid,
-      password2Valid,
-      passwordValid
-    } = this.state;
+    const { passwordInvalid, password2Invalid, password2Valid, passwordValid } = this.state;
 
     const isSubmitDisabled =
-      emailInvalid ||
-      passwordInvalid ||
-      password2Invalid ||
-      !(emailValid && password2Valid && passwordValid);
+      passwordInvalid || password2Invalid || !(password2Valid && passwordValid);
 
     return (
       <Form>
-        <FormGroup>
-          <Input
-            type="text"
-            data-test-id="my-email-input"
-            value={this.state.email}
-            onChange={this.changeEmail}
-            valid={this.state.emailValid}
-            invalid={this.state.emailInvalid}
-            placeholder={t('auth.email')}
-            autoComplete="new-password"
-            maxLength={32}
-          />
-          <FormFeedback>{t('auth.emailInvalidMessage')}</FormFeedback>
-          <FormFeedback valid={true}>{t('auth.emailValidMessage')}</FormFeedback>
-          {!(emailValid || emailInvalid) ? <FormText>{t('auth.emailMessage')}</FormText> : null}
-        </FormGroup>
-        <br />
         <FormGroup>
           <Input
             type="password"
@@ -116,21 +81,12 @@ class LoginCard extends React.Component<IProps, IState> {
             onClick={this.onSubmit}
             disabled={isSubmitDisabled}
           >
-            {t('auth.submit')}
+            {t('form.submit')}
           </button>
         </div>
       </Form>
     );
   }
-
-  private changeEmail = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    e.preventDefault();
-    const value = e.target.value;
-    const key = 'email';
-    const regex = EMAIL_REGEX;
-    const validationResult = getInputValidationState(key, value, regex);
-    this.setState({ ...validationResult, [key]: value });
-  };
 
   private changePassword = (e: React.ChangeEvent<HTMLInputElement>): void => {
     e.preventDefault();
@@ -160,8 +116,8 @@ class LoginCard extends React.Component<IProps, IState> {
 
   private onSubmit = (e): void => {
     e.preventDefault();
-    const { password, email } = this.state;
-    this.props.handleSignUp(email, password);
+    const password: string = this.state.password;
+    this.props.handleResetPassword(password);
   };
 }
 
