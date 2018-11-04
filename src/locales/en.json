@@ -34,6 +34,7 @@
   "ethToken":{
     "createTitle": "Create Token",
     "updateTitle": "Update Token",
+    "detailTitle": "Token Info",
     "mainnet":"mainnet",
     "rinkeby":"rinkeby",
     "network":"network",
@@ -47,6 +48,7 @@
   "ethCrowdsale":{
     "createTitle": "Create Crowdsale",
     "updateTitle": "Update Crowdsale",
+    "detailTitle": "Crowdsale Info",
     "goal":"Goal",
     "cap":"Cap",
     "startingTime":"Starting Time",

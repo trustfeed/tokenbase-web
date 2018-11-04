@@ -6,6 +6,7 @@ import { IEthCrowdsale } from '../../../ethTypes';
 
 interface IProps {
   ethCrowdsale?: IEthCrowdsale;
+  t: (key: string) => string;
 }
 
 const mockupItem: IEthCrowdsale = {
@@ -24,12 +25,13 @@ const mockupItem: IEthCrowdsale = {
 };
 class EthCrowdsaleDetail extends React.Component<IProps, {}> {
   public render() {
+    const { t } = this.props;
     const ethCrowdsale = this.props.ethCrowdsale || mockupItem || {};
     const { status, name, network } = ethCrowdsale;
     return (
       <Card body={true} className="token-card">
         <CardTitle className="text-center token-title" style={{ margin: 10 }}>
-          <span>{'Token Info'}</span>
+          <span>{t('ethCrowdsale.detailTitle')}</span>
         </CardTitle>
         <br />
         <div className="text-center">

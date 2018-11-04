@@ -60,7 +60,7 @@ class EthTokenListContainer extends React.Component<IEthTokensProps, IState> {
 
   public render(): React.ReactNode {
     const isGettingEthTokens: boolean = this.props.isGettingEthTokens;
-    const { ethCrowdsales = [], history, location } = this.props;
+    const { ethCrowdsales = [], history, location, t } = this.props;
     return (
       <Layout location={location} history={history} showSidebar={true}>
         <Container>
@@ -81,7 +81,11 @@ class EthTokenListContainer extends React.Component<IEthTokensProps, IState> {
                 selectedFilterKey={this.state.selectedFilterKey}
                 handleSelect={(selectedFilterKey) => this.setState({ selectedFilterKey })}
                 renderList={(list, selectedFilterKey) => (
-                  <EThCrowdsaleList ethCrowdsales={list} selectedFilterKey={selectedFilterKey} />
+                  <EThCrowdsaleList
+                    ethCrowdsales={list}
+                    selectedFilterKey={selectedFilterKey}
+                    t={t}
+                  />
                 )}
               />
             )}
