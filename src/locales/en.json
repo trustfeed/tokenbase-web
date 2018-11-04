@@ -30,5 +30,26 @@
     "login": "Login",
     "signUp": "Sign up",
     "forgotPassword": "Forgot password"
+  },
+  "ethToken":{
+    "createTitle": "Create Token",
+    "updateTitle": "Update Token",
+    "mainnet":"mainnet",
+    "rinkeby":"rinkeby",
+    "network":"network",
+    "name":"name",
+    "symbol":"symbol",
+    "minter":"minter",
+    "mintable":"mintable",
+    "pricePerEther":"Token Price Per Ether"
+  },
+
+  "ethCrowdsale":{
+    "createTitle": "Create Crowdsale",
+    "updateTitle": "Update Crowdsale",
+    "goal":"Goal",
+    "cap":"Cap",
+    "startingTime":"Starting Time",
+    "duration":"Duration"
   }
 }

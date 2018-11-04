@@ -68,7 +68,7 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
   }
 
   public render(): React.ReactNode {
-    const { t, ethToken } = this.props;
+    const { t } = this.props;
     return (
       <Form>
         <Row>
@@ -189,7 +189,7 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
           <Col sm={12} md={12} lg={12}>
             <div className="py-3 text-center">
               <button className="btn btn-outline-primary" onClick={this.handleSubmit}>
-                {t(ethToken ? 'ethToken.update' : 'ethToken.create')}
+                {t('form.submit')}
               </button>
             </div>
           </Col>
