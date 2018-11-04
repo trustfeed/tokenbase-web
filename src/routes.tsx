@@ -18,18 +18,18 @@ export const appHistory = createHistory();
 
 export const paths = {
   home: '/home',
-  login: '/login',
+  signin: '/signin',
   signup: '/signup',
   forgotPassword: '/forget-password',
   emailVerification: '/email-verification',
   resetPassword: '/password-reset',
 
-  ethTokens: 'base/eth/tokens',
-  ethToken: 'base/eth/token',
-  ethCrowdsales: 'base/eth/crowdsales',
-  ethCrowdsale: 'base/eth/crowdsale',
-  ethCreateToken: 'base/eth/token/contract',
-  ethCreateCrowdsale: 'base/eth/crowdsale/contract/'
+  ethTokens: '/base/eth/tokens',
+  ethToken: '/base/eth/token',
+  ethCrowdsales: '/base/eth/crowdsales',
+  ethCrowdsale: '/base/eth/crowdsale',
+  ethCreateToken: '/base/eth/token/contract',
+  ethCreateCrowdsale: '/base/eth/crowdsale/contract/'
 };
 
 export const routeList = [
@@ -69,7 +69,7 @@ export const routeList = [
     label: 'Create crowdsale'
   },
   {
-    path: paths.login,
+    path: paths.signin,
     component: AuthContainer,
     label: 'Login'
   },

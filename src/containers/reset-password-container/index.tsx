@@ -70,14 +70,14 @@ export class TokenVerificationCardContainer extends React.Component<IProps, ISta
   private renderResetPasswordCard = () => {
     const { t } = this.props;
     return (
-      <Card className="login-card">
+      <Card className="auth-card">
         <CardBody>
           <h3 className="text-center">{t('auth.passwordResetTitle')}</h3>
           <br />
           <PasswordResetForm t={t} handleResetPassword={this.resetPassword} />
           <br />
           <small>
-            <Link to={paths.login}>{'back to login'}</Link>
+            <Link to={paths.signin}>{t('link.signin')}</Link>
           </small>
         </CardBody>
       </Card>

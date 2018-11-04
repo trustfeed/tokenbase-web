@@ -19,7 +19,7 @@ interface IState {
   passwordInvalid: boolean;
 }
 
-export default class LoginForm extends React.Component<IProps, IState> {
+export default class SigninForm extends React.Component<IProps, IState> {
   public readonly state: IState = {
     email: '',
     emailValid: false,
@@ -33,6 +33,9 @@ export default class LoginForm extends React.Component<IProps, IState> {
   public render() {
     const { t } = this.props;
     const { emailInvalid, passwordInvalid, emailValid, passwordValid } = this.state;
+
+    const isSubmitButtonDisabled =
+      emailInvalid || passwordInvalid || !(emailValid && passwordValid);
 
     return (
       <Form>
@@ -48,9 +51,9 @@ export default class LoginForm extends React.Component<IProps, IState> {
             autoComplete="new-password"
             maxLength={32}
           />
-          <FormFeedback>{t('signup.emailInvalidMessage')}</FormFeedback>
-          <FormFeedback valid={true}>{t('signup.emailValidMessage')}</FormFeedback>
-          {!(emailValid || emailInvalid) ? <FormText>{t('signup.emailMessage')}</FormText> : null}
+          <FormFeedback>{t('auth.emailInvalidMessage')}</FormFeedback>
+          <FormFeedback valid={true}>{t('auth.emailValidMessage')}</FormFeedback>
+          {!(emailValid || emailInvalid) ? <FormText>{t('auth.emailMessage')}</FormText> : null}
         </FormGroup>
 
         <FormGroup>
@@ -66,15 +69,19 @@ export default class LoginForm extends React.Component<IProps, IState> {
             maxLength={32}
           />
 
-          <FormFeedback>{t('signup.passwordInvalidMessage')}</FormFeedback>
-          <FormFeedback valid={true}>{t('signup.passwordValidMessage')}</FormFeedback>
+          <FormFeedback>{t('auth.passwordInvalidMessage')}</FormFeedback>
+          <FormFeedback valid={true}>{t('auth.passwordValidMessage')}</FormFeedback>
           {!(passwordValid || passwordInvalid) ? (
             <FormText>{t('auth.passwordMessage')}</FormText>
           ) : null}
         </FormGroup>
         <br />
         <div className="text-center">
-          <button className="btn btn-outline-primary" onClick={this.onSubmit}>
+          <button
+            className="btn btn-outline-primary"
+            onClick={this.onSubmit}
+            disabled={isSubmitButtonDisabled}
+          >
             {t('form.submit')}
           </button>
         </div>

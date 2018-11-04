@@ -36,7 +36,7 @@ class Layout extends React.Component<ILayoutProps, {}> {
 
     // Handle accessToken
     if (accessToken === undefined && location.pathname.includes('/base')) {
-      return <Redirect to={paths.login} />;
+      return <Redirect to={paths.signin} />;
     }
 
     if (showSidebar) {
