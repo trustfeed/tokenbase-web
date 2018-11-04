@@ -34,18 +34,18 @@ export default class PasswordResetForm extends React.Component<IProps, IState> {
             onChange={this.changeEmail}
             valid={this.state.emailValid}
             invalid={this.state.emailInvalid}
-            placeholder={t('signup.email')}
+            placeholder={t('auth.email')}
             autoComplete="new-password"
             maxLength={32}
           />
-          <FormFeedback>{t('signup.emailInvalidMessage')}</FormFeedback>
-          <FormFeedback valid={true}>{t('signup.emailValidMessage')}</FormFeedback>
-          {!(emailValid || emailInvalid) ? <FormText>{t('signup.emailMessage')}</FormText> : null}
+          <FormFeedback>{t('auth.emailInvalidMessage')}</FormFeedback>
+          <FormFeedback valid={true}>{t('auth.emailValidMessage')}</FormFeedback>
+          {!(emailValid || emailInvalid) ? <FormText>{t('auth.emailMessage')}</FormText> : null}
         </FormGroup>
         <br />
         <div className="text-center">
           <button className="btn btn-outline-primary" onClick={this.onSubmit}>
-            {t('login.submit')}
+            {t('form.submit')}
           </button>
         </div>
       </Form>

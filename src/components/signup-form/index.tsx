@@ -36,7 +36,7 @@ class LoginCard extends React.Component<IProps, IState> {
     password2Invalid: false
   };
   public render() {
-    const t = (s) => s;
+    const { t } = this.props;
     const {
       emailInvalid,
       passwordInvalid,
@@ -46,7 +46,7 @@ class LoginCard extends React.Component<IProps, IState> {
       passwordValid
     } = this.state;
 
-    const isSubmitDisabled =
+    const isSubmitButtonDisabled =
       emailInvalid ||
       passwordInvalid ||
       password2Invalid ||
@@ -114,9 +114,9 @@ class LoginCard extends React.Component<IProps, IState> {
           <button
             className="btn btn-outline-primary"
             onClick={this.onSubmit}
-            disabled={isSubmitDisabled}
+            disabled={isSubmitButtonDisabled}
           >
-            {t('auth.submit')}
+            {t('form.submit')}
           </button>
         </div>
       </Form>

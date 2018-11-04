@@ -1,77 +1,34 @@
 {
-  "close": "Close",
-  "open": "Open",
-  "error": {
-    "VERIFIED_TOKEN": "Token is already verified"
+  "form": {
+    "submit":"Submit",
+    "cancel":"Cancel"
   },
-  "metaMaskChecker": {
-    "metaMask": "MetaMask",
-    "checkingMetaMaskStatus": "Checking MetaMask Status",
-    "pleaseInstallMetaMask": "Please install MetaMask",
-    "pleaseLoginMetaMask": "Please Login MetaMask",
-    "installed": "Installed",
-    "activated": "Activated",
-    "currentNetworkIs": "Current network is",
-    "onlySupportMessage": "Sorry, We only support Rinkeby testnet.",
-    "unknownState": "Unknown state",
-    "proceed": "Proceed",
-    "cancel": "Cancel"
+  "auth": {
+    "checkYourEmail": "Check your email",
+    "email":"Email" ,
+    "emailMessage" : "email address required",
+    "emailInvalidMessage":"Invalid email",
+    "emailValidMessage":"Valid email",
+
+    "password":"Password" ,
+    "passwordMessage" : "password required",
+    "passwordInvalidMessage":"Invalid password",
+    "passwordValidMessage":"Valid password",
+
+    "password2":"Password" ,
+    "password2Message" : "password repeat required",
+    "password2InvalidMessage":"Password is not Identical",
+    "password2ValidMessage":"Valid password",
+
+    "passwordResetTitle":"Reset Password",
+    "signUpTitle":"Sign Up",
+    "signInTitle":"Login",
+    "forgotPasswordTitle":"Request to reset password",
+    "auth.passwordResetSuccessMessage":"Password reset Successful"
   },
-  "user": {
-    "title": "User Info",
-    "publicAddress": "Public Address",
-    "emailAddress": "Email Address",
-    "proposerLink": "Become a proposer",
-    "edit": "Edit User Info",
-    "logout": "Logout",
-    "kycStatus": "KYC Status",
-    "verified": "Verified",
-    "unverified": "Unverified",
-    "PENDING": "Pending",
-    "FAILED": "Unverified",
-    "VERIFIED": "Verified"
-  },
-  "investmentsInfo": {
-    "title": "Investments",
-    "tokenName": "Name",
-    "tokensOwned": "Balance",
-    "tokenSymbol": "Symbol",
-    "noList": "No List. Purchase tokens now!"
-  },
-  "time": {
-    "days": "DAYS",
-    "hours": "HOURS",
-    "mins": "MINUTES",
-    "secs": "SECONDS"
-  },
-  "token": {
-    "owner": "TOKEN OWNER ADDRESS",
-    "name": "NAME",
-    "symbol": "SYMBOL",
-    "address": "TOKEN ADDRESS",
-    "totalSupply": "TOTAL SUPPLY",
-    "getTokenBalance": "Get Token Balance"
-  },
-  "crowdsale": {
-    "status": "STATUS",
-    "ethAddress": "Type ETH Address",
-    "getEthBalance": "Get ETH balance",
-    "finalize": "Finalize Crowdsale",
-    "claimRefund": "Claim Refund",
-    "ongoing": "ONGOING",
-    "notOpen": "PENDING",
-    "closed": "CLOSED",
-    "finalized": "FINALIZED",
-    "remainingTimeToOpen": "REMAINING TIME TO OPEN",
-    "remainingTimeToClose": "REMAINING TIME TO CLOSE",
-    "closingTime": "CLOSING TIME",
-    "openingTime": "OPENING TIME",
-    "address": "CONTRACT ADDRESS",
-    "wallet": "WALLET ADDRESS",
-    "owner": "CONTRACT OWNER ADDRESS",
-    "rate": "RATE",
-    "ethRaised": "ETH RAISED",
-    "cap": "HARD CAP",
-    "goal": "SOFT CAP"
+  "link": {
+    "login": "Login",
+    "signUp": "Sign up",
+    "forgotPassword": "Forgot password"
   }
 }

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import Layout from 'src/components/layout';
-import LoginCard from 'src/components/login-form';
+import SigninCard from 'src/components/signin-form';
 import SignUpForm from 'src/components/signup-form';
 import ForgotPasswordForm from 'src/components/forgot-password-form';
 import MessageInfoCard from 'src/components/message-info-card';
@@ -74,11 +74,11 @@ export class LoginContainer extends React.Component<IProps, IState> {
     const { location, history, t } = this.props;
     const { pathname } = location;
     const isSignUpPath = pathname === paths.signup;
-    const isLoginPath = pathname === paths.login;
+    const isLoginPath = pathname === paths.signin;
     const isForgotPasswordPath = pathname === paths.forgotPassword;
     const { showInfoMessage } = this.state;
 
-    const message = 'verification.checkYourEmail';
+    const message = 'auth.checkYourEmail';
 
     return (
       <Layout location={location} history={history} showSidebar={false}>
@@ -126,14 +126,14 @@ export class LoginContainer extends React.Component<IProps, IState> {
   private renderSignUpCard = () => {
     const { t } = this.props;
     return (
-      <Card className="login-card">
+      <Card className="auth-card">
         <CardBody>
-          <h3 className="text-center">{t('auth..signUpTitle')}</h3>
+          <h3 className="text-center">{t('auth.signUpTitle')}</h3>
           <br />
           <SignUpForm handleSignUp={this.signUp} t={t} />
           <br />
           <small>
-            <Link to={paths.login}>{'back to login'}</Link>
+            <Link to={paths.signin}>{t('link.signin')}</Link>
           </small>
         </CardBody>
       </Card>
@@ -143,9 +143,9 @@ export class LoginContainer extends React.Component<IProps, IState> {
   private renderForgotPasswordCard = () => {
     const { t } = this.props;
     return (
-      <Card className="login-card">
+      <Card className="auth-card">
         <CardBody>
-          <h3 className="text-center">{t('auth..forgotPassword')}</h3>
+          <h3 className="text-center">{t('auth.forgotPasswordTitle')}</h3>
           <br />
           <ForgotPasswordForm handlePasswordResetRequest={this.requestPasswordReset} t={t} />
         </CardBody>
@@ -156,20 +156,20 @@ export class LoginContainer extends React.Component<IProps, IState> {
   private renderSignInCard = () => {
     const { t } = this.props;
     return (
-      <Card className="login-card">
+      <Card className="auth-card">
         <CardBody>
-          <h3 className="text-center">{t('auth..signUpTitle')}</h3>
+          <h3 className="text-center">{t('auth.signInTitle')}</h3>
           <br />
-          <LoginCard handleSignIn={this.signIn} t={t} />
+          <SigninCard handleSignIn={this.signIn} t={t} />
           <br />
           <div className="float-left">
             <small>
-              <Link to={paths.forgotPassword}>{t('auth..forgotPassword')}</Link>
+              <Link to={paths.forgotPassword}>{t('link.forgotPassword')}</Link>
             </small>
           </div>
           <div className="float-right">
             <small>
-              <Link to={paths.signup}>{t('auth..linkToSignUp')}</Link>
+              <Link to={paths.signup}>{t('link.signUp')}</Link>
             </small>
           </div>
         </CardBody>
