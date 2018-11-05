@@ -4,6 +4,7 @@ import Slider from 'react-rangeslider';
 
 import { Row, Col, Label, FormGroup, Form } from 'reactstrap';
 import Input from 'reactstrap/lib/Input';
+// tslint:disable-next-line
 const moment = require('moment');
 
 interface IProps {

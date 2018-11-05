@@ -3,7 +3,10 @@ import { Card, CardTitle, Row, Col } from 'reactstrap';
 import { IEthPaymentType } from '../../ethTypes';
 import './index.css';
 import { getAddressURLFromEtherScan } from '../../utils/helpers';
+
+// tslint:disable-next-line
 const moment = require('moment');
+
 interface IProps {
   payment: IEthPaymentType;
 }
