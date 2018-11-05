@@ -9,9 +9,9 @@ import { RouterNode } from './routes';
 import * as serviceWorker from './serviceWorker';
 import { PersistGate } from 'redux-persist/integration/react';
 
-import '!style-loader!css-loader!bootstrap/dist/css/bootstrap.css';
-import '!style-loader!css-loader!react-rangeslider/lib/index.css';
-import '!style-loader!css-loader!./index.css';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'react-rangeslider/lib/index.css';
+import './index.css';
 
 ReactDOM.render(
   <Provider store={store}>

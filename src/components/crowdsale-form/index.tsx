@@ -2,8 +2,10 @@ import React from 'react';
 import DatetimePicker from 'react-datetime';
 import Slider from 'react-rangeslider';
 
-import { Row, Col, Label, FormGroup, Form } from 'reactstrap';
+import { Row, Col, Label, FormGroup, Form, FormFeedback } from 'reactstrap';
 import Input from 'reactstrap/lib/Input';
+import { ETH_ADDRESS_REGEX } from '../../utils/regex';
+import { getInputValidationState } from '../../utils/helpers';
 // tslint:disable-next-line
 const moment = require('moment');
 
@@ -19,6 +21,10 @@ interface IState {
   cap: number;
   duration: number;
   startingTime: any; // Unix timestamp to start the campaign. Must be at least 24 hours in the future.
+
+  wallet: string;
+  walletValid: boolean;
+  walletInvalid: boolean;
 }
 
 const MAX_GOAL = 10000;
@@ -36,7 +42,10 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
     goal: 5000,
     cap: getCap(5000, MAX_CAP),
     duration: 30, // The number of days the campaign will run. Must be greater than 1.
-    startingTime: moment().valueOf() // Unix timestamp to start the campaign. Must be at least 24 hours in the future.
+    startingTime: moment().valueOf(), // Unix timestamp to start the campaign. Must be at least 24 hours in the future.
+    wallet: '',
+    walletValid: false,
+    walletInvalid: false
   };
 
   public render(): React.ReactNode {
@@ -97,6 +106,27 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
               {this.renderRadioPricePerEther()}
             </FormGroup>
             <br />
+
+            <FormGroup>
+              <Label className="text-left" for="wallet">
+                {t('ethToken.wallet')}
+              </Label>
+              <div className="center">
+                <Input
+                  type="text"
+                  data-test-id="wallet-input"
+                  value={this.state.wallet}
+                  onChange={this.changewallet}
+                  invalid={this.state.walletInvalid}
+                  valid={this.state.walletValid}
+                  placeholder="ethereum address"
+                  autoComplete="new-password"
+                  maxLength={42}
+                />
+                <FormFeedback>{t('ethToken.walletInvalid')}</FormFeedback>
+                <FormFeedback valid={true}>{t('ethToken.walletValid')}</FormFeedback>
+              </div>
+            </FormGroup>
           </Col>
           <Col sm={12} md={12} lg={12}>
             <div className="py-3 text-center">
@@ -157,6 +187,15 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
 
   private changeDatetime = (momentInput): void => {
     this.setState({ startingTime: momentInput.valueOf() });
+  };
+
+  private changewallet = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    e.preventDefault();
+    const value = e.target.value;
+    const key = 'wallet';
+    const regex = ETH_ADDRESS_REGEX;
+    const validationResult = getInputValidationState(key, value, regex);
+    this.setState({ ...validationResult, [key]: value });
   };
 
   private handleSubmit = () => {
