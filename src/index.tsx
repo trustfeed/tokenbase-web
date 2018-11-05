@@ -18,9 +18,7 @@ ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <I18nextProvider i18n={i18n}>
-        <div>
-          <RouterNode />
-        </div>
+        <RouterNode />
       </I18nextProvider>
     </PersistGate>
   </Provider>,
