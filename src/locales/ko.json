@@ -1,0 +1,57 @@
+{
+  "form": {
+    "submit":"확인",
+    "cancel":"취소"
+  },
+  "auth": {
+    "checkYourEmail": "이메일을 확인해주세요",
+    "email":"Email" ,
+    "emailMessage" : "이메일 주소를 입력해주세요",
+    "emailInvalidMessage":"유효하지 않은 이메일 형식.",
+    "emailValidMessage":"유효한 이메일 형식",
+
+    "password":"Password" ,
+    "passwordMessage" : "패스워드를 입력해주세요",
+    "passwordInvalidMessage":"유효하지 않은 패스워드 형식",
+    "passwordValidMessage":"유효한 않은 패스워드 형식",
+
+    "password2":"Password" ,
+    "password2Message" : "패스워드를 다시 한번 입력해주세요",
+    "password2InvalidMessage":" 일치하지 않는 패스워드",
+    "password2ValidMessage":"일치하는 패스워드",
+
+    "passwordResetTitle":"비밀번호 변경",
+    "signUpTitle":"회원가입",
+    "signInTitle":"로그인",
+    "forgotPasswordTitle":"비밀번호 변경 요청하기",
+    "auth.passwordResetSuccessMessage":"성공적으로 비밀번호를 변경하였습니다."
+  },
+  "link": {
+    "login": "로그인",
+    "signUp": "회원가입",
+    "forgotPassword": "패스워드를 잊으셨나요?"
+  },
+  "ethToken":{
+    "createTitle": "토큰 생성",
+    "updateTitle": "토큰 업데이트",
+    "detailTitle": "토큰 정보",
+    "mainnet":"메인 넷",
+    "rinkeby":"rinkeby 테스트 넷",
+    "network":"네트워크",
+    "name":"이름",
+    "symbol":"심볼",
+    "minter":"minter",
+    "mintable":"mintable",
+    "pricePerEther":"이더 당 토큰 가격"
+  },
+
+  "ethCrowdsale":{
+    "createTitle": "크라우드세일 생성",
+    "updateTitle": "크라우드세일 업데이트",
+    "detailTitle": "크라우드세일 정보",
+    "goal":"목표",
+    "cap":"최대한도",
+    "startingTime":"시작일",
+    "duration":"기간"
+  }
+}
