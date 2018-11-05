@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import DatetimePicker from 'react-datetime';
 import Slider from 'react-rangeslider';
 

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import './index.css';
 import { Card, CardTitle, Row, Col } from 'reactstrap';
 import { IEthToken } from '../../../ethTypes';

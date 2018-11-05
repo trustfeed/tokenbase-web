@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import './sidebar.css';
 import { NavItem } from 'reactstrap';
 import { Link } from 'react-router-dom';

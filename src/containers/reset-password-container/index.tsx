@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import Layout from '../../components/layout';
 import PasswordResetForm from '../../components/reset-password-form';

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { FormFeedback, FormText, Input, FormGroup, Form } from 'reactstrap';
 import { PASSWORD_REGEX } from '../../utils/regex';
 import { getInputValidationState } from '../../utils/helpers';

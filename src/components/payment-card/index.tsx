@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Card, CardTitle, Row, Col } from 'reactstrap';
 import { IEthPaymentType } from '../../ethTypes';
 import './index.css';

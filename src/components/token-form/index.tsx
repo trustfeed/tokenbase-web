@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import { Row, Col, Input, Label, FormGroup, Form, FormFeedback } from 'reactstrap';
 import { ALPHANUMERIC_REGEX, TOKEN_SYMBOL_REGEX, ETH_ADDRESS_REGEX } from '../../utils/regex';

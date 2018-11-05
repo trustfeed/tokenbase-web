@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import './index.css';
 import { Link } from 'react-router-dom';
 import { paths } from '../../../routes';

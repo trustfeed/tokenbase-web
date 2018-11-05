@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import './footer.css';
 
 const copyright: string = 'Copyright © TrustFeed 2018';

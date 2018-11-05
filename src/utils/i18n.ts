@@ -1,9 +1,9 @@
 import i18next from 'i18next';
 
-import * as english from '../locales/en.json';
-import * as korean from '../locales/ko.json';
+import english from '../locales/en.json';
+import korean from '../locales/ko.json';
 
-import * as LanguageDetector from 'i18next-browser-languagedetector';
+import LanguageDetector from 'i18next-browser-languagedetector';
 
 const isDev: boolean = process.env.NODE_ENV === 'development';
 

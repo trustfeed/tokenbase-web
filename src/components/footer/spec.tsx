@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import Footer from '.';
 import * as renderer from 'react-test-renderer';
 

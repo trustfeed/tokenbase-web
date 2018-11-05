@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import { IEthToken, EthStatusType, IEthCrowdsale } from '../../../ethTypes';
 import { ButtonGroup, Button } from 'reactstrap';

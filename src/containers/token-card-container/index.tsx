@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import Layout from '../../components/layout';
 import { getEthToken, clearEthToken, finaliseEthToken } from '../../redux/token/actions';
