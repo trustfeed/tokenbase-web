@@ -5,20 +5,7 @@ exports[`renders correctly 1`] = `
   className="py-5 text-center"
 >
   <div
-    className="lds-default"
-  >
-    <div />
-    <div />
-    <div />
-    <div />
-    <div />
-    <div />
-    <div />
-    <div />
-    <div />
-    <div />
-    <div />
-    <div />
-  </div>
+    className="spinner"
+  />
 </div>
 `;

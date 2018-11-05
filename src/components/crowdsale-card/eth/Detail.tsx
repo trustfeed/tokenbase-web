@@ -2,6 +2,7 @@ import React from 'react';
 import './index.css';
 import { Card, CardTitle, Row, Col } from 'reactstrap';
 import { IEthCrowdsale } from '../../../ethTypes';
+import { getAddressURLFromEtherScan } from '../../../utils/helpers';
 // import { getAddressURLFromEtherScan } from '../../utils/helpers';
 
 interface IProps {
@@ -27,7 +28,12 @@ class EthCrowdsaleDetail extends React.Component<IProps, {}> {
   public render() {
     const { t } = this.props;
     const ethCrowdsale = this.props.ethCrowdsale || mockupItem;
-    const { status, name, network } = ethCrowdsale;
+
+    if (ethCrowdsale === undefined) {
+      return null;
+    }
+
+    const { status, name, network, goal, cap, openingTime, wallet, token } = ethCrowdsale;
     return (
       <Card body={true} className="token-card">
         <CardTitle className="text-center token-title" style={{ margin: 10 }}>
@@ -41,15 +47,42 @@ class EthCrowdsaleDetail extends React.Component<IProps, {}> {
               <br />
               <span className="float-right">{'Name: '}</span>
               <br />
+              <span className="float-right">{'Goal: '}</span>
+              <br />
+              <span className="float-right">{'Cap: '}</span>
+              <br />
+              <span className="float-right">{'Starting Time: '}</span>
+              <br />
               <span className="float-right">{'Network: '}</span>
+              <br />
+              <span className="float-right">{'Wallet Address: '}</span>
+              <br />
+              <span className="float-right">{'Token Address: '}</span>
             </Col>
             <Col xs={8} sm={8} md={8} lg={8}>
               <span className="float-left text-gray">{status}</span>
               <br />
               <span className="float-left text-gray">{name}</span>
               <br />
-
+              <span className="float-left text-gray">{goal}</span>
+              <br />
+              <span className="float-left text-gray">{cap}</span>
+              <br />
+              <span className="float-left text-gray">{openingTime}</span>
+              <br />
               <span className="float-left text-gray">{network}</span>
+              <br />
+              <span className="float-left text-gray">
+                <a href={getAddressURLFromEtherScan(wallet, network)} target="_blank">
+                  <small>{wallet}</small>
+                </a>
+              </span>
+              <br />
+              <span className="float-left text-gray">
+                <a href={getAddressURLFromEtherScan(token, network)} target="_blank">
+                  <small>{token}</small>
+                </a>
+              </span>
             </Col>
           </Row>
         </div>
