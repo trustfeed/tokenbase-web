@@ -130,7 +130,7 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
           </Col>
           <Col sm={12} md={12} lg={12}>
             <div className="py-3 text-center">
-              <button className="btn btn-outline-primary" onClick={this.handleSubmit}>
+              <button className="btn btn-primary" onClick={this.handleSubmit}>
                 {t('form.submit')}
               </button>
             </div>

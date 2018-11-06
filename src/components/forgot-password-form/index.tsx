@@ -44,7 +44,7 @@ export default class PasswordResetForm extends React.Component<IProps, IState> {
         </FormGroup>
         <br />
         <div className="text-center">
-          <button className="btn btn-outline-primary" onClick={this.onSubmit}>
+          <button className="btn btn-primary" onClick={this.onSubmit}>
             {t('form.submit')}
           </button>
         </div>

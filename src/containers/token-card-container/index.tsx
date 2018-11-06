@@ -82,7 +82,7 @@ export class EthTokenContainer extends React.Component<IProps, IState> {
                 {!isPaymentAvailable ? (
                   <button
                     onClick={this.handleDeploy}
-                    className="btn btn-outline-primary btn-block"
+                    className="btn btn-primary btn-block"
                     disabled={this.state.id !== undefined && isPaymentAvailable}
                   >
                     {'Deploy'}
