@@ -78,7 +78,7 @@ export default class SigninForm extends React.Component<IProps, IState> {
         <br />
         <div className="text-center">
           <button
-            className="btn btn-outline-primary"
+            className="btn btn-primary"
             onClick={this.onSubmit}
             disabled={isSubmitButtonDisabled}
           >
