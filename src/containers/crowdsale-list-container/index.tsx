@@ -5,7 +5,7 @@ import Spinner from '../../components/spinner';
 import EthFilterList from '../../components/list-filter/eth';
 import EThCrowdsaleList from '../../components/crowdsale-list/eth';
 import { translate } from 'react-i18next';
-import { getEthTokens } from '../../redux/token/actions';
+import { getEthCrowdsales } from '../../redux/crowdsale/actions';
 import { Container } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { paths } from '../../routes';
@@ -29,37 +29,37 @@ const mockupList = [
   }
 ];
 
-interface IEthTokensProps {
+interface IEthCrowdsalesProps {
   t: (key: string) => string;
   history: H.History;
   location: H.Location;
   accessToken?: string;
   ethCrowdsales: IEthCrowdsale[];
-  isGettingEthTokens: boolean;
+  isGettingEthCrowdsales: boolean;
   isGettingWeb3: boolean;
-  getEthTokens: () => void;
+  getEthCrowdsales: () => void;
 }
 interface IState {
   selectedFilterKey: EthStatusType;
 }
 
-class EthTokenListContainer extends React.Component<IEthTokensProps, IState> {
+class EthTokenListContainer extends React.Component<IEthCrowdsalesProps, IState> {
   public readonly state: IState = {
     selectedFilterKey: 'ALL'
   };
   public componentDidMount() {
-    this.props.getEthTokens();
+    this.props.getEthCrowdsales();
   }
   public componentWillReceiveProps(nextProps) {
     const accessTokenNext = nextProps.accessToken;
     const accessTokenCurrent = this.props.accessToken;
     if (nextProps.accessToken !== undefined && accessTokenNext !== accessTokenCurrent) {
-      nextProps.getEthTokens();
+      nextProps.getEthCrowdsales();
     }
   }
 
   public render(): React.ReactNode {
-    const isGettingEthTokens: boolean = this.props.isGettingEthTokens;
+    const isGettingEthCrowdsales: boolean = this.props.isGettingEthCrowdsales;
     const { ethCrowdsales = [], history, location, t } = this.props;
     return (
       <Layout location={location} history={history} showSidebar={true}>
@@ -73,7 +73,7 @@ class EthTokenListContainer extends React.Component<IEthTokensProps, IState> {
             </div>
             <br />
             <hr />
-            {isGettingEthTokens ? (
+            {isGettingEthCrowdsales ? (
               <Spinner />
             ) : (
               <EthFilterList
@@ -100,13 +100,13 @@ class EthTokenListContainer extends React.Component<IEthTokensProps, IState> {
 const EthTokenListContainerWithI18n = translate('translations')(EthTokenListContainer);
 
 const mapStateToProps = (state) => ({
-  ethCrowdsales: state.token.ethCrowdsales,
-  isGettingEthTokens: state.token.isGettingEthTokens,
+  ethCrowdsales: state.crowdsale.ethCrowdsales,
+  isGettingEthCrowdsales: state.crowdsale.isGettingEthCrowdsales,
   accessToken: state.user.accessToken
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getEthTokens: () => dispatch(getEthTokens())
+  getEthCrowdsales: () => dispatch(getEthCrowdsales())
 });
 
 export default connect(

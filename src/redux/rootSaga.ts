@@ -14,7 +14,7 @@ function* root() {
     fork(tokenSagas.watchFinaliseEthTokenSaga),
 
     // Crowdsale
-    fork(crowdsaleSagas.watchGetEthCrowdsaleSaga),
+    fork(crowdsaleSagas.watchGetEthCrowdsalesSaga),
     fork(crowdsaleSagas.watchGetEthCrowdsaleSaga),
     fork(crowdsaleSagas.watchCreateEthCrowdsaleSaga),
     fork(crowdsaleSagas.watchUpdateEthCrowdsaleSaga),

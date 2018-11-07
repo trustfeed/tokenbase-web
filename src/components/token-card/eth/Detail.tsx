@@ -50,7 +50,7 @@ class EthTokenDetail extends React.Component<IProps, {}> {
               <span className="float-right">{'Network: '}</span>
               <br />
               {publicAddress !== undefined ? (
-                <span className="float-right">{'Contract Address: '}</span>
+                <span className="float-right">{'Address: '}</span>
               ) : null}
             </Col>
             <Col xs={8} sm={8} md={8} lg={8}>
@@ -71,7 +71,6 @@ class EthTokenDetail extends React.Component<IProps, {}> {
               <span className="float-left text-gray">{mintable ? 'True' : 'False'}</span>
               <br />
               <span className="float-left text-gray">{network}</span>
-
               <br />
               <span className="float-left text-gray">
                 {publicAddress !== undefined ? (
