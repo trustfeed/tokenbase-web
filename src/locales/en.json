@@ -49,9 +49,10 @@
     "createTitle": "Create Crowdsale",
     "updateTitle": "Update Crowdsale",
     "detailTitle": "Crowdsale Info",
+    "token":"Token",
     "goal":"Goal",
     "cap":"Cap",
-    "startingTime":"Starting Time",
+    "openingTime":"Starting Time",
     "duration":"Duration"
   }
 }

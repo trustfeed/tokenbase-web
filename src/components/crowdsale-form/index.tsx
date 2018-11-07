@@ -1,26 +1,29 @@
 import React from 'react';
 import DatetimePicker from 'react-datetime';
 import Slider from 'react-rangeslider';
-
+import EthToken from '../../components/token-card/eth/Detail';
 import { Row, Col, Label, FormGroup, Form, FormFeedback } from 'reactstrap';
 import Input from 'reactstrap/lib/Input';
 import { ETH_ADDRESS_REGEX } from '../../utils/regex';
-import { getInputValidationState } from '../../utils/helpers';
+import { getInputValidationState, getRate } from '../../utils/helpers';
+import { IEthToken } from '../../ethTypes';
 // tslint:disable-next-line
 const moment = require('moment');
 
 interface IProps {
   t: (key: string) => string;
   onSubmit: (body) => void;
+  ethTokens?: IEthToken[];
 }
 
 interface IState {
+  tokenId: string;
   id: string;
   pricePerEther: string;
   goal: number;
   cap: number;
   duration: number;
-  startingTime: any; // Unix timestamp to start the campaign. Must be at least 24 hours in the future.
+  openingTime: any; // Unix timestamp to start the campaign. Must be at least 24 hours in the future.
 
   wallet: string;
   walletValid: boolean;
@@ -38,29 +41,49 @@ const roundOff = (value: number): number => {
 export default class CreateTokenForm extends React.Component<IProps, IState> {
   public readonly state: IState = {
     id: '',
+    tokenId: '',
     pricePerEther: '0.01',
     goal: 5000,
     cap: getCap(5000, MAX_CAP),
     duration: 30, // The number of days the campaign will run. Must be greater than 1.
-    startingTime: moment().valueOf(), // Unix timestamp to start the campaign. Must be at least 24 hours in the future.
+    openingTime: moment().valueOf(), // Unix timestamp to start the campaign. Must be at least 24 hours in the future.
     wallet: '',
     walletValid: false,
     walletInvalid: false
   };
 
   public render(): React.ReactNode {
-    const { t } = this.props;
-
+    const { t, ethTokens } = this.props;
+    const { tokenId } = this.state;
     // const aWeekAfter = moment().add(1, 'week');
     const yesterday = moment().subtract(1, 'day');
     const validateDate = (current) => {
       return current.isAfter(yesterday);
     };
     const unit = 'Ether';
+
+    const deployedTokenOptions =
+      (ethTokens && ethTokens.filter((item) => item.publicAddress !== undefined)) || [];
+    const selectedToken = deployedTokenOptions.find((item) => item.id === tokenId);
+
     return (
       <Form>
         <Row>
           <Col xs={10} sm={8} md={7} lg={6} className="mr-auto ml-auto">
+            <FormGroup>
+              <Label className="text-gray">{t('ethCrowdsale.token')}</Label>
+              <Input type="select" onChange={this.handleChange}>
+                <option value={''}>{'Select token'}</option>
+                {deployedTokenOptions.map((item) => (
+                  <option value={item.id} key={item.id}>
+                    {item.name}
+                  </option>
+                ))}
+              </Input>
+              <br />
+              {selectedToken ? <EthToken ethToken={selectedToken} /> : null}
+            </FormGroup>
+            <br />
             <FormGroup>
               <Label className="text-gray">{t('ethCrowdsale.goal')}</Label>
               <Slider
@@ -86,9 +109,9 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
             </FormGroup>
             <br />
             <FormGroup>
-              <Label className="text-gray">{t('ethCrowdsale.startingTime')}</Label>
+              <Label className="text-gray">{t('ethCrowdsale.openingTime')}</Label>
               <DatetimePicker
-                value={moment(this.state.startingTime)}
+                value={moment(this.state.openingTime)}
                 onChange={this.changeDatetime}
                 isValidDate={validateDate}
               />
@@ -158,6 +181,10 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
     ));
   };
 
+  private handleChange = (e) => {
+    this.setState({ tokenId: e.target.value });
+  };
+
   private changeSoftCap = (value) => {
     const goal = roundOff(value);
     this.setState({
@@ -186,7 +213,7 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
   };
 
   private changeDatetime = (momentInput): void => {
-    this.setState({ startingTime: momentInput.valueOf() });
+    this.setState({ openingTime: momentInput.valueOf() });
   };
 
   private changewallet = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -198,16 +225,24 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
     this.setState({ ...validationResult, [key]: value });
   };
 
-  private handleSubmit = () => {
-    const { cap, goal, duration, startingTime, pricePerEther } = this.state;
+  private handleSubmit = (e) => {
+    e.preventDefault();
+    const { ethTokens } = this.props;
+    const { cap, goal, duration, openingTime, pricePerEther, wallet, tokenId } = this.state;
+    const selectedToken = ethTokens.find((item) => item.id === tokenId);
+
     const body = {
+      network: selectedToken.network,
+      openingTime,
+      duration,
+      name: selectedToken.name,
+      rate: getRate(pricePerEther),
+      wallet,
       cap,
       goal,
-      duration,
-      startingTime,
-      pricePerEther
+      minted: selectedToken.mintable,
+      token: selectedToken.publicAddress
     };
-    console.log(body);
-    // this.props.onSubmit(body);
+    this.props.onSubmit(body);
   };
 }

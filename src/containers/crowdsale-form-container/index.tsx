@@ -6,14 +6,17 @@ import { Container } from 'reactstrap';
 import Layout from '../../components/layout';
 import CreateCrowdsale from '../../components/crowdsale-form';
 import { createEthCrowdsale } from '../../redux/crowdsale/actions';
+import { getEthTokens } from '../../redux/token/actions';
 import { changeQueryStringToJSON } from '../../utils/helpers';
 import * as H from 'history';
-
+import { IEthToken } from '../../ethTypes';
 interface IProps {
   t: (key: string) => string;
   history: H.History;
   location: H.Location;
   createEthCrowdsale: (body) => void;
+  getEthTokens: () => void;
+  ethTokens?: IEthToken[];
 }
 
 interface IState {
@@ -24,7 +27,10 @@ class CrowdsaleFormContainer extends React.Component<IProps, IState> {
   public readonly state: IState = {
     id: undefined
   };
+
   public componentDidMount() {
+    this.props.getEthTokens();
+
     const { location } = this.props;
     const queryString = location.search.slice(1);
     const params = changeQueryStringToJSON(queryString);
@@ -35,7 +41,7 @@ class CrowdsaleFormContainer extends React.Component<IProps, IState> {
   }
 
   public render(): React.ReactNode {
-    const { t, location, history } = this.props;
+    const { t, location, history, ethTokens } = this.props;
     const { id } = this.state;
     return (
       <Layout location={location} history={history} showSidebar={true}>
@@ -45,7 +51,7 @@ class CrowdsaleFormContainer extends React.Component<IProps, IState> {
             {t(id ? 'ethCrowdsale.updateTitle' : 'ethCrowdsale.createTitle')}
           </h5>
           <br />
-          <CreateCrowdsale onSubmit={createEthCrowdsale} t={t} />
+          <CreateCrowdsale onSubmit={createEthCrowdsale} t={t} ethTokens={ethTokens} />
         </Container>
       </Layout>
     );
@@ -54,9 +60,12 @@ class CrowdsaleFormContainer extends React.Component<IProps, IState> {
 
 const WithTranslation = translate('translations')(CrowdsaleFormContainer);
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  ethTokens: state.token.ethTokens
+});
 const mapDispatchToProps = (dispatch) => ({
-  createEthCrowdsale: (body) => dispatch(createEthCrowdsale(body))
+  createEthCrowdsale: (body) => dispatch(createEthCrowdsale(body)),
+  getEthTokens: () => dispatch(getEthTokens())
 });
 
 export default connect(
