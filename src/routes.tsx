@@ -46,7 +46,7 @@ export const routeList = [
   {
     path: paths.ethCrowdsale,
     component: EthCrowdsale,
-    label: 'Crowdsale Card'
+    label: undefined
   },
   {
     path: paths.ethTokens,
@@ -56,17 +56,17 @@ export const routeList = [
   {
     path: paths.ethToken,
     component: EthToken,
-    label: 'Token card'
+    label: undefined
   },
   {
     path: paths.ethCreateToken,
     component: CreateEthTokenContainer,
-    label: 'Create token'
+    label: undefined
   },
   {
     path: paths.ethCreateCrowdsale,
     component: CreateEthCrowdsaleContainer,
-    label: 'Create crowdsale'
+    label: undefined
   },
   {
     path: paths.signin,
@@ -76,22 +76,22 @@ export const routeList = [
   {
     path: paths.signup,
     component: AuthContainer,
-    label: 'Signup'
+    label: undefined
   },
   {
     path: paths.forgotPassword,
     component: AuthContainer,
-    label: 'Forgot Password'
+    label: undefined
   },
   {
     path: paths.emailVerification,
     component: EmailVerificationContainer,
-    label: 'Email Verification'
+    label: undefined
   },
   {
     path: paths.resetPassword,
     component: ResetPasswordContainer,
-    label: 'Reset Password'
+    label: undefined
   }
 ];
 
