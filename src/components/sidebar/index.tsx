@@ -21,7 +21,7 @@ class Sidebar extends React.Component<IProps, {}> {
     const { routeList = [] } = this.props;
     const { pathname } = this.props.location;
     // const links = routeList.filter((item) => item.label).map((item) => (
-    const links = routeList.map((item) => (
+    const links = routeList.filter((item) => item.label !== undefined).map((item) => (
       <NavItem key={item.path}>
         <Link to={item.path} className={`nav-link ${pathname === item.path ? 'active' : ''}`}>
           {item.label}

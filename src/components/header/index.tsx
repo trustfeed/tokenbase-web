@@ -43,10 +43,7 @@ class Header extends React.Component<IHeaderProps, IHeaderStates> {
     color: '',
     isOpen: false
   };
-  public componentDidMount() {
-    const i18n = this.props.i18n;
-    i18n.changeLanguage('en');
-  }
+
   public render(): React.ReactNode {
     const { background, isAuth, logout } = this.props;
     return (

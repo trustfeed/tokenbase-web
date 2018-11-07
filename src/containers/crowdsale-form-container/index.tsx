@@ -16,6 +16,11 @@ import { changeQueryStringToJSON } from '../../utils/helpers';
 import * as H from 'history';
 import { IEthToken, IEthCrowdsale } from '../../ethTypes';
 import Spinner from '../../components/spinner';
+import { Link } from 'react-router-dom';
+import { paths } from '../../routes';
+
+import { FaArrowLeft } from 'react-icons/fa';
+
 interface IProps {
   t: (key: string) => string;
   history: H.History;
@@ -61,6 +66,11 @@ class CrowdsaleFormContainer extends React.Component<IProps, IState> {
     return (
       <Layout location={location} history={history} showSidebar={true}>
         <Container>
+          <div style={{ margin: 20 }}>
+            <Link to={id ? `${paths.ethCrowdsale}?id=${id}` : paths.ethCrowdsales}>
+              <FaArrowLeft />
+            </Link>
+          </div>
           <br />
           <h5 className="text-center">
             {t(id ? 'ethCrowdsale.updateTitle' : 'ethCrowdsale.createTitle')}

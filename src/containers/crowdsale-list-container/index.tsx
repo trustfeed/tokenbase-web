@@ -12,23 +12,6 @@ import { paths } from '../../routes';
 import { IEthCrowdsale, EthStatusType } from '../../ethTypes';
 import * as H from 'history';
 
-const mockupList = [
-  {
-    goal: '1',
-    cap: '100',
-    duration: 60,
-    id: '5bcd38c4137a0032b9ec0a89',
-    minted: true,
-    name: 'Some ID, Just for user',
-    network: 'parity.trustfeed.io',
-    openingTime: 10,
-    rate: '1',
-    status: 'DRAFT',
-    wallet: '0x3Aa9CE734DD21FA5E6962978e2ccc7f4Ac513348',
-    token: '0x3Aa7E32BD54'
-  }
-];
-
 interface IEthCrowdsalesProps {
   t: (key: string) => string;
   history: H.History;
@@ -77,7 +60,7 @@ class EthTokenListContainer extends React.Component<IEthCrowdsalesProps, IState>
               <Spinner />
             ) : (
               <EthFilterList
-                list={[...ethCrowdsales, ...mockupList]}
+                list={[...ethCrowdsales]}
                 selectedFilterKey={this.state.selectedFilterKey}
                 handleSelect={(selectedFilterKey) => this.setState({ selectedFilterKey })}
                 renderList={(list, selectedFilterKey) => (

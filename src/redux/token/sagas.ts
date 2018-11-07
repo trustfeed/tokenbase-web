@@ -155,7 +155,10 @@ export function* finaliseEthTokenSaga(action) {
     };
     const result = yield call(handleFetch, options);
     const ethToken: any[] = result;
-    yield put({ type: tokenTypes.FINALISE_ETH_TOKEN_SUCCEEDED, payload: { ethToken } });
+    yield [
+      put({ type: tokenTypes.FINALISE_ETH_TOKEN_SUCCEEDED, payload: { ethToken } }),
+      put({ type: tokenTypes.GET_ETH_TOKEN, payload: { id } })
+    ];
   } catch (error) {
     const errorStatus = getErrorStatus(error);
     if (errorStatus === 401) {

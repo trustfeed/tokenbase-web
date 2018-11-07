@@ -16,6 +16,7 @@ import EthPayment from '../../components/payment-card';
 import Spinner from '../../components/spinner';
 import { IEthCrowdsale } from '../../ethTypes';
 import * as H from 'history';
+import { FaArrowLeft } from 'react-icons/fa';
 
 interface IProps {
   t: (key: string) => string;
@@ -62,7 +63,9 @@ export class EthCrowdsaleContainer extends React.Component<IProps, IState> {
       <Layout location={location} history={history} showSidebar={true}>
         <Container>
           <div style={{ margin: 20 }}>
-            <Link to={paths.ethCrowdsales}>{'Back'}</Link>
+            <Link to={paths.ethCrowdsales}>
+              <FaArrowLeft />
+            </Link>
           </div>
           <br />
           <div style={{ width: 600, margin: 'auto' }}>

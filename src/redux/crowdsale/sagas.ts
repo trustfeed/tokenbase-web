@@ -155,7 +155,10 @@ export function* finaliseEthCrowdsaleSaga(action) {
     };
     const result = yield call(handleFetch, options);
     const ethCrowdsale: any[] = result;
-    yield put({ type: crowdsaleTypes.FINALISE_ETH_CROWDSALE_SUCCEEDED, payload: { ethCrowdsale } });
+    yield [
+      put({ type: crowdsaleTypes.FINALISE_ETH_CROWDSALE_SUCCEEDED, payload: { ethCrowdsale } }),
+      put({ type: crowdsaleTypes.GET_ETH_CROWDSALE, payload: { id } })
+    ];
   } catch (error) {
     const errorStatus = getErrorStatus(error);
     if (errorStatus === 401) {
