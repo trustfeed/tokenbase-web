@@ -5,20 +5,20 @@ import EthToken from '../../components/token-card/eth/Detail';
 import { Row, Col, Label, FormGroup, Form, FormFeedback } from 'reactstrap';
 import Input from 'reactstrap/lib/Input';
 import { ETH_ADDRESS_REGEX } from '../../utils/regex';
-import { getInputValidationState, getRate } from '../../utils/helpers';
-import { IEthToken } from '../../ethTypes';
+import { getInputValidationState, getRate, inverseNumber } from '../../utils/helpers';
+import { IEthToken, IEthCrowdsale } from '../../ethTypes';
 // tslint:disable-next-line
 const moment = require('moment');
 
 interface IProps {
   t: (key: string) => string;
-  onSubmit: (body) => void;
+  onSubmit: (body, id?: string) => void;
   ethTokens?: IEthToken[];
+  ethCrowdsale?: IEthCrowdsale;
 }
 
 interface IState {
-  tokenId: string;
-  id: string;
+  tokenPublicAddress: string;
   pricePerEther: string;
   goal: number;
   cap: number;
@@ -40,8 +40,7 @@ const roundOff = (value: number): number => {
 
 export default class CreateTokenForm extends React.Component<IProps, IState> {
   public readonly state: IState = {
-    id: '',
-    tokenId: '',
+    tokenPublicAddress: '',
     pricePerEther: '0.01',
     goal: 5000,
     cap: getCap(5000, MAX_CAP),
@@ -52,9 +51,25 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
     walletInvalid: false
   };
 
+  public componentDidMount() {
+    const ethCrowdsale = this.props.ethCrowdsale;
+    if (ethCrowdsale !== undefined) {
+      const { token, openingTime, duration, rate, wallet, cap, goal } = ethCrowdsale;
+      this.setState({
+        tokenPublicAddress: token,
+        openingTime,
+        duration,
+        pricePerEther: inverseNumber(rate),
+        wallet,
+        cap: parseInt(cap, 10),
+        goal: parseInt(goal, 10)
+      });
+    }
+  }
+
   public render(): React.ReactNode {
     const { t, ethTokens } = this.props;
-    const { tokenId } = this.state;
+    const { tokenPublicAddress } = this.state;
     // const aWeekAfter = moment().add(1, 'week');
     const yesterday = moment().subtract(1, 'day');
     const validateDate = (current) => {
@@ -64,7 +79,9 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
 
     const deployedTokenOptions =
       (ethTokens && ethTokens.filter((item) => item.publicAddress !== undefined)) || [];
-    const selectedToken = deployedTokenOptions.find((item) => item.id === tokenId);
+    const selectedToken = deployedTokenOptions.find(
+      (item) => item.publicAddress === tokenPublicAddress
+    );
     const isTokenValid = selectedToken !== undefined;
     return (
       <Form>
@@ -72,10 +89,10 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
           <Col xs={10} sm={8} md={7} lg={6} className="mr-auto ml-auto">
             <FormGroup>
               <Label className="text-gray">{t('ethCrowdsale.token')}</Label>
-              <Input type="select" onChange={this.handleChange}>
+              <Input type="select" value={tokenPublicAddress} onChange={this.handleChange}>
                 <option value={''}>{'Select token'}</option>
                 {deployedTokenOptions.map((item) => (
-                  <option value={item.id} key={item.id}>
+                  <option value={item.publicAddress} key={item.publicAddress}>
                     {item.name}
                   </option>
                 ))}
@@ -153,7 +170,11 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
           </Col>
           <Col sm={12} md={12} lg={12}>
             <div className="py-3 text-center">
-              <button className="btn btn-primary" onClick={this.handleSubmit} disabled={!isTokenValid}>
+              <button
+                className="btn btn-primary"
+                onClick={this.handleSubmit}
+                disabled={!isTokenValid}
+              >
                 {t('form.submit')}
               </button>
             </div>
@@ -182,7 +203,7 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
   };
 
   private handleChange = (e) => {
-    this.setState({ tokenId: e.target.value });
+    this.setState({ tokenPublicAddress: e.target.value });
   };
 
   private changeSoftCap = (value) => {
@@ -227,9 +248,20 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
 
   private handleSubmit = (e) => {
     e.preventDefault();
-    const { ethTokens } = this.props;
-    const { cap, goal, duration, openingTime, pricePerEther, wallet, tokenId } = this.state;
-    const selectedToken = ethTokens.find((item) => item.id === tokenId);
+    const { ethTokens, ethCrowdsale } = this.props;
+    const {
+      cap,
+      goal,
+      duration,
+      openingTime,
+      pricePerEther,
+      wallet,
+      tokenPublicAddress
+    } = this.state;
+
+    const selectedToken = ethTokens
+      .filter((item) => item.publicAddress !== undefined)
+      .find((item) => item.publicAddress === tokenPublicAddress);
 
     const body = {
       network: selectedToken.network,
@@ -243,6 +275,10 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
       minted: selectedToken.mintable,
       token: selectedToken.publicAddress
     };
-    this.props.onSubmit(body);
+
+    if (ethCrowdsale !== undefined && ethCrowdsale.id !== undefined) {
+      return this.props.onSubmit(body, ethCrowdsale.id);
+    }
+    return this.props.onSubmit(body);
   };
 }
