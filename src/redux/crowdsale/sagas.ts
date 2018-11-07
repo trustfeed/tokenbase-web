@@ -90,7 +90,7 @@ export function* getEthCrowdsalesSaga(action) {
       data: undefined
     };
     const result = yield call(handleFetch, options);
-    const ethCrowdsales: any[] = result.tokens;
+    const ethCrowdsales: any[] = result.crowdsales;
     yield put({ type: crowdsaleTypes.GET_ETH_CROWDSALES_SUCCEEDED, payload: { ethCrowdsales } });
   } catch (error) {
     const errorStatus = getErrorStatus(error);

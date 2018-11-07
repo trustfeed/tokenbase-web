@@ -100,8 +100,8 @@ class EthTokenListContainer extends React.Component<IEthCrowdsalesProps, IState>
 const EthTokenListContainerWithI18n = translate('translations')(EthTokenListContainer);
 
 const mapStateToProps = (state) => ({
-  ethCrowdsales: state.token.ethCrowdsales,
-  isGettingEthCrowdsales: state.token.isGettingEthCrowdsales,
+  ethCrowdsales: state.crowdsale.ethCrowdsales,
+  isGettingEthCrowdsales: state.crowdsale.isGettingEthCrowdsales,
   accessToken: state.user.accessToken
 });
 

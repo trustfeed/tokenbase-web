@@ -51,7 +51,7 @@ class CrowdsaleFormContainer extends React.Component<IProps, IState> {
             {t(id ? 'ethCrowdsale.updateTitle' : 'ethCrowdsale.createTitle')}
           </h5>
           <br />
-          <CreateCrowdsale onSubmit={createEthCrowdsale} t={t} ethTokens={ethTokens} />
+          <CreateCrowdsale onSubmit={this.props.createEthCrowdsale} t={t} ethTokens={ethTokens} />
         </Container>
       </Layout>
     );
