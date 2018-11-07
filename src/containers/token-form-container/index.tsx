@@ -18,6 +18,8 @@ import { IEthToken } from '../../ethTypes';
 import Spinner from '../../components/spinner';
 import * as H from 'history';
 
+import { FaArrowLeft } from 'react-icons/fa';
+
 interface IProps {
   t: (key: string) => string;
   history: H.History;
@@ -59,7 +61,9 @@ class EthTokenForm extends React.Component<IProps, IState> {
       <Layout location={location} history={history} showSidebar={true}>
         <Container>
           <div style={{ margin: 20 }}>
-            <Link to={id ? `${paths.ethToken}?id=${id}` : paths.ethTokens}>{'Back'}</Link>
+            <Link to={id ? `${paths.ethToken}?id=${id}` : paths.ethTokens}>
+              <FaArrowLeft />
+            </Link>
           </div>
           <br />
           <h5 className="text-center">{t(id ? 'ethToken.updateTitle' : 'ethToken.createTitle')}</h5>

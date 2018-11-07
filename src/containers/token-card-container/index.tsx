@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { translate } from 'react-i18next';
+
 import Layout from '../../components/layout';
 import { getEthToken, clearEthToken, finaliseEthToken } from '../../redux/token/actions';
 import { Container } from 'reactstrap';
@@ -11,6 +13,8 @@ import EthPayment from '../../components/payment-card';
 import Spinner from '../../components/spinner';
 import { IEthToken } from '../../ethTypes';
 import * as H from 'history';
+
+import { FaArrowLeft } from 'react-icons/fa';
 
 interface IProps {
   t: (key: string) => string;
@@ -44,7 +48,7 @@ export class EthTokenContainer extends React.Component<IProps, IState> {
   }
 
   public render(): React.ReactNode {
-    const { isGettingEthToken, ethToken, location, history } = this.props;
+    const { isGettingEthToken, ethToken, location, history, t } = this.props;
     let payment;
     if (ethToken) {
       payment = ethToken.payment;
@@ -57,7 +61,9 @@ export class EthTokenContainer extends React.Component<IProps, IState> {
       <Layout location={location} history={history} showSidebar={true}>
         <Container>
           <div style={{ margin: 20 }}>
-            <Link to={paths.ethTokens}>{'Back'}</Link>
+            <Link to={paths.ethTokens}>
+              <FaArrowLeft />
+            </Link>
           </div>
           <br />
           <div style={{ width: 600, margin: 'auto' }}>
@@ -102,6 +108,8 @@ export class EthTokenContainer extends React.Component<IProps, IState> {
   };
 }
 
+const WithTranslation = translate('translations')(EthTokenContainer);
+
 const mapStateToProps = (state) => ({
   ethToken: state.token.ethToken,
   isGettingEthToken: state.token.isGettingEthToken
@@ -116,4 +124,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(EthTokenContainer);
+)(WithTranslation);
