@@ -9,10 +9,36 @@ import {
   getEmailVerificationAPI,
   getSignInAPI,
   getPasswordResetAPI,
-  getRequestPasswordResetAPI
-} from '../../api';
+  getRequestPasswordResetAPI,
+  getUserAPI
+} from '../../utils/api';
 
 const getUser = (state) => state.user;
+
+export function* getUserSaga(action) {
+  // debounce by 500ms
+  yield delay(500);
+  try {
+    const user = yield select(getUser);
+    const accessToken: string = user.accessToken;
+    const result = yield call(handleFetch, {
+      fetch: axios,
+      method: 'GET',
+      url: getUserAPI(),
+      accessToken,
+      data: undefined
+    });
+    const email: string = result.email;
+    const isTwoFactorEnabled: boolean = result.isTwoFactorEnabled;
+    yield [put({ type: consts.GET_USER_SUCCEEDED, payload: { email, isTwoFactorEnabled } })];
+  } catch (error) {
+    console.log(error);
+    yield put({ type: consts.GET_USER_FAILED });
+  }
+}
+export function* watchGetUserSaga() {
+  yield takeLatest(consts.GET_USER, getUserSaga);
+}
 
 export function* signInSaga(action) {
   // debounce by 500ms

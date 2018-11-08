@@ -25,7 +25,8 @@ function* root() {
     fork(userSagas.watchSignInSaga),
     fork(userSagas.watchVerifyEmailSaga),
     fork(userSagas.watchResetPasswordSaga),
-    fork(userSagas.watchRequestPasswordResetSaga)
+    fork(userSagas.watchRequestPasswordResetSaga),
+    fork(userSagas.watchGetUserSaga)
   ]);
 }
 

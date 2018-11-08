@@ -48,3 +48,10 @@ export const resetPassword = (body) => ({
   type: RESET_PASSWORD,
   payload: body
 });
+
+export const GET_USER = 'GET_USER';
+export const GET_USER_SUCCEEDED = 'GET_USER_SUCCEEDED';
+export const GET_USER_FAILED = 'GET_USER_FAILED';
+export const getUser = () => ({
+  type: GET_USER
+});

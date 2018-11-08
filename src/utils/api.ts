@@ -22,7 +22,7 @@ export const getEthCrowdsalesAPI = () => `${HOST}/eth/crowdsales`;
 export const getEthCrowdsaleAPI = (id) => `${HOST}/eth/crowdsales/${id}`;
 export const getFinaliseEthCrowdsaleAPI = () => `${HOST}/eth/crowdsales/finalise`;
 
-export const getUserAPI = (id?: string) => `${HOST}/users${id ? `/${id}` : ''}`;
+export const getUserAPI = () => `${HOST}/user`;
 export const getAuthAPI = () => `${HOST}/auth`;
 export const getEmailVerificationAPI = () => `${HOST}/user/verify-email`;
 export const getPasswordResetAPI = () => `${HOST}/user/password-reset`;
