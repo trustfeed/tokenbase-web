@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
 import UserInfoCard from '../../components/user-info-card';
 import { Container, Card, Button } from 'reactstrap';
-import { getUser } from '../../redux/user/actions';
+import { getUser, createQRCode } from '../../redux/user/actions';
 import * as H from 'history';
 
 interface IProps {
@@ -16,6 +16,7 @@ interface IProps {
   location: H.Location;
   t: (key: string) => string;
   getUser: () => void;
+  createQRCode: () => void;
 }
 
 export class UserContainer extends React.Component<IProps, {}> {
@@ -32,7 +33,7 @@ export class UserContainer extends React.Component<IProps, {}> {
             <br />
             <div className="text-center">
               {isTwoFactorEnabled ? null : (
-                <Button color={'primary'}>
+                <Button color={'primary'} onClick={this.props.createQRCode}>
                   {isTwoFactorEnabled ? 'Disable 2FA' : 'Enable 2FA'}
                 </Button>
               )}
@@ -52,7 +53,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getUser: () => dispatch(getUser())
+  getUser: () => dispatch(getUser()),
+  createQRCode: () => dispatch(createQRCode())
 });
 
 export default connect(

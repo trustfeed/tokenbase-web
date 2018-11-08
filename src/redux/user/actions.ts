@@ -55,3 +55,10 @@ export const GET_USER_FAILED = 'GET_USER_FAILED';
 export const getUser = () => ({
   type: GET_USER
 });
+
+export const CREATE_QR_CODE = 'CREATE_QR_CODE';
+export const CREATE_QR_CODE_SUCCEEDED = 'CREATE_QR_CODE_SUCCEEDED';
+export const CREATE_QR_CODE_FAILED = 'CREATE_QR_CODE_FAILED';
+export const createQRCode = () => ({
+  type: CREATE_QR_CODE
+});
