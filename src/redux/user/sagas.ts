@@ -176,7 +176,7 @@ export function* createQrCodeSaga(action) {
   try {
     const user = yield select(getUser);
     const accessToken: string = user.accessToken;
-    yield call(handleFetch, {
+    const result = yield call(handleFetch, {
       fetch: axios,
       method: 'POST',
       url: `${getTwoFactorAuthAPI()}/create`,
@@ -184,7 +184,9 @@ export function* createQrCodeSaga(action) {
       data: undefined
     });
 
-    yield put({ type: userTypes.CREATE_QR_CODE_SUCCEEDED });
+    const qrCodeUrl = result.url;
+
+    yield put({ type: userTypes.CREATE_QR_CODE_SUCCEEDED, payload: { qrCodeUrl } });
   } catch (error) {
     console.log(error);
     yield put({ type: userTypes.CREATE_QR_CODE_FAILED });

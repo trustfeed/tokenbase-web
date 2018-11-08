@@ -11,7 +11,7 @@ function configureStore() {
   const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['user'] // only navigation will be persisted
+    whitelist: ['user/accessToken'] // only navigation will be persisted
   };
 
   const sagaMiddleware = createSagaMiddleware();

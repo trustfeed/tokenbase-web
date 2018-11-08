@@ -131,6 +131,25 @@ export default function user(state = initialState, action) {
         errorMessage: action.payload.errorMessage
       };
 
+    case userTypes.CREATE_QR_CODE:
+      return {
+        ...state,
+        IsCreatingQRCode: true,
+        qrCodeUrl: undefined
+      };
+    case userTypes.CREATE_QR_CODE_SUCCEEDED:
+      return {
+        ...state,
+        IsCreatingQRCode: false,
+        qrCodeUrl: action.payload.qrCodeUrl
+      };
+    case userTypes.CREATE_QR_CODE_FAILED:
+      return {
+        ...state,
+        IsCreatingQRCode: false,
+        qrCodeUrl: undefined
+      };
+
     case userTypes.SET_PLATFORM:
       return {
         ...state,

@@ -8,6 +8,7 @@ import UserInfoCard from '../../components/user-info-card';
 import { Container, Card, Button } from 'reactstrap';
 import { getUser, createQRCode } from '../../redux/user/actions';
 import * as H from 'history';
+import QRCode from 'qrcode.react';
 
 interface IProps {
   email: string;
@@ -17,6 +18,7 @@ interface IProps {
   t: (key: string) => string;
   getUser: () => void;
   createQRCode: () => void;
+  qrCodeUrl?: string;
 }
 
 export class UserContainer extends React.Component<IProps, {}> {
@@ -24,7 +26,7 @@ export class UserContainer extends React.Component<IProps, {}> {
     this.props.getUser();
   }
   public render(): React.ReactNode {
-    const { location, history, email, isTwoFactorEnabled, t } = this.props;
+    const { location, history, email, isTwoFactorEnabled, t, qrCodeUrl } = this.props;
     return (
       <Layout location={location} history={history} showSidebar={true}>
         <Card className="py-3">
@@ -32,11 +34,14 @@ export class UserContainer extends React.Component<IProps, {}> {
             <UserInfoCard email={email} isTwoFactorEnabled={isTwoFactorEnabled} t={t} />
             <br />
             <div className="text-center">
-              {isTwoFactorEnabled ? null : (
+              {isTwoFactorEnabled && qrCodeUrl === undefined ? null : (
                 <Button color={'primary'} onClick={this.props.createQRCode}>
                   {isTwoFactorEnabled ? 'Disable 2FA' : 'Enable 2FA'}
                 </Button>
               )}
+              <br />
+              <br />
+              {qrCodeUrl ? <QRCode value="qrCodeUrl" /> : null}
             </div>
           </Container>
         </Card>
@@ -48,6 +53,8 @@ const withTranslation = translate('translations')(UserContainer);
 
 const mapStateToProps = (state) => ({
   isGettingUser: state.user.isGettingUser,
+  isCreatingQRCode: state.user.isCreatingQRCode,
+  qrCodeUrl: state.user.qrCodeUrl,
   email: state.user.email,
   isTwoFactorEnabled: state.user.isTwoFactorEnabled
 });
