@@ -10,7 +10,7 @@ import {
   getEthCrowdsalesAPI,
   getEthCrowdsaleAPI,
   getFinaliseEthCrowdsaleAPI
-} from '../../api';
+} from '../../utils/api';
 
 const getUser = (state) => state.user;
 

@@ -10,7 +10,7 @@ import {
   getEthTokensAPI,
   getEthTokenAPI,
   getFinaliseEthTokenAPI
-} from '../../api';
+} from '../../utils/api';
 
 const getUser = (state) => state.user;
 

@@ -4,7 +4,7 @@ import { Router, Route, Switch, Redirect } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 
 import AuthContainer from './containers/auth-form-container';
-import HomeCotainer from './containers/home-container';
+import UserCotainer from './containers/user-container';
 import EmailVerificationContainer from './containers/email-verification-container';
 import ResetPasswordContainer from './containers/reset-password-container';
 import CreateEthTokenContainer from './containers/token-form-container';
@@ -35,8 +35,8 @@ export const paths = {
 export const routeList = [
   {
     path: paths.home,
-    component: HomeCotainer,
-    label: 'Home'
+    component: UserCotainer,
+    label: 'User'
   },
   {
     path: paths.ethCrowdsales,

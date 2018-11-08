@@ -2,17 +2,44 @@ import { select, call, put, takeLatest } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import axios from 'axios';
 
-import * as consts from '../user/actions';
+import * as userTypes from '../user/actions';
 import {
   handleFetch,
   getSignUpAPI,
   getEmailVerificationAPI,
   getSignInAPI,
   getPasswordResetAPI,
-  getRequestPasswordResetAPI
-} from '../../api';
+  getRequestPasswordResetAPI,
+  getUserAPI,
+  getTwoFactorAuthAPI
+} from '../../utils/api';
 
 const getUser = (state) => state.user;
+
+export function* getUserSaga(action) {
+  // debounce by 500ms
+  yield delay(500);
+  try {
+    const user = yield select(getUser);
+    const accessToken: string = user.accessToken;
+    const result = yield call(handleFetch, {
+      fetch: axios,
+      method: 'GET',
+      url: getUserAPI(),
+      accessToken,
+      data: undefined
+    });
+    const email: string = result.email;
+    const isTwoFactorEnabled: boolean = result.isTwoFactorEnabled;
+    yield [put({ type: userTypes.GET_USER_SUCCEEDED, payload: { email, isTwoFactorEnabled } })];
+  } catch (error) {
+    console.log(error);
+    yield put({ type: userTypes.GET_USER_FAILED });
+  }
+}
+export function* watchGetUserSaga() {
+  yield takeLatest(userTypes.GET_USER, getUserSaga);
+}
 
 export function* signInSaga(action) {
   // debounce by 500ms
@@ -29,14 +56,14 @@ export function* signInSaga(action) {
       data: { email, password }
     });
     const accessToken: string = result.token;
-    yield [put({ type: consts.SIGN_IN_SUCCEEDED, payload: { accessToken } })];
+    yield [put({ type: userTypes.SIGN_IN_SUCCEEDED, payload: { accessToken } })];
   } catch (error) {
     console.log(error);
-    yield put({ type: consts.SIGN_IN_FAILED });
+    yield put({ type: userTypes.SIGN_IN_FAILED });
   }
 }
 export function* watchSignInSaga() {
-  yield takeLatest(consts.SIGN_IN, signInSaga);
+  yield takeLatest(userTypes.SIGN_IN, signInSaga);
 }
 
 export function* requestPasswordResetSaga(action) {
@@ -54,14 +81,14 @@ export function* requestPasswordResetSaga(action) {
       accessToken,
       data: { email }
     });
-    yield [put({ type: consts.REQUEST_PASSWORD_RESET_SUCCEEDED })];
+    yield [put({ type: userTypes.REQUEST_PASSWORD_RESET_SUCCEEDED })];
   } catch (error) {
     console.log(error);
-    yield put({ type: consts.REQUEST_PASSWORD_RESET_FAILED });
+    yield put({ type: userTypes.REQUEST_PASSWORD_RESET_FAILED });
   }
 }
 export function* watchRequestPasswordResetSaga() {
-  yield takeLatest(consts.REQUEST_PASSWORD_RESET, requestPasswordResetSaga);
+  yield takeLatest(userTypes.REQUEST_PASSWORD_RESET, requestPasswordResetSaga);
 }
 
 export function* resetPasswordSaga(action) {
@@ -82,14 +109,14 @@ export function* resetPasswordSaga(action) {
       accessToken: undefined,
       data: { token, password }
     });
-    yield [put({ type: consts.RESET_PASSWORD_SUCCEEDED })];
+    yield [put({ type: userTypes.RESET_PASSWORD_SUCCEEDED })];
   } catch (error) {
     console.log(error);
-    yield put({ type: consts.RESET_PASSWORD_FAILED });
+    yield put({ type: userTypes.RESET_PASSWORD_FAILED });
   }
 }
 export function* watchResetPasswordSaga() {
-  yield takeLatest(consts.RESET_PASSWORD, resetPasswordSaga);
+  yield takeLatest(userTypes.RESET_PASSWORD, resetPasswordSaga);
 }
 
 export function* signUpSaga(action) {
@@ -108,14 +135,14 @@ export function* signUpSaga(action) {
       data: { email, password }
     });
 
-    yield [put({ type: consts.SIGN_UP_SUCCEEDED, payload: { isSignUpSuccessful: true } })];
+    yield [put({ type: userTypes.SIGN_UP_SUCCEEDED, payload: { isSignUpSuccessful: true } })];
   } catch (error) {
     console.log(error);
-    yield put({ type: consts.SIGN_UP_FAILED, payload: { isSignUpSuccessful: false } });
+    yield put({ type: userTypes.SIGN_UP_FAILED, payload: { isSignUpSuccessful: false } });
   }
 }
 export function* watchSignUpSaga() {
-  yield takeLatest(consts.SIGN_UP, signUpSaga);
+  yield takeLatest(userTypes.SIGN_UP, signUpSaga);
 }
 
 export function* verifyEmailSaga(action) {
@@ -133,12 +160,36 @@ export function* verifyEmailSaga(action) {
       data: { token }
     });
 
-    yield put({ type: consts.VERIFY_EMAIL_SUCCEEDED });
+    yield put({ type: userTypes.VERIFY_EMAIL_SUCCEEDED });
   } catch (error) {
     console.log(error);
-    yield put({ type: consts.VERIFY_EMAIL_FAILED, payload: { errorMessage: error.message } });
+    yield put({ type: userTypes.VERIFY_EMAIL_FAILED, payload: { errorMessage: error.message } });
   }
 }
 export function* watchVerifyEmailSaga() {
-  yield takeLatest(consts.VERIFY_EMAIL, verifyEmailSaga);
+  yield takeLatest(userTypes.VERIFY_EMAIL, verifyEmailSaga);
+}
+
+export function* createQrCodeSaga(action) {
+  // debounce by 500ms
+  yield delay(500);
+  try {
+    const user = yield select(getUser);
+    const accessToken: string = user.accessToken;
+    yield call(handleFetch, {
+      fetch: axios,
+      method: 'POST',
+      url: `${getTwoFactorAuthAPI()}/create`,
+      accessToken,
+      data: undefined
+    });
+
+    yield put({ type: userTypes.CREATE_QR_CODE_SUCCEEDED });
+  } catch (error) {
+    console.log(error);
+    yield put({ type: userTypes.CREATE_QR_CODE_FAILED });
+  }
+}
+export function* watchCreateQrCodeSaga() {
+  yield takeLatest(userTypes.CREATE_QR_CODE, createQrCodeSaga);
 }
