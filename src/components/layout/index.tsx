@@ -82,7 +82,7 @@ class Layout extends React.Component<ILayoutProps, {}> {
 }
 
 const mapStateToProps = (state) => ({
-  accessToken: state.user.accessToken,
+  accessToken: state.persist.accessToken,
   platform: state.user.platform
 });
 

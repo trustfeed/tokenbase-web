@@ -14,14 +14,14 @@ import {
   getTwoFactorAuthAPI
 } from '../../utils/api';
 
-const getUser = (state) => state.user;
+const getPersistState = (state) => state.persist;
 
 export function* getUserSaga(action) {
   // debounce by 500ms
   yield delay(500);
   try {
-    const user = yield select(getUser);
-    const accessToken: string = user.accessToken;
+    const persist = yield select(getPersistState);
+    const accessToken: string = persist.accessToken;
     const result = yield call(handleFetch, {
       fetch: axios,
       method: 'GET',
@@ -71,8 +71,8 @@ export function* requestPasswordResetSaga(action) {
   yield delay(500);
   try {
     const { payload } = action;
-    const user = yield select(getUser);
-    const accessToken: string = user.accessToken;
+    const persist = yield select(getPersistState);
+    const accessToken: string = persist.accessToken;
     const { email } = payload;
     yield call(handleFetch, {
       fetch: axios,
@@ -96,8 +96,8 @@ export function* resetPasswordSaga(action) {
   yield delay(500);
   try {
     const { payload } = action;
-    const user = yield select(getUser);
-    const accessToken: string = user.accessToken;
+    const persist = yield select(getPersistState);
+    const accessToken: string = persist.accessToken;
 
     const token: string = accessToken || payload.token;
     const password: string = payload.password;
@@ -174,8 +174,8 @@ export function* createQrCodeSaga(action) {
   // debounce by 500ms
   yield delay(500);
   try {
-    const user = yield select(getUser);
-    const accessToken: string = user.accessToken;
+    const persist = yield select(getPersistState);
+    const accessToken: string = persist.accessToken;
     const result = yield call(handleFetch, {
       fetch: axios,
       method: 'POST',
