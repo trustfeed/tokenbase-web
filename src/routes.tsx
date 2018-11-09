@@ -71,7 +71,7 @@ export const routeList = [
   {
     path: paths.signin,
     component: AuthContainer,
-    label: 'Login'
+    label: undefined
   },
   {
     path: paths.signup,
