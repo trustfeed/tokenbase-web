@@ -103,6 +103,41 @@ export default class CreateTokenForm extends React.Component<IProps, IState> {
             </FormGroup>
             <br />
             <FormGroup>
+              <Label className="text-left text-gray">{t('ethToken.tokenType')}</Label>
+              <br />
+              <FormGroup check={true} inline={true}>
+                <Label check={true}>
+                  <Input type="radio" name="radio-network" value="ERC-20" checked={true} />{' '}
+                  {'ERC-20'}
+                </Label>
+              </FormGroup>
+              <FormGroup check={true} inline={true}>
+                <Label check={true}>
+                  <Input
+                    type="radio"
+                    name="radio-network"
+                    value="rinkeby"
+                    checked={false}
+                    disabled={true}
+                  />{' '}
+                  {'ERC-223'}
+                </Label>
+              </FormGroup>
+              <FormGroup check={true} inline={true}>
+                <Label check={true}>
+                  <Input
+                    type="radio"
+                    name="radio-network"
+                    value="rinkeby"
+                    checked={false}
+                    disabled={true}
+                  />{' '}
+                  {'ERC-721'}
+                </Label>
+              </FormGroup>
+            </FormGroup>
+            <br />
+            <FormGroup>
               <Label className="text-left" for="token-name">
                 {t('ethToken.name')}
               </Label>
