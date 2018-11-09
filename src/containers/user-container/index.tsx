@@ -34,14 +34,21 @@ export class UserContainer extends React.Component<IProps, {}> {
             <UserInfoCard email={email} isTwoFactorEnabled={isTwoFactorEnabled} t={t} />
             <br />
             <div className="text-center">
-              {isTwoFactorEnabled && qrCodeUrl === undefined ? null : (
+              {isTwoFactorEnabled || qrCodeUrl !== undefined ? null : (
                 <Button color={'primary'} onClick={this.props.createQRCode}>
                   {isTwoFactorEnabled ? 'Disable 2FA' : 'Enable 2FA'}
                 </Button>
               )}
               <br />
               <br />
-              {qrCodeUrl ? <QRCode value="qrCodeUrl" /> : null}
+              {qrCodeUrl ? (
+                <div>
+                  <QRCode value="qrCodeUrl" />
+                  <br />
+                  <br />
+                  <Button color={'primary'}>{t('form.submit')}</Button>
+                </div>
+              ) : null}
             </div>
           </Container>
         </Card>
