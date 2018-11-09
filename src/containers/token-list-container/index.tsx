@@ -104,7 +104,7 @@ const EthTokenListContainerWithI18n = translate('translations')(EthTokenListCont
 const mapStateToProps = (state) => ({
   ethTokens: state.token.ethTokens,
   isGettingEthTokens: state.token.isGettingEthTokens,
-  accessToken: state.user.accessToken
+  accessToken: state.persist.accessToken
 });
 
 const mapDispatchToProps = (dispatch) => ({

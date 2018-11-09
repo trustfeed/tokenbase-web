@@ -12,14 +12,14 @@ import {
   getFinaliseEthTokenAPI
 } from '../../utils/api';
 
-const getUser = (state) => state.user;
+const getPersistState = (state) => state.persist;
 
 export function* createEthTokenSaga(action) {
   // debounce by 500ms
   yield delay(500);
   try {
-    const user = yield select(getUser);
-    const accessToken: string = user.accessToken;
+    const persist = yield select(getPersistState);
+    const accessToken: string = persist.accessToken;
 
     const { payload } = action;
     const { body } = payload;
@@ -48,8 +48,8 @@ export function* updateEthTokenSaga(action) {
   // debounce by 500ms
   yield delay(500);
   try {
-    const user = yield select(getUser);
-    const accessToken: string = user.accessToken;
+    const persist = yield select(getPersistState);
+    const accessToken: string = persist.accessToken;
 
     const { payload } = action;
     const id: string = payload.id;
@@ -79,8 +79,8 @@ export function* getEthTokensSaga(action) {
   // debounce by 500ms
   yield delay(500);
   try {
-    const user = yield select(getUser);
-    const accessToken: string = user.accessToken;
+    const persist = yield select(getPersistState);
+    const accessToken: string = persist.accessToken;
 
     const options = {
       fetch: axios,
@@ -108,8 +108,8 @@ export function* getEthTokenSaga(action) {
   // debounce by 500ms
   yield delay(500);
   try {
-    const user = yield select(getUser);
-    const accessToken: string = user.accessToken;
+    const persist = yield select(getPersistState);
+    const accessToken: string = persist.accessToken;
 
     const { payload } = action;
     const id: string = payload.id;
@@ -140,8 +140,8 @@ export function* finaliseEthTokenSaga(action) {
   // debounce by 500ms
   yield delay(500);
   try {
-    const user = yield select(getUser);
-    const accessToken: string = user.accessToken;
+    const persist = yield select(getPersistState);
+    const accessToken: string = persist.accessToken;
 
     const { payload } = action;
     const id: string = payload.id;

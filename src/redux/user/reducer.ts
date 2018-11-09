@@ -37,21 +37,17 @@ export default function user(state = initialState, action) {
     case userTypes.SIGN_IN:
       return {
         ...state,
-        isSigningIn: true,
-        accessToken: undefined
+        isSigningIn: true
       };
-
     case userTypes.SIGN_IN_SUCCEEDED:
       return {
         ...state,
-        isSigningIn: false,
-        accessToken: action.payload.accessToken
+        isSigningIn: false
       };
     case userTypes.SIGN_IN_FAILED:
       return {
         ...state,
-        isSigningIn: false,
-        accessToken: undefined
+        isSigningIn: false
       };
     case userTypes.SIGN_UP:
       return {

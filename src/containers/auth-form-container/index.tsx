@@ -209,7 +209,7 @@ const mapStateToProps = (state) => ({
   isSignUpSuccessful: state.user.isSignUpSuccessful,
   isRequestingPasswordReset: state.user.isRequestingPasswordReset,
   isRequestPasswordResetSuccessful: state.user.isRequestPasswordResetSuccessful,
-  accessToken: state.user.accessToken
+  accessToken: state.persist.accessToken
 });
 
 const mapDispatchToProps = (dispatch) => ({

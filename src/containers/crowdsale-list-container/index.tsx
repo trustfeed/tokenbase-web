@@ -85,7 +85,7 @@ const EthTokenListContainerWithI18n = translate('translations')(EthTokenListCont
 const mapStateToProps = (state) => ({
   ethCrowdsales: state.crowdsale.ethCrowdsales,
   isGettingEthCrowdsales: state.crowdsale.isGettingEthCrowdsales,
-  accessToken: state.user.accessToken
+  accessToken: state.persist.accessToken
 });
 
 const mapDispatchToProps = (dispatch) => ({
