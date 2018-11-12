@@ -7,13 +7,14 @@
   "license": "MIT",
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && bash gzip.sh",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "tslint --project tsconfig.json --format stylish",
     "prettier": "prettier --write '**/*.{ts,tsx,js}' --config .prettierrc",
     "ci": "npm run lint && npm run prettier && npm run test:ci",
-    "test:ci": "CI=true react-scripts test --updateSnapshot --forceExit --detectOpenHandles"
+    "test:ci": "CI=true react-scripts test --updateSnapshot --forceExit --detectOpenHandles",
+    "gzip": "gzip -r build"
   },
   "dependencies": {
     "axios": "^0.18.0",
